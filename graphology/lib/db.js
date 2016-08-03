@@ -20,7 +20,7 @@ function dump() {
 
 function save() {
     var dbTable = []
-    for (key in indexTable) {
+    for (var key in indexTable) {
         dbTable.push(indexTable[key].objectify())
     }
     fs.writeFile(global.graphDataPath + '/data.json', JSON.stringify(dbTable, null, 4))

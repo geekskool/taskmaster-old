@@ -10,8 +10,5 @@ user.handlePost = function(req,res,next){
      })
 }
 
-user.handleGet = function(req,res,next){
-    var name = {"name":"add"}
-    res.send(name)
-}
+
 export default user
