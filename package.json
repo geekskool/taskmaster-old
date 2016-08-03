@@ -11,6 +11,7 @@
   "dependencies": {
     "babel-preset-node5": "^11.1.0",
     "babel-register": "^6.11.6",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0"
   },
   "babel": {
