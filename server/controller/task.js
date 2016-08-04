@@ -12,6 +12,7 @@ task.handlePost = function(req,res,next){
 	tasks.assgnByPhon = req.body.assngByphon
 	tasks.assgnToName = req.body.assgnToName
 	tasks.assgToPhon = req.body.assgnToPhon
+	tasks.date = req.body.date
 	tasks.status = req.body.status
 	tasks.comment = req.body.comment
 	console.log(tasks)
