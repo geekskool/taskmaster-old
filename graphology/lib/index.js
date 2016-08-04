@@ -75,6 +75,7 @@ Query.prototype.value = function(key) {
         return next(value)
     }
     return this
+
 }
 
 
@@ -167,5 +168,6 @@ module.exports = {
     save: db.save,
     load: db.load,
     dump: db.dump,
-    matchLabel: matchLabel
+    matchLabel: matchLabel,
+    read: db.read
 }
