@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Auth0Lock script -->
+    <script src="https://cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
+    <script type="text/javascript">
+    function login() {
+        // Initialize Passwordless Lock instance
+        var lock = new Auth0LockPasswordless('ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R', 'adityabhushan.auth0.com');
+        // Open the lock in Email Code mode with the ability to handle
+        // the authentication in page
+        var appearanceOpts = {
+            autoclose: true
+        };
+        // Open the lock in SMS mode with the ability to handle the authentication in page
+        lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
+            if (!error) {
+                //usually save profile and id_token
+                localStorage.setItem('id_token', id_token)
+                localStorage.setItem('profile', profile.console)
+                console.log('profile is '+profile.name);
+            }
+        });
+    }
+
+    function setusername() {
+        login();
+        http.open("POST", "192.168.42.46:5000/api/validate", true);
+        var data = {
+            accessToken: localStorage.getItem('id_token'),
+            phone: localStorage.getItem('profile')
+        }
+        console.log(data);
+        http.onreadystatechange = function() {
+            if (http.readyState == 4 && http.status == 200) {
+                console.log("its working");
+
+            } else {
+                console.log("readyState is " + http.readyState);
+                console.log("status is " + http.status);
+                console.log("error hai bhai");
+            }
+        }
+        http.send(data);
+
+    }
+    </script>
+    <a href="javascript:login()">Login</a>
+</head>
+
+<body onload="setusername()">
+</body>
+
+</html>
