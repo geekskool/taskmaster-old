@@ -14,6 +14,10 @@
             {
                 "type": "child",
                 "out": "e13650d9-1988-4e23-bc81-bf14944ecea3"
+            },
+            {
+                "type": "child",
+                "out": "d42210ea-6301-4f58-9fe7-8e413822a6d6"
             }
         ]
     },
@@ -79,5 +83,20 @@
                 "out": "597c72c2-aa61-4d6c-ae31-756323fcb3e6"
             }
         ]
+    },
+    {
+        "id": "d42210ea-6301-4f58-9fe7-8e413822a6d6",
+        "type": "user",
+        "data": {
+            "name": "pooja",
+            "phone": "234658"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "0377bd36-d2e7-4f28-8f3b-95d2b8d934f0"
+            }
+        ],
+        "out": []
     }
 ]
