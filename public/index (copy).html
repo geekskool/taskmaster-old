@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script type="text/javascript" src="client.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.auth0.com/w2/auth0-6.7.min.js"></script>
+    <script src="https://cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(checklogin(){
+        if(localStorage.length == 0)
+            login()
+
+    });
+        function login() {
+        var id;
+        var token;
+        var profil;
+        // Initialize Passwordless Lock instance
+        var lock = new Auth0LockPasswordless('ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R', 'adityabhushan.auth0.com');
+        // Open the lock in Email Code mode with the ability to handle
+        // the authentication in page
+        var appearanceOpts = {
+            autoclose: true
+        };
+        // Open the lock in SMS mode with the ability to handle the authentication in page
+        lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
+            if (!error) {
+                // Save the JWT token.
+                localStorage.setItem('userToken', id_token);
+                id = id_token;
+                token = access_token;
+                profil = profile;
+                console.log(id_token);
+                console.log(access_token);
+                console.log(localStorage.getItem('userToken'))
+                console.log('profile', profile);
+                console.log("id toen in callback function is " + id)
+                console.log("access toen in callback function is " + token)
+                console.log("profile in callback function is " + profil)
+                console.log("profile in callback function is " + profil.name)
+                $('.login-box').hide();
+                $('.logged-in-box').show();
+                $('.nickname').text(profile.name);
+                $('.avatar').attr('src', profile.picture);
+
+            }
+        });
+        console.log("id toen is " + id)
+        console.log("access toen is " + token)
+        console.log("profile is " + profil)
+    }
+    </script>
+    <!--<a href="javascript:login()">Login</a>-->
+</head>
+
+<body>
+    <script type="text/javascript">
+    'use strict';
+    const auth0 = new Auth0({
+        clientID: 'ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R',
+        domain: 'adityabhushan.auth0.com',
+        callbackURL: 'http://localhost:3000/callback'
+    });
+    </script>
+    <div class="container col-md-offset-3">
+        <br>
+        <h2>Todo App </h2>
+        <div class="col-md-6 row">
+            <div>
+                <form action="/tasks" method="post">
+                    <br>
+                    <br>
+                    <input type="text" name="Task name" class="form-control" placeholder="Enter Name">
+                    <br>
+                    <br>
+                    <input type="text" name="owner" class="form-control" placeholder="For whom">
+                    <br>
+                    <br>
+                    <input type="date" name="date" class="form-control">
+                    <br>
+                    <br>
+                    <input type="submit" display-style:none class="btn btn-primary" />
+                </form>
+            </div>
+            <br>
+            <br>
+            <table id="tasks" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Assigned to</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

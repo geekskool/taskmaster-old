@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body>
+    <div class="container col-md-offset-3">
+        <br>
+        <h2>Todo App </h2>
+        <div class="col-md-6 row">
+            <div>
+                <form action="/tasks" method="post">
+                    <br>
+                    <br>
+                    <input type="text" name="Task name" class="form-control" placeholder="Enter Name">
+                    <br>
+                    <br>
+                    <input type="text" name="owner" class="form-control" placeholder="For whom">
+                    <br>
+                    <br>
+                    <input type="date" name="date" class="form-control">
+                    <br>
+                    <br>
+                    <input type="submit" display-style:none class="btn btn-primary" />
+                </form>
+            </div>
+            <br>
+            <br>
+            <table id="tasks" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Task Name</th>
+                        <th>Assigned to</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="client.js"></script>
+</body>
+
+</html>
