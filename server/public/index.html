@@ -61,6 +61,7 @@
                     localStorage.setItem('userData', userData);
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "/api/users", true);
+                    console.log("inside xhr")
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log('username saved correctly');
                         window.location = "/index1.html";
