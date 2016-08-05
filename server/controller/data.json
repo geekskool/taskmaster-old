@@ -18,6 +18,10 @@
             {
                 "type": "child",
                 "out": "d42210ea-6301-4f58-9fe7-8e413822a6d6"
+            },
+            {
+                "type": "child",
+                "out": "bace48a4-ceb9-467b-8ac1-2124f7671f39"
             }
         ]
     },
@@ -91,6 +95,18 @@
             "name": "pooja",
             "phone": "234658"
         },
+        "in": [
+            {
+                "type": "child",
+                "in": "0377bd36-d2e7-4f28-8f3b-95d2b8d934f0"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "bace48a4-ceb9-467b-8ac1-2124f7671f39",
+        "type": "user",
+        "data": {},
         "in": [
             {
                 "type": "child",

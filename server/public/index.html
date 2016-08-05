@@ -18,37 +18,52 @@
         // Open the lock in SMS mode with the ability to handle the authentication in page
         lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
             if (!error) {
-                //usually save profile and id_token
+                setusername(id_token, profile.name);
+                console.log('profile before ' + profile.name);
+            
                 localStorage.setItem('id_token', id_token)
-                localStorage.setItem('profile', profile.console)
-                console.log('profile is '+profile.name);
+                localStorage.setItem('profile', profile.name)
+                console.log(profile)
+                console.log('profile is ' + profile.name);
+       
             }
+
         });
+
     }
 
-    function setusername() {
-        login();
+    function demo() {
+        console.log("demo executed!");
+    }
+
+    function setusername(token, name) {
+ //login();
+        console.log(token+","+name)
         var http = new XMLHttpRequest();
         http.open("POST", "/api/validate", true);
         var data = {
-            accessToken: localStorage.getItem('id_token'),
-            phone: localStorage.getItem('profile')
+            accessToken: "thisistoken",
+            phone: name
         }
         console.log(data);
         http.onreadystatechange = function() {
             if (http.readyState == 4 && http.status == 200) {
-                user  = JSON.parse(http.responseText);
-                if(user.name === "") {
-                    while(user.name === "\s" || user.name === null)
-                        user.name = window.prompt("Enter your name (without spaces)","This will be your user name");
+                console.log("entered readyState - "  +http.readyState)
+                user = JSON.parse(http.responseText);
+                if (user.name === "") {
+                    while (user.name === "\s" || user.name === null)
+                        user.name = window.prompt("Enter your name (without spaces)", "This will be your user name");
+
                     var userData = {
                         name: user.name,
                         phone: user.phone
-                        }
+                    }
+                    localStorage.setItem('userData', userData);
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "/api/users", true);
-                    if(xhr.readyState == 4 && xhr.status == 200){
+                    if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log('username saved correctly');
+                        window.location = "/index1.html";
                     }
                     xhr.send(userData);
                 }
@@ -67,7 +82,7 @@
     <!--<a href="javascript:login()">Login</a>-->
 </head>
 
-<body onload="setusername()">
+<body onload="login()">
     <script>
     </script>
 </body>
