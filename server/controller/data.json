@@ -60,7 +60,7 @@
         "type": "task",
         "data": {
             "title": "project",
-            "status": false,
+            "status": true,
             "comments": "",
             "date": "12/9/2016",
             "assgnByName": "pooja",

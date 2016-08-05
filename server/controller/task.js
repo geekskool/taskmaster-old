@@ -72,29 +72,37 @@ task.handleGet = function(req,res,next){
 }
 
 task.handlePost = function(req,res,next){
-	var newTask = new Object()
+	
+		var newTask = new Object()
 
-	newTask.title = req.body.title;
-	newTask.assgnByName = req.body.assgnByName;
-	newTask.assgnByPhon = req.body.assgnByPhon;
-	newTask.assgnToName = req.body.assgnToName;
-	newTask.assgnToPhon = req.body.assgnToPhon;
-	newTask.date = req.body.date;
+		newTask.title = req.body.title;
+		newTask.assgnByName = req.body.assgnByName;
+		newTask.assgnByPhon = req.body.assgnByPhon;
+		newTask.assgnToName = req.body.assgnToName;
+		newTask.assgnToPhon = req.body.assgnToPhon;
+		newTask.date = req.body.date;
 
-	console.log(newTask);
-	createTask(newTask);
-	res.status(200).json({
-		message:"Task created succussfully"
-	})
+		console.log(newTask);
+		createTask(newTask);
+		res.status(200).json({
+			message:"Task created succussfully"		
+	    })
+ 
 }
 
 task.handlePut = function(req,res,next){
-    var id = req.body.id
-    var status = req.body.data.status
-    console.log(id)
-    updateTask(id,status)
-    res.status(200).json({
-		message:"Task updated succussfully"
-	})
+    //try{
+	    var id = req.body.id
+	    var status = req.body.data.status
+	    console.log(id)
+	    updateTask(id,status)
+	    res.status(200).json({
+			message:"Task updated succussfully"
+		})
+//	} catch(err){
+//		res.status(500).json({
+//			message: "ERROR"
+//		})
+//	}
 }
 export default task 
