@@ -20,5 +20,5 @@ app.put('/api/tasks',task.handlePut)
 app.get('/api/tasks/:phonenm',task.handleGet)
 app.post('/api/tasks',task.handlePost)
 app.post('/api/validate',validate.handlePost)
-const port = 3000
+const port = 5000
 app.listen(port, () => console.log(`Running on port ${port}`))
