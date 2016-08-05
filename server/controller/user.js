@@ -62,5 +62,9 @@ user.handleGet = function(req,res,next){
 }
 
 
-
+user.handlePut = function(req,res,next){
+    var id = req.query.taskid
+    var comment = req.query.comment
+    console.log(id,comment)
+}
 export default user
