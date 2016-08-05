@@ -39,7 +39,7 @@
             if (http.readyState == 4 && http.status == 200) {
                 user  = JSON.parse(http.responseText);
                 if(user.name === "") {
-                    while(user.name === "" || user.name === null)
+                    while(user.name === "\s" || user.name === null)
                         user.name = window.prompt("Enter your name (without spaces)","This will be your user name");
                     var userData = {
                         name: user.name,
