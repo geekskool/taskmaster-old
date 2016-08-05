@@ -18,14 +18,20 @@ function userByPhone(phone){
 }
 
 validate.handlePost = function(req,res,next){
-    var phone = req.body.phone
-    var accessToken = req.body.accessToken
-    var user = userByPhone(phone)
-    console.log(user)
-    res.status(200).json({
-    	"name" : user.name,
-    	"phone" : user.phone
-    })
+	try{
+	    var phone = req.body.phone
+	    var accessToken = req.body.accessToken
+	    var user = userByPhone(phone)
+	    console.log(user)
+	    res.status(200).json({
+	    	"name" : user.name,
+	    	"phone" : user.phone
+	    })
+    } catch(err){
+    	res.status(500).json({
+			message: "ERROR"
+		})
+    }	    
 }
 
 export default validate
