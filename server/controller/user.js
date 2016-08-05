@@ -42,29 +42,36 @@ function getUsers(userId){
 }
 
 user.handlePost = function(req,res,next){
-    var user = new Object()
-    user.name = req.body.name
-    user.phoneNum = req.body.phonenm
-    console.log(req.body);
-    createNewUser(user)
-    res.status(200).json({
-     	message: "User created succussfully"
-    })
+    try{
+        var user = new Object()
+        user.name = req.body.name
+        user.phoneNum = req.body.phonenm
+        console.log(req.body);
+        createNewUser(user)
+        res.status(200).json({
+         	message: "User created succussfully"
+        })
+    }catch(err){
+        res.status(500).json({
+            message: "ERROR"
+        })
+    }    
 }
 
 
 user.handleGet = function(req,res,next){
-    var id = req.params.phonenm
-    console.log(id);
-    let list = getUsers(id);
-    res.send(list);
-
+    try{
+        var id = req.params.phonenm
+        console.log(id);
+        let list = getUsers(id);
+        res.send(list);
+    } catch(err){
+        res.status(500).json({
+            message: "ERROR"
+        })
+    }
 }
 
 
-user.handlePut = function(req,res,next){
-    var id = req.query.taskid
-    var comment = req.query.comment
-    console.log(id,comment)
-}
+
 export default user

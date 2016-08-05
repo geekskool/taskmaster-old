@@ -64,15 +64,20 @@ function updateTask(taskId,status){
 }
 task.handleGet = function(req,res,next){
 //    var task = {"task":"project","id":"123"}
-	var id = req.params.phonenm
-    console.log(id);
-    let list = getTasks(id);
-    res.send(list);
-
+    try{
+		var id = req.params.phonenm
+	    console.log(id);
+	    let list = getTasks(id);
+	    res.send(list);
+	}catch(err){
+    	res.status(500).json({
+			message: "ERROR"
+		})
+    }    
 }
 
 task.handlePost = function(req,res,next){
-	
+	try{
 		var newTask = new Object()
 
 		newTask.title = req.body.title;
@@ -87,11 +92,15 @@ task.handlePost = function(req,res,next){
 		res.status(200).json({
 			message:"Task created succussfully"		
 	    })
- 
+    } catch(err){
+    	res.status(500).json({
+			message: "ERROR"
+		})
+    }
 }
 
 task.handlePut = function(req,res,next){
-    //try{
+    try{
 	    var id = req.body.id
 	    var status = req.body.data.status
 	    console.log(id)
@@ -99,10 +108,10 @@ task.handlePut = function(req,res,next){
 	    res.status(200).json({
 			message:"Task updated succussfully"
 		})
-//	} catch(err){
-//		res.status(500).json({
-//			message: "ERROR"
-//		})
-//	}
+	} catch(err){
+		res.status(500).json({
+			message: "ERROR"
+		})
+    }
 }
 export default task 
