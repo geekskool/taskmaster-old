@@ -41,7 +41,11 @@ function getTasks(userId){
     for (var key in temp){
     	if (temp[key].type!=='child'){
     		var taskId = temp[key].in;
-    		result.push(graph.read(taskId).data);
+    		var _task = {};
+    		var getTask = graph.read(taskId);
+    		_task.id = getTask.id;
+    		_task.data = getTask.data;
+    		result.push(_task);
     	}
     }
     return result;
