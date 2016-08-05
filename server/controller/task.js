@@ -89,8 +89,8 @@ task.handlePost = function(req,res,next){
 }
 
 task.handlePut = function(req,res,next){
-    var id = req.body.taskid
-    var status = req.body.status
+    var id = req.body.id
+    var status = req.body.data.status
     console.log(id)
     updateTask(id,status)
     res.status(200).json({

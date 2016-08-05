@@ -9,43 +9,20 @@
         "out": [
             {
                 "type": "child",
-                "out": "597c72c2-aa61-4d6c-ae31-756323fcb3e6"
+                "out": "b2ee9e64-45de-48a2-b20b-44e76189f604"
             },
             {
                 "type": "child",
-                "out": "e13650d9-1988-4e23-bc81-bf14944ecea3"
-            },
-            {
-                "type": "child",
-                "out": "d42210ea-6301-4f58-9fe7-8e413822a6d6"
+                "out": "1010895c-ee35-4859-85f2-c4148fcab357"
             }
         ]
     },
     {
-        "id": "597c72c2-aa61-4d6c-ae31-756323fcb3e6",
+        "id": "b2ee9e64-45de-48a2-b20b-44e76189f604",
         "type": "user",
         "data": {
-            "name": "San",
-            "phone": "9999"
-        },
-        "in": [
-            {
-                "type": "child",
-                "in": "0377bd36-d2e7-4f28-8f3b-95d2b8d934f0"
-            },
-            {
-                "type": "to",
-                "in": "92b724ee-fe77-48d8-b6b8-a06860152bab"
-            }
-        ],
-        "out": []
-    },
-    {
-        "id": "e13650d9-1988-4e23-bc81-bf14944ecea3",
-        "type": "user",
-        "data": {
-            "name": "sdsdsddfds",
-            "phone": "345435435"
+            "name": "pooja",
+            "phone": "12345"
         },
         "in": [
             {
@@ -54,49 +31,53 @@
             },
             {
                 "type": "by",
-                "in": "92b724ee-fe77-48d8-b6b8-a06860152bab"
+                "in": "bbdf0e4d-2df8-4cc7-9489-2c366cee9e7b"
             }
         ],
         "out": []
     },
     {
-        "id": "92b724ee-fe77-48d8-b6b8-a06860152bab",
+        "id": "1010895c-ee35-4859-85f2-c4148fcab357",
+        "type": "user",
+        "data": {
+            "name": "priyanka",
+            "phone": "68799"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "0377bd36-d2e7-4f28-8f3b-95d2b8d934f0"
+            },
+            {
+                "type": "to",
+                "in": "bbdf0e4d-2df8-4cc7-9489-2c366cee9e7b"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "bbdf0e4d-2df8-4cc7-9489-2c366cee9e7b",
         "type": "task",
         "data": {
-            "title": "get this done",
-            "status": true,
+            "title": "project",
+            "status": false,
             "comments": "",
-            "date": "23/12/2016",
-            "assgnByName": "sdsdsddfds",
-            "assgnByPhon": "345435435",
-            "assgnToName": "San",
-            "assgnToPhon": "9999"
+            "date": "12/9/2016",
+            "assgnByName": "pooja",
+            "assgnByPhon": "12345",
+            "assgnToName": "priyanka",
+            "assgnToPhon": "68799"
         },
         "in": [],
         "out": [
             {
                 "type": "by",
-                "out": "e13650d9-1988-4e23-bc81-bf14944ecea3"
+                "out": "b2ee9e64-45de-48a2-b20b-44e76189f604"
             },
             {
                 "type": "to",
-                "out": "597c72c2-aa61-4d6c-ae31-756323fcb3e6"
+                "out": "1010895c-ee35-4859-85f2-c4148fcab357"
             }
         ]
-    },
-    {
-        "id": "d42210ea-6301-4f58-9fe7-8e413822a6d6",
-        "type": "user",
-        "data": {
-            "name": "pooja",
-            "phone": "234658"
-        },
-        "in": [
-            {
-                "type": "child",
-                "in": "0377bd36-d2e7-4f28-8f3b-95d2b8d934f0"
-            }
-        ],
-        "out": []
     }
 ]
