@@ -29,11 +29,12 @@ function getUsers(userId){
  
     var temp = god.next().out;
     var result = [];
-
+     //console.log(temp)
     for (var key in temp){
         var userId =  temp[key].out; //should be id
         result.push(graph.read(userId).data);
     }
+   // console.log(result)
     return result; 
 
     //remove authorisation token
@@ -46,7 +47,7 @@ user.handlePost = function(req,res,next){
         var user = new Object()
         user.name = req.body.name
         user.phoneNum = req.body.phonenm
-        console.log(req.body);
+        console.log(user);
         createNewUser(user)
         res.status(200).json({
          	message: "User created succussfully"

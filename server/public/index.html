@@ -42,16 +42,18 @@
         var http = new XMLHttpRequest();
         http.open("POST", "/api/validate", true);
         var data = {
-            accessToken: "thisistoken",
+            accessToken: token,
             phone: name
         }
         console.log(data);
         http.onreadystatechange = function() {
             if (http.readyState == 4 && http.status == 200) {
                 console.log("entered readyState - "  +http.readyState)
-                user = JSON.parse(http.responseText);
-                if (user.name === "") {
-                    while (user.name === "\s" || user.name === null)
+                user = http.responseText;
+                console.log(user)
+                if (user.name == "" || user.name == "\s" || user.name == null) {
+                    console.log("inside if")
+                    while (user.name === "" || user.name === "\s" || user.name === null)
                         user.name = window.prompt("Enter your name (without spaces)", "This will be your user name");
 
                     var userData = {
