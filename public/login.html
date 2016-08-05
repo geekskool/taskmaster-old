@@ -28,7 +28,8 @@
 
     function setusername() {
         login();
-        http.open("POST", "192.168.42.46:5000/api/validate", true);
+        var http = new XMLHttpRequest();
+        http.open("POST", "/api/validate", true);
         var data = {
             accessToken: localStorage.getItem('id_token'),
             phone: localStorage.getItem('profile')
@@ -36,7 +37,22 @@
         console.log(data);
         http.onreadystatechange = function() {
             if (http.readyState == 4 && http.status == 200) {
-                console.log("its working");
+                user  = JSON.parse(http.responseText);
+                if(user.name === "") {
+                    while(user.name === "" || user.name === null)
+                        user.name = window.prompt("Enter your name (without spaces)","This will be your user name");
+                    var userData = {
+                        name: user.name,
+                        phone: user.phone
+                        }
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/api/users", true);
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        console.log('username saved correctly');
+                    }
+                    xhr.send(userData);
+                }
+
 
             } else {
                 console.log("readyState is " + http.readyState);
@@ -48,10 +64,12 @@
 
     }
     </script>
-    <a href="javascript:login()">Login</a>
+    <!--<a href="javascript:login()">Login</a>-->
 </head>
 
 <body onload="setusername()">
+    <script>
+    </script>
 </body>
 
 </html>
