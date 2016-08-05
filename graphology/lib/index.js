@@ -169,5 +169,6 @@ module.exports = {
     load: db.load,
     dump: db.dump,
     matchLabel: matchLabel,
-    read: db.read
+    read: db.read,
+    update: db.update
 }
