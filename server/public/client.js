@@ -11,6 +11,7 @@ var assignNum;
 
 getUsers(populateUsers);
 
+
 function getUsers(callback) {
     var users = new XMLHttpRequest();
     users.open("GET", "/api/users/" + user.phone, true);
@@ -20,7 +21,6 @@ function getUsers(callback) {
             console.log(users.responseText);
             userList = JSON.parse(users.responseText);
             console.log(userList);
-            //callback();
             if (callback()) {
                 callback();
             } else
@@ -33,7 +33,7 @@ function getUsers(callback) {
 
 function getTasks() {
     var tasks = new XMLHttpRequest();
-    tasks.open("GET", "/api/tasks/" + "68799", true);
+    tasks.open("GET", "/api/tasks/" + user.phone, true);
     tasks.setRequestHeader("content-type", "application/json");
     tasks.onreadystatechange = function() {
         if (tasks.readyState == 4 && tasks.status == 200) {
@@ -43,12 +43,12 @@ function getTasks() {
             console.log(taskList[0].data.title);
             if (tasks.responseText.length === 0)
                 console.log(user.name + " has no tasks for him")
+            addView();
         }
     }
     tasks.send();
-}
 
-getTasks();
+}
 
 function assignTo() {
     selectName = document.getElementById('assignTo');
@@ -79,7 +79,8 @@ function createTask() {
     task.setRequestHeader("content-type", "application/json");
     task.onreadystatechange = function() {
         if (task.readyState == 4 && task.status == 200) {
-            window.location.reload();
+            console.log(task.responseText);
+            console.log("Task added")
         }
     }
     task.send(JSON.stringify(newTask));
@@ -94,8 +95,42 @@ function populateUsers() {
         assign.appendChild(option);
         console.log(userList[i].name);
     }
+    getTasks();
 }
 
-function updateTask(){
-    
+function updateTask(task) {
+    var update = new XMLHttpRequest();
+    update.open("PUT", "/api/tasks/", true);
+    update.setRequestHeader("content-type", "application/json");
+    update.onreadystatechange = function() {
+        if (update.readyState == 4 && update.status == 200) {
+            console.log("Task updated")
+        }
+    }
+    update.send(JSON.stringify(task));
+}
+
+function addView(){
+    for(var i = 0; i < taskList.length; i++){
+        addRow(taskList[i]);
+    }
+    //window.location.reload();
+}
+
+function addRow(task) {
+    var row = document.getElementById('tasks').insertRow();
+    var taskname = row.insertCell(0);
+    var owner = row.insertCell(1);
+    var byDate = row.insertCell(2);
+    var done = row.insertCell(3);
+
+    taskname.innerText = task.data.title;
+    owner.innerText = task.data.assgnToName;
+    byDate.innerText = task.data.date;
+
+    var donebutton = document.createElement('button');
+    donebutton.innerHTML = 'Done';
+    donebutton.setAttribute('class', 'btn btn-info')
+    donebutton.setAttribute('onclick', 'updateTask(' + task + ')')
+    done.appendChild(donebutton)
 }
