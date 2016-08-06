@@ -2,13 +2,12 @@ var user = JSON.parse(localStorage.getItem('userData'));
 console.log(user)
 
 var welcome = document.getElementById('welcome')
-var welcomeText = "Welcome " + user.name;
-welcome.innerText = welcomeText;
+welcome.innerText = "Welcome " + user.name;
 
 var userList = [];
 var taskList = [];
 
-getUsers(printUsers);
+getUsers(populateUsers);
 
 function getUsers(callback) {
     var users = new XMLHttpRequest();
@@ -20,15 +19,16 @@ function getUsers(callback) {
             userList = JSON.parse(users.responseText);
             console.log(userList);
             callback();
+            // if (callback()) {
+            //     callback();                
+            // }
+            // else
+            //     console.log("no callback spotted");
         }
     }
     users.send();
 }
 
-function printUsers() {
-    console.log(userList);
-    console.log(userList[0]);
-}
 
 function getTasks() {
     var tasks = new XMLHttpRequest();
@@ -48,3 +48,30 @@ function getTasks() {
 }
 
 getTasks();
+
+function createTask() {
+    //var date = document.getElementById('date').innerText;
+    var date = new Date;
+    console.log(date); 
+    var newTask = {
+        title: document.getElementById('name').innerText,
+        date: document.getElementById('date').innerText,
+        assgnByName: user.name,
+        assgnByPhon: user.phone,
+        assgnToName: "priyanka",
+        assgnToPhon: "68799"
+    }
+}
+
+createTask();
+
+function populateUsers() {
+    var assign = document.getElementById('assignTo');
+    for (var i = 0; i < userList.length; i++) {
+        var option = document.createElement('option');
+        option.setAttribute('value', userList[i].name);
+        option.innerText = userList[i].name;
+        assign.appendChild(option);
+        console.log(userList[i].name);
+    }
+}
