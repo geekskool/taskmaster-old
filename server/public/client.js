@@ -6,6 +6,8 @@ welcome.innerText = "Welcome " + user.name;
 
 var userList = [];
 var taskList = [];
+var assignName;
+var assignNum;
 
 getUsers(populateUsers);
 
@@ -18,12 +20,11 @@ function getUsers(callback) {
             console.log(users.responseText);
             userList = JSON.parse(users.responseText);
             console.log(userList);
-            callback();
-            // if (callback()) {
-            //     callback();                
-            // }
-            // else
-            //     console.log("no callback spotted");
+            //callback();
+            if (callback()) {
+                callback();
+            } else
+                console.log("no callback spotted");
         }
     }
     users.send();
@@ -49,21 +50,40 @@ function getTasks() {
 
 getTasks();
 
-function createTask() {
-    //var date = document.getElementById('date').innerText;
-    var date = new Date;
-    console.log(date); 
-    var newTask = {
-        title: document.getElementById('name').innerText,
-        date: document.getElementById('date').innerText,
-        assgnByName: user.name,
-        assgnByPhon: user.phone,
-        assgnToName: "priyanka",
-        assgnToPhon: "68799"
+function assignTo() {
+    selectName = document.getElementById('assignTo');
+    assignName = selectName.options[selectName.selectedIndex].text;
+    for (var i = 0; i < userList.length; i++) {
+        if (userList[i].name == assignName) {
+            assignNum = userList[i].phone;
+            break;
+        }
     }
 }
 
-createTask();
+function createTask() {
+    assignTo();
+    var date = document.getElementById('date').value;
+    console.log(date);
+    var newTask = {
+        title: document.getElementById('name').value,
+        date: document.getElementById('date').value,
+        assgnByName: user.name,
+        assgnByPhon: user.phone,
+        assgnToName: assignName,
+        assgnToPhon: assignNum
+    }
+    console.log(newTask);
+    var task = new XMLHttpRequest();
+    task.open("POST", "/api/tasks/", true);
+    task.setRequestHeader("content-type", "application/json");
+    task.onreadystatechange = function() {
+        if (task.readyState == 4 && task.status == 200) {
+            window.location.reload();
+        }
+    }
+    task.send(JSON.stringify(newTask));
+}
 
 function populateUsers() {
     var assign = document.getElementById('assignTo');
@@ -74,4 +94,8 @@ function populateUsers() {
         assign.appendChild(option);
         console.log(userList[i].name);
     }
+}
+
+function updateTask(){
+    
 }
