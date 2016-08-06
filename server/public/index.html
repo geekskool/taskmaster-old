@@ -7,35 +7,33 @@
     <!-- Auth0Lock script -->
     <script src="https://cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
     <script type="text/javascript">
-    // function login() {
-    //     // Initialize Passwordless Lock instance
-    //     var lock = new Auth0LockPasswordless('ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R', 'adityabhushan.auth0.com');
-    //     // Open the lock in Email Code mode with the ability to handle
-    //     // the authentication in page
-    //     var appearanceOpts = {
-    //         autoclose: true
-    //     };
-    //     // Open the lock in SMS mode with the ability to handle the authentication in page
-    //     lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
-    //         if (!error) {
-    //             setusername(id_token, profile.name);
-    //             console.log('profile before ' + profile.name);
+    function login() {
+        // Initialize Passwordless Lock instance
+        var lock = new Auth0LockPasswordless('ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R', 'adityabhushan.auth0.com');
+        // Open the lock in Email Code mode with the ability to handle
+        // the authentication in page
+        var appearanceOpts = {
+            autoclose: true
+        };
+        // Open the lock in SMS mode with the ability to handle the authentication in page
+        lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
+            if (!error) {
+                setusername(id_token, profile.name);
+                console.log('profile before ' + profile.name);
 
-    //             localStorage.setItem('id_token', id_token)
-    //             localStorage.setItem('profile', profile.name)
-    //             console.log(profile)
-    //             console.log('profile is ' + profile.name);
+                localStorage.setItem('id_token', id_token)
+                localStorage.setItem('profile', profile.name)
+                console.log(profile)
+                console.log('profile is ' + profile.name);
 
-    //         }
+            }
 
-    //     });
+        });
 
-    // }
+    }
 
-    token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJod…DEyfQ.lyavsduaOyv_awl6ArTeDA77TNJxtiZ5E_pA29KlZUU";
-    name = "+917259183906"
-
-    //setusername(token, name);
+    // token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJod…DEyfQ.lyavsduaOyv_awl6ArTeDA77TNJxtiZ5E_pA29KlZUU";
+    // name = "+917259183906"
 
     function setusername(token, name) {
         var data = {
@@ -50,29 +48,41 @@
         http.onreadystatechange = function() {
             if (http.readyState == 4 && http.status == 200) {
                 console.log(http.responseText)
-                var resData = JSON.parse(http.responseText)
+                var resData = JSON.parse(http.responseText);
                 var userData = {
                     name: resData.name,
                     phone: resData.phone
-                }
-                if(userData.name == ""){
-                    console.log("inside if")
-                    while(userData.name == "" || userData.name === "\s" || userData.name === null){
-                        console.log("inside while")
+                };
+                if (userData.name == "") {
+                    while (userData.name == "" || userData.name === "\s" || userData.name === null) {
                         userData.name = prompt("Enter your name (without spaces)");
                     }
-                    console.log(userData.name);
+                    localStorage.setItem('userData', userData);
+                    console.log(localStorage.getItem(userData));
+                    var xhrData = {
+                        name: userData.name,
+                        phonenm: userData.phone
+                    };
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/api/users", true);
+                    xhr.setRequestHeader("content-type", "application/json");
+                    xhr.onreadystatechange = function(){
+                        if(xhr.readyState == 4 && xhr.status == 200){
+                            console.log(xhr.responseText)
+                            window.location = "/todo.html";
+                        }
+                    }
+                    xhr.send(JSON.stringify(xhrData));                    
                 }
-                console.log("outside if")
+                window.location = "/todo.html";                
             }
         }
         http.send(JSON.stringify(data));
     }
     </script>
-    <!--<a href="javascript:login()">Login</a>-->
 </head>
 
-<body onload="setusername(token, name)">
+<body onload="login();">
     <script>
     </script>
 </body>
