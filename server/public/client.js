@@ -1,66 +1,50 @@
-var userdata = localStorage.getItem('userData');
-var assignTo;
+var user = JSON.parse(localStorage.getItem('userData'));
+console.log(user)
 
+var welcome = document.getElementById('welcome')
+var welcomeText = "Welcome " + user.name;
+welcome.innerText = welcomeText;
+
+var userList = [];
+var taskList = [];
+
+getUsers(printUsers);
+
+function getUsers(callback) {
+    var users = new XMLHttpRequest();
+    users.open("GET", "/api/users/" + user.phone, true);
+    users.setRequestHeader("content-type", "application/json");
+    users.onreadystatechange = function() {
+        if (users.readyState == 4 && users.status == 200) {
+            console.log(users.responseText);
+            userList = JSON.parse(users.responseText);
+            console.log(userList);
+            callback();
+        }
+    }
+    users.send();
+}
+
+function printUsers() {
+    console.log(userList);
+    console.log(userList[0]);
+}
 
 function getTasks() {
-    var http = new XMLHttpRequest();
-    http.open("GET", "/api/tasks/"+phone, true);
-    
-    http.onreadystatechange = function() {
-        if (http.readyState == 4 && http.status == 200) {
-            console.log(http.responseText)
-            response = JSON.parse(http.responseText);
-            for (var i = 0; i < response.length; i++) {
-
-                addRow("tasks", response[i].data.title, response[i].data.assgnToName, response[i].data.date, response[i].data.status)
-                console.log(response[i].data.title);
-                console.log(response[i].data.assgnToName);
-            }
-        } else {
-            console.log("readyState is " + http.readyState);
-            console.log("status is " + http.status);
+    var tasks = new XMLHttpRequest();
+    tasks.open("GET", "/api/tasks/" + "68799", true);
+    tasks.setRequestHeader("content-type", "application/json");
+    tasks.onreadystatechange = function() {
+        if (tasks.readyState == 4 && tasks.status == 200) {
+            console.log(tasks.responseText);
+            taskList = JSON.parse(tasks.responseText);
+            console.log(taskList);
+            console.log(taskList[0].data.title);
+            if (tasks.responseText.length === 0)
+                console.log(user.name + " has no tasks for him")
         }
     }
-    http.send();
+    tasks.send();
 }
 
-function addRow(id, tname, towner, dat, taskid) {
-    var row = document.getElementById(id).insertRow();
-    var taskname = row.insertCell(0);
-    var owner = row.insertCell(1);
-    var byDate = row.insertCell(2);
-    
-    taskname.innerText = tname;
-    owner.innerText = towner;
-    byDate.innerText = dat;
-}
-
-
-function getUsers() {
-    var http = new XMLHttpRequest();
-    http.open("GET", "/api/users/" + phone, true);
-    http.onreadystatechange = function() {
-        if (http.readyState == 4 && http.status == 200) {
-            var users = responseText;
-            for(var i = 0; i < users.length; i++){
-                var list = getElementById('assignTo');
-                var option = createElement('option');
-                option.setAttribute('value', users[i].name);
-                option.innerText = users[i].name;
-                list.appendChild(option);
-            }
-        }
-    }
-    http.send();
-}
-
-function createTask() {
-    var task = {
-        title: getElementById('name'),
-        date: getElementById('date'),
-        assgnByName: userdata.name,
-        assgnByPhon: userdata.phone,
-        assgnToName: getElementById('assignTo').value,
-        assgnToPhon: string
-    }
-}
+getTasks();

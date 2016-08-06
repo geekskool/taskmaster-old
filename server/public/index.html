@@ -32,9 +32,6 @@
 
     }
 
-    // token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJod…DEyfQ.lyavsduaOyv_awl6ArTeDA77TNJxtiZ5E_pA29KlZUU";
-    // name = "+917259183906"
-
     function setusername(token, name) {
         var data = {
             accessToken: token,
@@ -57,7 +54,6 @@
                     while (userData.name == "" || userData.name === "\s" || userData.name === null) {
                         userData.name = prompt("Enter your name (without spaces)");
                     }
-                    localStorage.setItem('userData', userData);
                     console.log(localStorage.getItem(userData));
                     var xhrData = {
                         name: userData.name,
@@ -74,6 +70,7 @@
                     }
                     xhr.send(JSON.stringify(xhrData));                    
                 }
+                localStorage.setItem('userData', JSON.stringify(userData));
                 window.location = "/todo.html";                
             }
         }

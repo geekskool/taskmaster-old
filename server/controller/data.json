@@ -18,6 +18,10 @@
             {
                 "type": "child",
                 "out": "92e1addb-ec1f-4a7f-8325-60cecb105623"
+            },
+            {
+                "type": "child",
+                "out": "98bddc25-b998-4762-9d5b-53c814472803"
             }
         ]
     },
@@ -98,5 +102,20 @@
                 "out": "144ee6de-b21b-48ed-a15d-dca37640fa4c"
             }
         ]
+    },
+    {
+        "id": "98bddc25-b998-4762-9d5b-53c814472803",
+        "type": "user",
+        "data": {
+            "name": "aditya",
+            "phone": "+917259183906"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "0377bd36-d2e7-4f28-8f3b-95d2b8d934f0"
+            }
+        ],
+        "out": []
     }
 ]
