@@ -7,85 +7,72 @@
     <!-- Auth0Lock script -->
     <script src="https://cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
     <script type="text/javascript">
-    function login() {
-        // Initialize Passwordless Lock instance
-        var lock = new Auth0LockPasswordless('ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R', 'adityabhushan.auth0.com');
-        // Open the lock in Email Code mode with the ability to handle
-        // the authentication in page
-        var appearanceOpts = {
-            autoclose: true
-        };
-        // Open the lock in SMS mode with the ability to handle the authentication in page
-        lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
-            if (!error) {
-                setusername(id_token, profile.name);
-                console.log('profile before ' + profile.name);
-            
-                localStorage.setItem('id_token', id_token)
-                localStorage.setItem('profile', profile.name)
-                console.log(profile)
-                console.log('profile is ' + profile.name);
-       
-            }
+    // function login() {
+    //     // Initialize Passwordless Lock instance
+    //     var lock = new Auth0LockPasswordless('ktF7c9AwjFdcOjuxwRJ9xhjEcPGm562R', 'adityabhushan.auth0.com');
+    //     // Open the lock in Email Code mode with the ability to handle
+    //     // the authentication in page
+    //     var appearanceOpts = {
+    //         autoclose: true
+    //     };
+    //     // Open the lock in SMS mode with the ability to handle the authentication in page
+    //     lock.sms(appearanceOpts, function(error, profile, id_token, access_token, state, refresh_token) {
+    //         if (!error) {
+    //             setusername(id_token, profile.name);
+    //             console.log('profile before ' + profile.name);
 
-        });
+    //             localStorage.setItem('id_token', id_token)
+    //             localStorage.setItem('profile', profile.name)
+    //             console.log(profile)
+    //             console.log('profile is ' + profile.name);
 
-    }
+    //         }
 
-    function demo() {
-        console.log("demo executed!");
-    }
+    //     });
+
+    // }
+
+    token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJod…DEyfQ.lyavsduaOyv_awl6ArTeDA77TNJxtiZ5E_pA29KlZUU";
+    name = "+917259183906"
+
+    //setusername(token, name);
 
     function setusername(token, name) {
- //login();
-        console.log(token+","+name)
-        var http = new XMLHttpRequest();
-        http.open("POST", "/api/validate", true);
         var data = {
             accessToken: token,
             phone: name
-        }
+        };
+
         console.log(data);
+        var http = new XMLHttpRequest();
+        http.open("POST", "/api/validate", true)
+        http.setRequestHeader("content-type", "application/json");
         http.onreadystatechange = function() {
             if (http.readyState == 4 && http.status == 200) {
-                console.log("entered readyState - "  +http.readyState)
-                user = http.responseText;
-                console.log(user)
-                if (user.name == "" || user.name == "\s" || user.name == null) {
-                    console.log("inside if")
-                    while (user.name === "" || user.name === "\s" || user.name === null)
-                        user.name = window.prompt("Enter your name (without spaces)", "This will be your user name");
-
-                    var userData = {
-                        name: user.name,
-                        phone: user.phone
-                    }
-                    localStorage.setItem('userData', userData);
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/api/users", true);
-                    console.log("inside xhr")
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        console.log('username saved correctly');
-                        window.location = "/index1.html";
-                    }
-                    xhr.send(userData);
+                console.log(http.responseText)
+                var resData = JSON.parse(http.responseText)
+                var userData = {
+                    name: resData.name,
+                    phone: resData.phone
                 }
-
-
-            } else {
-                console.log("readyState is " + http.readyState);
-                console.log("status is " + http.status);
-                console.log("error hai bhai");
+                if(userData.name == ""){
+                    console.log("inside if")
+                    while(userData.name == "" || userData.name === "\s" || userData.name === null){
+                        console.log("inside while")
+                        userData.name = prompt("Enter your name (without spaces)");
+                    }
+                    console.log(userData.name);
+                }
+                console.log("outside if")
             }
         }
-        http.send(data);
-
+        http.send(JSON.stringify(data));
     }
     </script>
     <!--<a href="javascript:login()">Login</a>-->
 </head>
 
-<body onload="login()">
+<body onload="setusername(token, name)">
     <script>
     </script>
 </body>
