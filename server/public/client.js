@@ -81,6 +81,7 @@ function createTask() {
         if (task.readyState == 4 && task.status == 200) {
             console.log(task.responseText);
             console.log("Task added")
+            window.location.reload();
         }
     }
     task.send(JSON.stringify(newTask));
@@ -100,6 +101,7 @@ function populateUsers() {
 
 function updateTask(task) {
     var update = new XMLHttpRequest();
+    task.data.status = false;
     update.open("PUT", "/api/tasks/", true);
     update.setRequestHeader("content-type", "application/json");
     update.onreadystatechange = function() {
@@ -112,9 +114,9 @@ function updateTask(task) {
 
 function addView(){
     for(var i = 0; i < taskList.length; i++){
-        addRow(taskList[i]);
+        if(taskList[i].data.status == true)
+            addRow(taskList[i]);
     }
-    //window.location.reload();
 }
 
 function addRow(task) {
