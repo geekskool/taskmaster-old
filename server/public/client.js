@@ -100,8 +100,9 @@ function populateUsers() {
 }
 
 function updateTask(task) {
-    var update = new XMLHttpRequest();
     task.data.status = false;
+
+    var update = new XMLHttpRequest();
     update.open("PUT", "/api/tasks/", true);
     update.setRequestHeader("content-type", "application/json");
     update.onreadystatechange = function() {
@@ -112,9 +113,9 @@ function updateTask(task) {
     update.send(JSON.stringify(task));
 }
 
-function addView(){
-    for(var i = 0; i < taskList.length; i++){
-        if(taskList[i].data.status == true)
+function addView() {
+    for (var i = 0; i < taskList.length; i++) {
+        if (taskList[i].data.status == true)
             addRow(taskList[i]);
     }
 }
