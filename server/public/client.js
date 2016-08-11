@@ -101,6 +101,7 @@ function populateUsers() {
 
 function updateTask(task) {
     task.data.status = false;
+    console.log("task is - " +task)
 
     var update = new XMLHttpRequest();
     update.open("PUT", "/api/tasks/", true);
@@ -108,6 +109,8 @@ function updateTask(task) {
     update.onreadystatechange = function() {
         if (update.readyState == 4 && update.status == 200) {
             console.log("Task updated")
+            getTasks();
+            location.reload(true);
         }
     }
     update.send(JSON.stringify(task));
@@ -133,7 +136,9 @@ function addRow(task) {
 
     var donebutton = document.createElement('button');
     donebutton.innerHTML = 'Done';
-    donebutton.setAttribute('class', 'btn btn-info')
-    donebutton.setAttribute('onclick', 'updateTask(' + task + ')')
+    donebutton.setAttribute('class', 'button')
+    donebutton.addEventListener('click', function() {
+        updateTask(task);
+    })
     done.appendChild(donebutton)
 }
