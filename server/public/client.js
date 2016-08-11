@@ -70,6 +70,11 @@ function createTask() {
         date.setDate(date.getDate() + 1); 
     }
     date = date.toJSON().slice(0, 10)
+
+    var title = document.getElementById('name').value 
+    if(title === "" || title === "\s" || title === null){
+        window.alert("Task name cannot be empty")
+    }
     var newTask = {
         title: document.getElementById('name').value,
         date: date,
