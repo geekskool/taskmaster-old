@@ -53,7 +53,7 @@ The client will verify if a user exists with the given name (the client can veri
 {
 	name: string,
 	phonenm: string
- }
+}
 ```
 After a user has been created the client will proceed to the tasks page for further operations.
 
@@ -67,7 +67,7 @@ One of the first operations we need to do on the task page is to build the conta
 Upon receiveing the `GET` request, the server will respond with an array of objects containing the user data.
 Here is responseText received by the client - 
 ```
-[ {
+[{
  	name: string,
  	phone: string
  }, …]
@@ -82,7 +82,7 @@ Once we have the list of users. Our next job is to get all the tasks assigned to
 To get a list of tasks we need to send a `GET` request at `/api/tasks/:phone` url. Upon receiving the request the server will send an array of objects as response. The format of the response object is given below -
 
 ```
-[ { id: string, 
+[{ id: string, 
 	data: {
         title: string,
         date: string,
@@ -93,7 +93,7 @@ To get a list of tasks we need to send a `GET` request at `/api/tasks/:phone` ur
         assgnToPhon: string,
         comments: string
     }
-}, …]
+ }, …]
 ```
 
 The client can choose how to display the tasks.
