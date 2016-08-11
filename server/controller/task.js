@@ -48,6 +48,7 @@ function getTasks(userId){
     		result.push(_task);
     	}
     }
+    console.log(result)
     return result;
 }
 
@@ -62,6 +63,13 @@ function updateTask(taskId,status){
 	graph.update(task)
 	graph.save()
 }
+
+function check(title,toName,toNum,byName,byNum,date){
+	if(title == "" || toName == "" || toNum == "" || byName == "" || byNum == "" || date == "")
+		return false
+	return true
+}
+
 task.handleGet = function(req,res,next){
 //    var task = {"task":"project","id":"123"}
     try{
@@ -74,24 +82,31 @@ task.handleGet = function(req,res,next){
 			message: "ERROR"
 		})
     }    
-}
+} 
+
+
 
 task.handlePost = function(req,res,next){
 	try{
 		var newTask = new Object()
-
-		newTask.title = req.body.title;
-		newTask.assgnByName = req.body.assgnByName;
-		newTask.assgnByPhon = req.body.assgnByPhon;
-		newTask.assgnToName = req.body.assgnToName;
-		newTask.assgnToPhon = req.body.assgnToPhon;
+        console.log("creating task")
+		newTask.title = req.body.title.trim();
+		newTask.assgnByName = req.body.assgnByName.trim();
+		newTask.assgnByPhon = req.body.assgnByPhon.trim();
+		newTask.assgnToName = req.body.assgnToName.trim();
+		newTask.assgnToPhon = req.body.assgnToPhon.trim();
 		newTask.date = req.body.date;
-
-		console.log(newTask);
-		createTask(newTask);
-		res.status(200).json({
-			message:"Task created succussfully"		
-	    })
+        if(check(newTask.title,newTask.assgnByName,newTask.assgnByPhon,newTask.assgnToName,newTask.assgnToPhon,newTask.date)){
+			console.log(newTask);
+			createTask(newTask);
+			res.status(200).json({
+				message:"Task created succussfully"		
+		    })
+		} else {
+			res.status(500).json({
+			message: "Wrong input format"
+		})
+		}    
     } catch(err){
     	res.status(500).json({
 			message: "ERROR"
