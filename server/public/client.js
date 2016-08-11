@@ -65,9 +65,14 @@ function createTask() {
     assignTo();
     var date = document.getElementById('date').value;
     console.log(date);
+    if(date == ""){
+        date = new Date;
+        date.setDate(date.getDate() + 1); 
+    }
+    date = date.toJSON().slice(0, 10)
     var newTask = {
         title: document.getElementById('name').value,
-        date: document.getElementById('date').value,
+        date: date,
         assgnByName: user.name,
         assgnByPhon: user.phone,
         assgnToName: assignName,
