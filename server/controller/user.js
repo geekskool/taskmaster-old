@@ -28,10 +28,13 @@ function getUsers(userId){
  
     var temp = god.next().out
     var result = []
-    //console.log(temp)
+    console.log(temp.length)
     for(var key in temp){
+        //console.log(temp[key].out)
         var userId =  temp[key].out //should be id
+        //console.log(graph.read(userId).data)
         result.push(graph.read(userId).data)
+        //console.log(result)
     }
     console.log(result)
     return result 

@@ -91,9 +91,9 @@ task.handleGet = function(req,res,next){
     console.log("Getting tasks")
     try {
     	var t
-    	var arr = []
-    	var by = []
-    	var to = []
+    	//var arr = []
+    	//var by = []
+    	//var to = []
 		var id = req.params.phonenm
 	    console.log(id)
 	    let list = getTasks(id)
@@ -114,18 +114,18 @@ task.handleGet = function(req,res,next){
 	    	}
 	    }
 	    console.log(list)
-	    for(var i = 0;i < list.length;i++){
-	    	console.log(list[i].assgnByPhon)
-	    	if(list[i].data.assgnByPhon == id)
-	    		by.push(list[i])
-	    	else
-	    		to.push(list[i])
-        }
+	    //for(var i = 0;i < list.length;i++){
+	    //	console.log(list[i].assgnByPhon)
+	    //	if(list[i].data.assgnByPhon == id)
+	    //		by.push(list[i])
+	    //	else
+	    //		to.push(list[i])
+        //}
         //console.log(by)
         //console.log(to)
-        arr.push(by)
-        arr.push(to)
-	    res.send(arr)
+        //arr.push(by)
+        //arr.push(to)
+	    res.send(list)
 	} catch(err) {
     	res.status(500).json({
 			message: "ERROR"
