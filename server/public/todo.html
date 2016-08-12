@@ -2,173 +2,36 @@
 <html>
 
 <head>
+    <meta charset="UTF-8" />
     <title>ToDo List</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script type="text/javascript">
-    var user = JSON.parse(localStorage.getItem('userData'));
-    console.log(user)
-
-    var welcome = document.getElementById('welcome')
-    welcome.innerText = "Welcome " + user.name;
-
-    var userList = [];
-    var taskList = [];
-    var assignName;
-    var assignNum;
-
-    getUsers(populateUsers);
-
-
-    function getUsers(callback) {
-        var users = new XMLHttpRequest();
-        users.open("GET", "/api/users/" + user.phone, true);
-        users.setRequestHeader("content-type", "application/json");
-        users.onreadystatechange = function() {
-            if (users.readyState == 4 && users.status == 200) {
-                console.log(users.responseText);
-                userList = JSON.parse(users.responseText);
-                console.log(userList);
-                if (callback()) {
-                    callback();
-                } else
-                    console.log("no callback spotted");
-            }
-        }
-        users.send();
-    }
-
-
-    function getTasks() {
-        var tasks = new XMLHttpRequest();
-        tasks.open("GET", "/api/tasks/" + user.phone, true);
-        tasks.setRequestHeader("content-type", "application/json");
-        tasks.onreadystatechange = function() {
-            if (tasks.readyState == 4 && tasks.status == 200) {
-                console.log(tasks.responseText);
-                taskList = JSON.parse(tasks.responseText);
-                console.log(taskList);
-                console.log(taskList[0].data.title);
-                if (tasks.responseText.length === 0)
-                    console.log(user.name + " has no tasks for him")
-                addView();
-            }
-        }
-        tasks.send();
-
-    }
-
-    function assignTo() {
-        selectName = document.getElementById('assignTo');
-        assignName = selectName.options[selectName.selectedIndex].text;
-        for (var i = 0; i < userList.length; i++) {
-            if (userList[i].name == assignName) {
-                assignNum = userList[i].phone;
-                break;
-            }
-        }
-    }
-
-    function createTask() {
-        assignTo();
-        var date = document.getElementById('date').value;
-        console.log(date);
-        var newTask = {
-            title: document.getElementById('name').value,
-            date: document.getElementById('date').value,
-            assgnByName: user.name,
-            assgnByPhon: user.phone,
-            assgnToName: assignName,
-            assgnToPhon: assignNum
-        }
-        console.log(newTask);
-        var task = new XMLHttpRequest();
-        task.open("POST", "/api/tasks/", true);
-        task.setRequestHeader("content-type", "application/json");
-        task.onreadystatechange = function() {
-            if (task.readyState == 4 && task.status == 200) {
-                console.log(task.responseText);
-                console.log("Task added")
-                window.location.reload();
-            }
-        }
-        task.send(JSON.stringify(newTask));
-    }
-
-    function populateUsers() {
-        var assign = document.getElementById('assignTo');
-        for (var i = 0; i < userList.length; i++) {
-            var option = document.createElement('option');
-            option.setAttribute('value', userList[i].name);
-            option.innerText = userList[i].name;
-            assign.appendChild(option);
-            console.log(userList[i].name);
-        }
-        getTasks();
-    }
-
-    function updateTask(task) {
-        var update = new XMLHttpRequest();
-        update.open("PUT", "/api/tasks/", true);
-        update.setRequestHeader("content-type", "application/json");
-        update.onreadystatechange = function() {
-            if (update.readyState == 4 && update.status == 200) {
-                console.log("Task updated")
-            }
-        }
-        update.send(JSON.stringify(task));
-    }
-
-    function addView() {
-        for (var i = 0; i < taskList.length; i++) {
-            addRow(taskList[i]);
-        }
-    }
-
-    function addRow(task) {
-        var row = document.getElementById('tasks').insertRow();
-        var taskname = row.insertCell(0);
-        var owner = row.insertCell(1);
-        var byDate = row.insertCell(2);
-        var done = row.insertCell(3);
-
-        taskname.innerText = task.data.title;
-        owner.innerText = task.data.assgnToName;
-        byDate.innerText = task.data.date;
-
-        var donebutton = document.createElement('button');
-        donebutton.innerHTML = 'Done';
-        donebutton.setAttribute('class', 'btn btn-info')
-        donebutton.setAttribute('onclick', 'updateTask(' + task + ')')
-        done.appendChild(donebutton)
-    }
-    </script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <div class="container col-md-offset-3">
+    <div class="container">
         <br>
         <div id="welcome"></div>
         <h2>Todo App </h2>
-        <div class="col-md-6 row">
+        <div class="row">
             <div>
                 <form onsubmit=createTask()>
                     <br>
                     <br>
-                    <input type="text" id="name" class="form-control" placeholder="Enter Name">
+                    <input type="text" id="name" class="form" placeholder="Enter Name">
                     <br>
                     <br>
-                    <select id="assignTo" class="form-control" placeholder="Assign to"></select>
+                    <select id="assignTo" class="form" placeholder="Assign to"></select>
                     <br>
                     <br>
-                    <input type="date" id="date" class="form-control">
+                    <input type="date" id="date" class="form">
                     <br>
                     <br>
-                    <input type="submit" display-style:none class="btn btn-primary" />
+                    <input type="submit" display-style:none class="button" />
                 </form>
             </div>
             <br>
             <br>
-            <table id="tasks" class="table table-striped">
+            <table id="tasks" class="table">
                 <thead>
                     <tr>
                         <th>Task Name</th>

@@ -18,13 +18,13 @@ function getUsers(callback) {
     users.setRequestHeader("content-type", "application/json");
     users.onreadystatechange = function() {
         if (users.readyState == 4 && users.status == 200) {
-            console.log(users.responseText);
             userList = JSON.parse(users.responseText);
             console.log(userList);
             if (callback()) {
                 callback();
-            } else
+            } else {
                 console.log("no callback spotted");
+            }
         }
     }
     users.send();
@@ -37,10 +37,8 @@ function getTasks() {
     tasks.setRequestHeader("content-type", "application/json");
     tasks.onreadystatechange = function() {
         if (tasks.readyState == 4 && tasks.status == 200) {
-            console.log(tasks.responseText);
             taskList = JSON.parse(tasks.responseText);
             console.log(taskList);
-            console.log(taskList[0].data.title);
             if (tasks.responseText.length === 0)
                 console.log(user.name + " has no tasks for him")
             addView();
@@ -64,23 +62,33 @@ function assignTo() {
 function createTask() {
     assignTo();
     var date = document.getElementById('date').value;
-    console.log(date);
+    var today = new Date;
+
+    if (date == "") {
+        date = new Date;
+        date = new Date(date.setTime(date.getTime() + 86400000));
+    }
+    date = date.toJSON().slice(0, 10)
+
+    var title = document.getElementById('name').value
+    if (title === "" || title === "\s" || title === null) {
+        window.alert("Task name cannot be empty")
+    }
+
     var newTask = {
         title: document.getElementById('name').value,
-        date: document.getElementById('date').value,
+        date: date,
         assgnByName: user.name,
         assgnByPhon: user.phone,
         assgnToName: assignName,
         assgnToPhon: assignNum
     }
-    console.log(newTask);
+
     var task = new XMLHttpRequest();
     task.open("POST", "/api/tasks/", true);
     task.setRequestHeader("content-type", "application/json");
     task.onreadystatechange = function() {
         if (task.readyState == 4 && task.status == 200) {
-            console.log(task.responseText);
-            console.log("Task added")
             window.location.reload();
         }
     }
@@ -94,27 +102,28 @@ function populateUsers() {
         option.setAttribute('value', userList[i].name);
         option.innerText = userList[i].name;
         assign.appendChild(option);
-        console.log(userList[i].name);
     }
     getTasks();
 }
 
 function updateTask(task) {
-    var update = new XMLHttpRequest();
     task.data.status = false;
+
+    var update = new XMLHttpRequest();
     update.open("PUT", "/api/tasks/", true);
     update.setRequestHeader("content-type", "application/json");
     update.onreadystatechange = function() {
         if (update.readyState == 4 && update.status == 200) {
-            console.log("Task updated")
+            getTasks();
+            location.reload(true);
         }
     }
     update.send(JSON.stringify(task));
 }
 
-function addView(){
-    for(var i = 0; i < taskList.length; i++){
-        if(taskList[i].data.status == true)
+function addView() {
+    for (var i = 0; i < taskList.length; i++) {
+        if (taskList[i].data.status == true)
             addRow(taskList[i]);
     }
 }
@@ -132,7 +141,9 @@ function addRow(task) {
 
     var donebutton = document.createElement('button');
     donebutton.innerHTML = 'Done';
-    donebutton.setAttribute('class', 'btn btn-info')
-    donebutton.setAttribute('onclick', 'updateTask(' + task + ')')
+    donebutton.setAttribute('class', 'button')
+    donebutton.addEventListener('click', function() {
+        updateTask(task);
+    })
     done.appendChild(donebutton)
 }
