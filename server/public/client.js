@@ -38,7 +38,7 @@ function getTasks() {
     tasks.onreadystatechange = function() {
         if (tasks.readyState == 4 && tasks.status == 200) {
             taskList = JSON.parse(tasks.responseText);
-            console.log(taskList);
+            //console.log(taskList);
             if (tasks.responseText.length === 0)
                 console.log(user.name + " has no tasks for him")
             addView();
@@ -67,9 +67,11 @@ function createTask() {
     if (date == "") {
         date = new Date;
         date = new Date(date.setTime(date.getTime() + 86400000));
+        date = date.toJSON().slice(0, 10)
     }
-    date = date.toJSON().slice(0, 10)
-
+    
+    date = date + "T00:00:00.000Z";
+    
     var title = document.getElementById('name').value
     if (title === "" || title === "\s" || title === null) {
         window.alert("Task name cannot be empty")
@@ -134,10 +136,10 @@ function addRow(task) {
     var owner = row.insertCell(1);
     var byDate = row.insertCell(2);
     var done = row.insertCell(3);
-
+    
     taskname.innerText = task.data.title;
     owner.innerText = task.data.assgnToName;
-    byDate.innerText = task.data.date;
+    byDate.innerText = task.data.date.slice(0, 10);
 
     var donebutton = document.createElement('button');
     donebutton.innerHTML = 'Done';
