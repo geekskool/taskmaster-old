@@ -9,6 +9,22 @@ const user = {}
 
 function createNewUser(user){
     graph.load()
+    
+    var god = new graph.Query(graph.find('power', 'over9000'))
+ 
+    var temp = god.next().out
+    var result = []
+    //console.log(temp)
+    for(var key in temp){
+        var userId =  temp[key].out //should be id
+        //result.push
+        if(graph.read(userId).data.phone == user.phoneNum){
+            console.log("exist")
+             res.status(200).json({
+                message: "User exists"
+            })
+        }
+    }
     var query = new graph.Query(graph.find('power', 'over9000'))
     var god = query.next()
     //console.log('god', god);
@@ -28,13 +44,10 @@ function getUsers(userId){
  
     var temp = god.next().out
     var result = []
-    console.log(temp.length)
+    //console.log(temp)
     for(var key in temp){
-        //console.log(temp[key].out)
         var userId =  temp[key].out //should be id
-        //console.log(graph.read(userId).data)
         result.push(graph.read(userId).data)
-        //console.log(result)
     }
     console.log(result)
     return result 

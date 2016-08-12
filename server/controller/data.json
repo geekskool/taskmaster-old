@@ -1,6 +1,6 @@
 [
     {
-        "id": "0255fd38-ec8c-40e0-b27c-9c2c0483181f",
+        "id": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70",
         "type": "god",
         "data": {
             "power": "over9000"
@@ -9,118 +9,81 @@
         "out": [
             {
                 "type": "child",
-                "out": "fd583904-f343-4a27-8109-51a7bab1054e"
+                "out": "a82b3e06-732d-48b8-a1cd-a71c7395a91d"
             },
             {
                 "type": "child",
-                "out": "a64d1227-d152-40fa-9a33-41ef7778e623"
+                "out": "4dc48f41-8c80-4810-92b4-ddfb6291c881"
             },
             {
                 "type": "child",
-                "out": "81b36b7a-1cbb-48ed-ade4-e5807674f81d"
+                "out": "7c626ffa-8865-43ff-bfe3-f494865f8cce"
             },
             {
                 "type": "child",
-                "out": "a0188f66-e536-4e15-ac91-20f75306d916"
+                "out": "6acc3667-d850-4e03-9e45-47504e6bd139"
+            },
+            {
+                "type": "child",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
             }
         ]
     },
     {
-        "id": "fd583904-f343-4a27-8109-51a7bab1054e",
-        "type": "user",
-        "data": {
-            "name": "Pooja",
-            "phone": "+918547925656"
-        },
-        "in": [
-            {
-                "type": "child",
-                "in": "0255fd38-ec8c-40e0-b27c-9c2c0483181f"
-            },
-            {
-                "type": "by",
-                "in": "d7eb1ff3-7763-4420-a007-45bceba71c7f"
-            },
-            {
-                "type": "to",
-                "in": "97a7f65a-2c01-44b0-97fa-ea72a6dd379f"
-            },
-            {
-                "type": "by",
-                "in": "aea86b92-5b06-4e13-a59f-526f4cad00b9"
-            },
-            {
-                "type": "by",
-                "in": "1acfc6a1-d666-4fe4-9e6f-cf958132116b"
-            }
-        ],
-        "out": []
-    },
-    {
-        "id": "a64d1227-d152-40fa-9a33-41ef7778e623",
+        "id": "a82b3e06-732d-48b8-a1cd-a71c7395a91d",
         "type": "user",
         "data": {
             "name": "Priyanka",
-            "phone": "+918281663457"
+            "phone": "+918281663438"
         },
         "in": [
             {
                 "type": "child",
-                "in": "0255fd38-ec8c-40e0-b27c-9c2c0483181f"
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
             },
             {
                 "type": "to",
-                "in": "d7eb1ff3-7763-4420-a007-45bceba71c7f"
+                "in": "cb5f5ee5-7b5d-4a59-aad9-8c65a421405d"
             },
             {
-                "type": "to",
-                "in": "aea86b92-5b06-4e13-a59f-526f4cad00b9"
+                "type": "by",
+                "in": "8902e630-64af-4db0-9f86-f4ea91d2bb57"
             }
         ],
         "out": []
     },
     {
-        "id": "81b36b7a-1cbb-48ed-ade4-e5807674f81d",
+        "id": "4dc48f41-8c80-4810-92b4-ddfb6291c881",
+        "type": "user",
+        "data": {
+            "name": "Pooja",
+            "phone": "+918547925454"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "7c626ffa-8865-43ff-bfe3-f494865f8cce",
         "type": "user",
         "data": {
             "name": "Vishnupriya",
-            "phone": "+919400890644"
+            "phone": "+919400890566"
         },
         "in": [
             {
                 "type": "child",
-                "in": "0255fd38-ec8c-40e0-b27c-9c2c0483181f"
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
             }
         ],
         "out": []
     },
     {
-        "id": "d7eb1ff3-7763-4420-a007-45bceba71c7f",
-        "type": "task",
-        "data": {
-            "title": "project",
-            "status": true,
-            "date": "2/9/2015",
-            "assgnByName": "Pooja",
-            "assgnByPhon": "+918547925656",
-            "assgnToName": "Priyanka",
-            "assgnToPhon": "+918281663457",
-            "comment": ""
-        },
-        "in": [],
-        "out": [
-            {
-                "type": "by",
-                "out": "fd583904-f343-4a27-8109-51a7bab1054e"
-            },
-            {
-                "type": "to",
-                "out": "a64d1227-d152-40fa-9a33-41ef7778e623"
-            }
-        ]
-    },
-    {
-        "id": "a0188f66-e536-4e15-ac91-20f75306d916",
+        "id": "6acc3667-d850-4e03-9e45-47504e6bd139",
         "type": "user",
         "data": {
             "name": "Manisha",
@@ -129,84 +92,26 @@
         "in": [
             {
                 "type": "child",
-                "in": "0255fd38-ec8c-40e0-b27c-9c2c0483181f"
-            },
-            {
-                "type": "by",
-                "in": "97a7f65a-2c01-44b0-97fa-ea72a6dd379f"
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
             }
         ],
         "out": []
     },
+    
     {
-        "id": "97a7f65a-2c01-44b0-97fa-ea72a6dd379f",
-        "type": "task",
+        "id": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc",
+        "type": "user",
         "data": {
-            "title": "project",
-            "status": true,
-            "date": "12/9/2016",
-            "assgnByName": "Manisha",
-            "assgnByPhon": "+918050342347",
-            "assgnToName": "Pooja",
-            "assgnToPhon": "+918547925656",
-            "comment": "dfgdfgdfgdfgfgmndfgfgmndfgfgmndfgfgmn"
+            "name": "Aditya",
+            "phone": "+917259183906"
         },
-        "in": [],
-        "out": [
+        "in": [
             {
-                "type": "by",
-                "out": "a0188f66-e536-4e15-ac91-20f75306d916"
-            },
-            {
-                "type": "to",
-                "out": "fd583904-f343-4a27-8109-51a7bab1054e"
+                "type": "child",
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
             }
-        ]
-    },
-    {
-        "id": "aea86b92-5b06-4e13-a59f-526f4cad00b9",
-        "type": "task",
-        "data": {
-            "title": "project new",
-            "status": true,
-            "comments": "",
-            "date": "2/2/2016",
-            "assgnByName": "pooja",
-            "assgnByPhon": "+918547925656",
-            "assgnToName": "priyanka",
-            "assgnToPhon": "+918281663457"
-        },
-        "in": [],
-        "out": [
-            {
-                "type": "by",
-                "out": "fd583904-f343-4a27-8109-51a7bab1054e"
-            },
-            {
-                "type": "to",
-                "out": "a64d1227-d152-40fa-9a33-41ef7778e623"
-            }
-        ]
-    },
-    {
-        "id": "1acfc6a1-d666-4fe4-9e6f-cf958132116b",
-        "type": "task",
-        "data": {
-            "title": "project",
-            "status": true,
-            "comments": "",
-            "date": "12/9/2016",
-            "assgnByName": "Pooja",
-            "assgnByPhon": "+918547925656",
-            "assgnToName": "Pooja",
-            "assgnToPhon": "+918547925656"
-        },
-        "in": [],
-        "out": [
-            {
-                "type": "by",
-                "out": "fd583904-f343-4a27-8109-51a7bab1054e"
-            }
-        ]
+            
+        ],
+        "out": []
     }
 ]
