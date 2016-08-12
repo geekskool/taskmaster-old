@@ -1,5 +1,5 @@
 const graph = require('../../graphology/lib/index')
-global.graphDataPath = __dirname;
+global.graphDataPath = __dirname
 const validate = {}
 
 function userByPhone(phone){
@@ -18,7 +18,8 @@ function userByPhone(phone){
 }
 
 validate.handlePost = function(req,res,next){
-	try{
+	try {
+		console.log("Validating user")
 	    var phone = req.body.phone
 	    var accessToken = req.body.accessToken
 	    var user = userByPhone(phone)
@@ -27,7 +28,7 @@ validate.handlePost = function(req,res,next){
 	    	"name" : user.name,
 	    	"phone" : user.phone
 	    })
-    } catch(err){
+    } catch(err) {
     	res.status(500).json({
 			message: "ERROR"
 		})
