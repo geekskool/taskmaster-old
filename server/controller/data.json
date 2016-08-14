@@ -259,13 +259,14 @@
         "type": "task",
         "data": {
             "title": "Aditya it should work now",
-            "status": true,
+            "status": false,
             "comments": "",
             "date": "2016-08-21T00:00:00.000Z",
             "assgnByName": "Akshar Dave",
             "assgnByPhon": "+919429354252",
             "assgnToName": "Aditya",
-            "assgnToPhon": "+917259183906"
+            "assgnToPhon": "+917259183906",
+            "comment": ""
         },
         "in": [],
         "out": [
@@ -309,13 +310,14 @@
         "type": "task",
         "data": {
             "title": "aditya yeh calhna chaiye ab",
-            "status": true,
+            "status": false,
             "comments": "",
             "date": "2016-08-15T00:00:00.000Z",
             "assgnByName": "Akshar Dave",
             "assgnByPhon": "+919429354252",
             "assgnToName": "Aditya",
-            "assgnToPhon": "+917259183906"
+            "assgnToPhon": "+917259183906",
+            "comment": ""
         },
         "in": [],
         "out": [

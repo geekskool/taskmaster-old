@@ -10,6 +10,44 @@ var assignName;
 var assignNum;
 
 
+window.onload = function() {
+    document.getElementById("chat").onclick = function() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+        overlay.style.display = "block";
+        popup.style.display = "block";
+    };
+
+    document.getElementById("Close").onclick = function() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+        overlay.style.display = "none";
+        popup.style.display = "none";
+    }
+};
+
+
+jQuery(function($) {
+
+
+    var $chatbox = $('#chatbox');
+    var $msg = $('#usermsg');
+    var $form = $('#sendMsg');
+
+    $form.submit(function(e) {
+        e.preventDefault();
+        socket.emit('sendmessage', $msg.val());
+        $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
+        $msg.val(' ');
+
+    });
+
+
+});
+
+
+
+
 var socket = io();
 
 socket.on('connect', function() {
@@ -19,7 +57,7 @@ socket.on('connect', function() {
 
 
 socket.on("notify", function(data) {
-    alert("you have a new task from  " + data );
+    alert("you have a new task from  " + data);
 });
 
 
