@@ -6,7 +6,6 @@
     <title>ToDo List</title>
     <link rel="stylesheet" href="/css/style.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
     <script type="text/javascript">
     window.onload = function() {
         document.getElementById("chat").onclick = function() {
@@ -62,9 +61,9 @@
             </table>
         </div>
     </div>
-
     <div id='chatDiv'>
-        <button id="chat">discuss this</button>
+        <!-- <button id="chat">discuss this</button> -->
+        <input type="image" src="/images/speech-bubble.png" alt="Submit" name="submitBtn" id="chat" width="55" height="55">
         <div id="overlay"></div>
         <div id="popup">
             <div id="wrapper">
@@ -82,7 +81,6 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="client.js"></script>
     <!-- <script type="text/javascript" src="chat.js"></script> -->
-
 </body>
 
 </html>

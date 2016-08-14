@@ -107,6 +107,10 @@
         border: 1px solid #ACD8F0;
         overflow: auto;
     }
+    #chat{
+        margin-left: 80px;
+        margin-top: 80px;
+    }
     
     #usermsg {
         width: 395px;
