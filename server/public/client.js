@@ -1,5 +1,5 @@
 var user = JSON.parse(localStorage.getItem('userData'));
-console.log(user)
+// console.log(user)
 
 var welcome = document.getElementById('welcome')
 welcome.innerText = "Welcome " + user.name;
@@ -9,7 +9,23 @@ var taskList = [];
 var assignName;
 var assignNum;
 
+
+var socket = io();
+
+socket.on('connect', function() {
+    console.log("connected to server");
+    socket.emit('joinroom', user.name);
+});
+
+
+socket.on("notify", function(data) {
+    alert("you have a new task from  " + data );
+});
+
+
 getUsers(populateUsers);
+
+
 
 
 function getUsers(callback) {
@@ -69,9 +85,9 @@ function createTask() {
         date = new Date(date.setTime(date.getTime() + 86400000));
         date = date.toJSON().slice(0, 10)
     }
-    
+
     date = date + "T00:00:00.000Z";
-    
+
     var title = document.getElementById('name').value
     if (title === "" || title === "\s" || title === null) {
         window.alert("Task name cannot be empty")
@@ -92,6 +108,12 @@ function createTask() {
     task.onreadystatechange = function() {
         if (task.readyState == 4 && task.status == 200) {
             window.location.reload();
+            socket.emit('newTask', {
+                assgnTo: assignName,
+                from: user.name
+            });
+
+
         }
     }
     task.send(JSON.stringify(newTask));
@@ -136,7 +158,7 @@ function addRow(task) {
     var owner = row.insertCell(1);
     var byDate = row.insertCell(2);
     var done = row.insertCell(3);
-    
+
     taskname.innerText = task.data.title;
     owner.innerText = task.data.assgnToName;
     byDate.innerText = task.data.date.slice(0, 10);

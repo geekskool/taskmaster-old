@@ -53,6 +53,7 @@ io.on('connection', function(socket) {
         // users[name].emit("whisper", { msg: msg, nick: socket.nickname });
 
         // users[data.assgnTo].emit("you have a new Task assigned by" + data.from);
+        console.log(data);
         users[data.assgnTo].emit("notify", data.from);
 
     });
