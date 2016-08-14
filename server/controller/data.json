@@ -26,6 +26,10 @@
             {
                 "type": "child",
                 "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            },
+            {
+                "type": "child",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
             }
         ]
     },
@@ -97,7 +101,6 @@
         ],
         "out": []
     },
-    
     {
         "id": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc",
         "type": "user",
@@ -109,9 +112,221 @@
             {
                 "type": "child",
                 "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
+            },
+            {
+                "type": "by",
+                "in": "6c55ad88-d2d8-4a80-8585-1bef9fbe011e"
+            },
+            {
+                "type": "to",
+                "in": "3fb2ad17-e451-4b27-9918-eb2d56a86d04"
+            },
+            {
+                "type": "to",
+                "in": "3be25980-528c-4fa1-b60a-b5cfc814b5ed"
+            },
+            {
+                "type": "to",
+                "in": "19de2889-f80a-4d29-ac0a-ac0abda80db5"
+            },
+            {
+                "type": "by",
+                "in": "886fc6f8-429b-4f31-aa3c-40c059efd56a"
+            },
+            {
+                "type": "to",
+                "in": "2244dc49-4e16-4436-b7f5-cea1915b8618"
             }
-            
         ],
         "out": []
+    },
+    {
+        "id": "6b41b768-43ae-4c19-b1e2-73f95a3391e4",
+        "type": "user",
+        "data": {
+            "name": "Akshar Dave",
+            "phone": "+919429354252"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
+            },
+            {
+                "type": "to",
+                "in": "6c55ad88-d2d8-4a80-8585-1bef9fbe011e"
+            },
+            {
+                "type": "by",
+                "in": "3fb2ad17-e451-4b27-9918-eb2d56a86d04"
+            },
+            {
+                "type": "by",
+                "in": "3be25980-528c-4fa1-b60a-b5cfc814b5ed"
+            },
+            {
+                "type": "by",
+                "in": "19de2889-f80a-4d29-ac0a-ac0abda80db5"
+            },
+            {
+                "type": "to",
+                "in": "886fc6f8-429b-4f31-aa3c-40c059efd56a"
+            },
+            {
+                "type": "by",
+                "in": "2244dc49-4e16-4436-b7f5-cea1915b8618"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "6c55ad88-d2d8-4a80-8585-1bef9fbe011e",
+        "type": "task",
+        "data": {
+            "title": "test 1",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-15T00:00:00.000Z",
+            "assgnByName": "Aditya",
+            "assgnByPhon": "+917259183906",
+            "assgnToName": "Akshar Dave",
+            "assgnToPhon": "+919429354252"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            },
+            {
+                "type": "to",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            }
+        ]
+    },
+    {
+        "id": "3fb2ad17-e451-4b27-9918-eb2d56a86d04",
+        "type": "task",
+        "data": {
+            "title": "Demo Task 1 to aditya",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-14T00:00:00.000Z",
+            "assgnByName": "Akshar Dave",
+            "assgnByPhon": "+919429354252",
+            "assgnToName": "Aditya",
+            "assgnToPhon": "+917259183906"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            },
+            {
+                "type": "to",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            }
+        ]
+    },
+    {
+        "id": "3be25980-528c-4fa1-b60a-b5cfc814b5ed",
+        "type": "task",
+        "data": {
+            "title": "name should appear now",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-20T00:00:00.000Z",
+            "assgnByName": "Akshar Dave",
+            "assgnByPhon": "+919429354252",
+            "assgnToName": "Aditya",
+            "assgnToPhon": "+917259183906"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            },
+            {
+                "type": "to",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            }
+        ]
+    },
+    {
+        "id": "19de2889-f80a-4d29-ac0a-ac0abda80db5",
+        "type": "task",
+        "data": {
+            "title": "Aditya it should work now",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-21T00:00:00.000Z",
+            "assgnByName": "Akshar Dave",
+            "assgnByPhon": "+919429354252",
+            "assgnToName": "Aditya",
+            "assgnToPhon": "+917259183906"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            },
+            {
+                "type": "to",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            }
+        ]
+    },
+    {
+        "id": "886fc6f8-429b-4f31-aa3c-40c059efd56a",
+        "type": "task",
+        "data": {
+            "title": "test 5",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-15T00:00:00.000Z",
+            "assgnByName": "Aditya",
+            "assgnByPhon": "+917259183906",
+            "assgnToName": "Akshar Dave",
+            "assgnToPhon": "+919429354252"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            },
+            {
+                "type": "to",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            }
+        ]
+    },
+    {
+        "id": "2244dc49-4e16-4436-b7f5-cea1915b8618",
+        "type": "task",
+        "data": {
+            "title": "aditya yeh calhna chaiye ab",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-15T00:00:00.000Z",
+            "assgnByName": "Akshar Dave",
+            "assgnByPhon": "+919429354252",
+            "assgnToName": "Aditya",
+            "assgnToPhon": "+917259183906"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            },
+            {
+                "type": "to",
+                "out": "546e7848-6e41-40e3-a3c5-7da6ff5f4fdc"
+            }
+        ]
     }
 ]
