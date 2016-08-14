@@ -37,10 +37,16 @@ jQuery(function($) {
     $form.submit(function(e) {
         e.preventDefault();
         socket.emit('sendmessage', $msg.val());
-        $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
+        // $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
         $msg.val(' ');
 
     });
+
+    socket.on("new message", function(data) {
+        $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>');
+
+    });
+
 
 
 });
