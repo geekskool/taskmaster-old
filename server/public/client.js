@@ -47,6 +47,11 @@ jQuery(function($) {
 
     });
 
+    socket.on("private", function(data) {
+        $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>');
+
+    });
+
 
 
 });
