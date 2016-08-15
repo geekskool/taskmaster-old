@@ -34,6 +34,10 @@
             {
                 "type": "child",
                 "out": "984f535e-c447-4531-b4da-9a8b2900b345"
+            },
+            {
+                "type": "child",
+                "out": "e35247ac-930d-49ae-9f24-6d9c61b12be6"
             }
         ]
     },
@@ -370,6 +374,14 @@
             {
                 "type": "to",
                 "in": "f30fd255-cd7a-4b26-88e0-badc248da8a8"
+            },
+            {
+                "type": "by",
+                "in": "0a217b9a-7ca6-41cd-b4a4-ee9f3e8096d3"
+            },
+            {
+                "type": "to",
+                "in": "cd15bf9b-0b67-47df-b510-32738ba4d53f"
             }
         ],
         "out": []
@@ -442,6 +454,79 @@
             {
                 "type": "by",
                 "out": "6b41b768-43ae-4c19-b1e2-73f95a3391e4"
+            },
+            {
+                "type": "to",
+                "out": "984f535e-c447-4531-b4da-9a8b2900b345"
+            }
+        ]
+    },
+    {
+        "id": "e35247ac-930d-49ae-9f24-6d9c61b12be6",
+        "type": "user",
+        "data": {
+            "name": "Angshu",
+            "phone": "+918431996653"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
+            },
+            {
+                "type": "to",
+                "in": "0a217b9a-7ca6-41cd-b4a4-ee9f3e8096d3"
+            },
+            {
+                "type": "by",
+                "in": "cd15bf9b-0b67-47df-b510-32738ba4d53f"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "0a217b9a-7ca6-41cd-b4a4-ee9f3e8096d3",
+        "type": "task",
+        "data": {
+            "title": "test api",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-16T00:00:00.000Z",
+            "assgnByName": "phoenix314",
+            "assgnByPhon": "+919620818140",
+            "assgnToName": "Angshu",
+            "assgnToPhon": "+918431996653"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "984f535e-c447-4531-b4da-9a8b2900b345"
+            },
+            {
+                "type": "to",
+                "out": "e35247ac-930d-49ae-9f24-6d9c61b12be6"
+            }
+        ]
+    },
+    {
+        "id": "cd15bf9b-0b67-47df-b510-32738ba4d53f",
+        "type": "task",
+        "data": {
+            "title": "Roy Today",
+            "status": true,
+            "comments": "",
+            "date": "2016-08-15T00:00:00.000Z",
+            "assgnByName": "Angshu",
+            "assgnByPhon": "+918431996653",
+            "assgnToName": "phoenix314",
+            "assgnToPhon": "+919620818140"
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "e35247ac-930d-49ae-9f24-6d9c61b12be6"
             },
             {
                 "type": "to",
