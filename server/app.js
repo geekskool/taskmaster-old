@@ -58,6 +58,20 @@ io.on('connection', function(socket) {
 
     });
 
+
+    socket.on("sendmessage", function(data) {
+        // var msg = data.trim();
+        // if (msg.substr(0, 1) === '@') {
+            // console.log("private hit");
+        // } else {
+            io.sockets.emit("new message", { msg: data, name: socket.name });
+
+        // }
+
+    });
+
+
+
 });
 
 
