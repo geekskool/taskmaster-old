@@ -14,16 +14,16 @@ function userByPhone(phone){
 		user.phone = phone
 		return user
 	}
-	console.log(user)
+	// console.log(user)
 }
 
 validate.handlePost = function(req,res,next){
 	try {
-		console.log("Validating user")
+		// console.log("Validating user")
 	    var phone = req.body.phone
 	    var accessToken = req.body.accessToken
 	    var user = userByPhone(phone)
-	    console.log(user)
+	    // console.log(user)
 	    res.status(200).json({
 	    	"name" : user.name,
 	    	"phone" : user.phone

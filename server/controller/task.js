@@ -18,7 +18,7 @@ function createTask(task){
 
 	let query = new graph.Query(graph.find('phone', task.assgnByPhon))
 	var assignee = query.next()
-	console.log(assignee)
+	// console.log(assignee)
 
 	if(task.assgnToPhon == task.assgnByPhon){
 		taskNode.addEdge('by',assignee)
@@ -28,7 +28,7 @@ function createTask(task){
     else{
 		let query2 = new graph.Query(graph.find('phone', task.assgnToPhon))
 		var assigner = query2.next()
-		console.log(assigner)
+		// console.log(assigner)
 
 		taskNode.addEdge('by', assignee)
 		taskNode.addEdge('to', assigner)
@@ -53,7 +53,7 @@ function getTasks(userId){
     		result.push(_task)
     	}
     }
-  //  console.log(result)
+   // console.log(result)
     return result
 }
 
@@ -61,9 +61,9 @@ function updateTask(taskId,title,assgnByName,assgnByPhon,assgnToName,assgnToPhon
 	graph.load()
 	//var task = new graph.Query(graph.find('title',taskId))
 	var task = graph.read(taskId)
-	console.log(task)
+	// console.log(task)
 	//var temp = task.next()
-    console.log(task.data.status)
+    // console.log(task.data.status)
     task.data.title =  title
     task.data.assgnByName = assgnByName
     task.data.assgnByPhon = assgnByPhon
@@ -88,41 +88,41 @@ function check(title,toName,toNum,byName,byNum,date){
 
 task.handleGet = function(req,res,next){
 //    var task = {"task":"project","id":"123"}
-    console.log("Getting tasks")
+    // console.log("Getting tasks")
     try {
     	var t
     	//var arr = []
     	//var by = []
     	//var to = []
 		var id = req.params.phonenm
-	    console.log(id)
+	    // console.log(id)
 	    let list = getTasks(id)
-	    //console.log(list)
+	    // console.log(list)
 	    //var d1 = new Date()
 	    //var d2 = new Date()
 	    for(var i = 0;i < list.length;i++){
 	    	for(var j = i+1;j < list.length;j++){
 	    		var d1 = new Date(list[i].data.date)
 	    		var d2 = new Date(list[j].data.date)
-	    		//console.log(d1,d2)
+	    		// console.log(d1,d2)
 	    		if(d1 > d2){
-	    			//console.log(d1,d2)
+	    			// console.log(d1,d2)
 	    			t = list[i]
 	    			list[i] = list[j]
 	    			list[j] = t
 	    		}
 	    	}
 	    }
-	    console.log(list)
+	    // console.log(list)
 	    //for(var i = 0;i < list.length;i++){
-	    //	console.log(list[i].assgnByPhon)
+	    	// console.log(list[i].assgnByPhon)
 	    //	if(list[i].data.assgnByPhon == id)
 	    //		by.push(list[i])
 	    //	else
 	    //		to.push(list[i])
         //}
-        //console.log(by)
-        //console.log(to)
+        // console.log(by)
+        // console.log(to)
         //arr.push(by)
         //arr.push(to)
 	    res.send(list)
@@ -135,7 +135,7 @@ task.handleGet = function(req,res,next){
 
 task.handlePost = function(req,res,next){
 	try {
-		console.log("Creating task")
+		// console.log("Creating task")
 	    var newTask = new Object()
 		newTask.title = req.body.title.trim()
 		newTask.assgnByName = req.body.assgnByName.trim()
@@ -144,7 +144,7 @@ task.handlePost = function(req,res,next){
 		newTask.assgnToPhon = req.body.assgnToPhon.trim()
 		newTask.date = req.body.date
 	    if(check(newTask.title,newTask.assgnByName,newTask.assgnByPhon,newTask.assgnToName,newTask.assgnToPhon,newTask.date)){
-			console.log(newTask)
+			// console.log(newTask)
 			createTask(newTask)
 			res.status(200).json({
 				message:"Task created succussfully"		
@@ -162,7 +162,7 @@ task.handlePost = function(req,res,next){
 }
 
 task.handlePut = function(req,res,next){
-	console.log("Updating task")
+	// console.log("Updating task")
     try {
     	var id = req.body.id
 	    var title = req.body.data.title
@@ -173,7 +173,7 @@ task.handlePut = function(req,res,next){
 		var comment = req.body.data.comment
 		var date = req.body.data.date
 		var status = req.body.data.status
-		console.log(id)
+		// console.log(id)
 		updateTask(id,title,assgnByName,assgnByPhon,assgnToName,assgnToPhon,date,comment,status)
 		res.status(200).json({
 				message:"Task updated succussfully"
