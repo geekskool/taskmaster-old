@@ -2,6 +2,7 @@ import express from 'express'
 import user from './controller/user'
 import task from './controller/task'
 import validate from './controller/validate'
+import comment from './controller/comment'
 import bodyParser from 'body-parser'
 // import server from 'http'
 // import io from 'socket.io'()
@@ -28,6 +29,9 @@ app.put('/api/tasks', task.handlePut)
 app.get('/api/tasks/:phonenm', task.handleGet)
 app.post('/api/tasks', task.handlePost)
 app.post('/api/validate', validate.handlePost)
+app.put('/api/comment/', comment.handlePut)
+app.get('/api/comment/:id', comment.handleGet)
+
 const port = 3000
 
 
@@ -36,22 +40,15 @@ const port = 3000
 
 
 io.on('connection', function(socket) {
-
     console.log("one client connected");
-
     socket.on("joinroom", function(data) {
-
         socket.name = data;
         users[socket.name] = socket;
-
         console.log(data + " joined the room ");
-
-
     });
 
     socket.on("newTask", function(data) {
         // users[name].emit("whisper", { msg: msg, nick: socket.nickname });
-
         // users[data.assgnTo].emit("you have a new Task assigned by" + data.from);
         console.log(data);
         users[data.assgnTo].emit("notify", data.from);
@@ -85,7 +82,7 @@ io.on('connection', function(socket) {
 });
 
 
-http.listen(port, function() {
+http.listen(process.env.PORT || 3000, function() {
 
     console.log("server Started!");
 

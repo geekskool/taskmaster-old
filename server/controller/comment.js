@@ -5,9 +5,9 @@ const comment = {}
 function updateComment(id,comment){
 	graph.load()
 	var task = graph.read(id)
-	if(task.data.comment == undefined)
-		task.data.comment = ""
-	task.data.comment = task.data.comment + comment
+	if(task.data.comments == undefined)
+		task.data.comments = ""
+	task.data.comments = task.data.comments + comment
 	graph.update(task)
 	graph.save()
 }
@@ -15,7 +15,7 @@ function updateComment(id,comment){
 function getComment(id){
 	graph.load()
 	var task = graph.read(id)
-	var comment = task.data.comment
+	var comment = task.data.comments
 	console.log(comment)
 	return comment
 }
@@ -23,7 +23,7 @@ function getComment(id){
 comment.handlePut = function(req,res,next){
 	try {
 	   var id = req.body.id
-	   var comment = req.body.data.comment.trim()
+	   var comment = req.body.data.comments.trim()
 	   console.log(id,comment)
 	   updateComment(id,comment)
 	   res.status(200).json({

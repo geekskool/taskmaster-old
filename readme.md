@@ -3,7 +3,9 @@
 This is a ToDo app with basic functionality of adding and deleting tasks.
 The api is a basic REST api and can be used by AJAX calls. [Click here for a concise version of API.](https://docs.google.com/spreadsheets/d/15pkfvS9Nc6Sg1x8vCqNCdvwCvts95EDI3ZHvJL12r4Q/view#gid=0)
 
-For the app to work initially, clone it from [github repository](https://github.com/sankalp0o/todo-app-backend) and do an `npm install` in the main directory and another `npm install` inside graphology directory as well.
+The server (along with the web front-end) is hosted on heroku at https://frozen-plains-62045.herokuapp.com/
+
+For running the server locally, clone it from [github repository](https://github.com/sankalp0o/todo-app-backend) and do an `npm install` in the main directory. The dependencies for the graphology module is included in the main package.json.
 
 This documentation is divided into following parts:
 
@@ -14,7 +16,7 @@ This documentation is divided into following parts:
 5. Getting lists of tasks for a specified user
 6. Creating new task
 7. Updating tasks
-
+8. Credits
 
 Authentication
 ---
@@ -137,5 +139,15 @@ Once a task is completed we need to mark the status as done. For this purpose cl
 }
 ```
 Once the task is updated you can chose to remove it fromt he client view.
+
+
+Credits
+---
+Aditya - web front-end
+Akshar - socket.io part
+Priyanka - server code, apis
+Sankalp - queries for the db
+Santosh - the graphology module
+
 
 # That's all folks
