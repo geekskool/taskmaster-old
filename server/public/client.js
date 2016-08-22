@@ -8,6 +8,7 @@ var userList = [];
 var taskList = [];
 var assignName;
 var assignNum;
+var taskObj;
 
 var modal = document.getElementById('myModal');
 var span = document.getElementsByClassName("close")[0];
@@ -25,21 +26,38 @@ jQuery(function($) {
     var $chatbox = $('#chatbox');
     var $msg = $('#usermsg');
     var $form = $('#sendMsg');
-
+    var userTo;
     $form.submit(function(e) {
         e.preventDefault();
-        socket.emit('sendmessage', $msg.val());
-        // $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
+        if (user.name == taskObj.data.assgnToName) {
+            userTo = taskObj.data.assgnByName;
+        } else {
+            userTo = taskObj.data.assgnToName;
+        }
+
+        $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
+
+        socket.emit('sendmessage', { msg: $msg.val(), to: userTo });
+        console.log(`${taskObj.data.assgnToName} <--name`);
+        console.log(taskObj);
+
+
         $msg.val(' ');
 
     });
 
-    socket.on("new message", function(data) {
-        $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>');
+    // socket.on("new message", function(data) {
+    //     $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>');
 
-    });
+    // });
 
-    socket.on("private", function(data) {
+    // socket.on("private", function(data) {
+    //     $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>');
+
+    // });
+
+    socket.on("discuss", function(data) {
+        console.log(`${data} <--discuss on event`)
         $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>');
 
     });
@@ -220,7 +238,7 @@ function addRow(task) {
     discussbutton.innerHTML = 'Discuss';
     discussbutton.setAttribute('class', 'button')
     discussbutton.addEventListener('click', function() {
-
+        taskObj = task;
         modal.style.display = "block";
 
         console.log("Inside Discuss")
