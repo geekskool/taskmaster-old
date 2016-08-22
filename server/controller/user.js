@@ -19,7 +19,7 @@ function createNewUser(user){
         var userId =  temp[key].out //should be id
         //result.push
         if(graph.read(userId).data.phone == user.phoneNum){
-            console.log("exist")
+            //console.log("exist")
              res.status(200).json({
                 message: "User exists"
             })
@@ -28,7 +28,7 @@ function createNewUser(user){
     var query = new graph.Query(graph.find('power', 'over9000'))
     var god = query.next()
     //console.log('god', god);
-    console.log('user',user)
+    //console.log('user',user)
     const user1 = new graph.Node('user', {
      name: user.name,
      phone: user.phoneNum
@@ -49,7 +49,7 @@ function getUsers(userId){
         var userId =  temp[key].out //should be id
         result.push(graph.read(userId).data)
     }
-    console.log(result)
+    // console.log(result)
     return result 
 
     //remove authorisation token
@@ -93,9 +93,9 @@ user.handlePost = function(req,res,next){
 
 user.handleGet = function(req,res,next){
     try {
-        console.log("Getting users")
+        // console.log("Getting users")
         var id = req.params.phonenm
-        console.log(id)
+        // console.log(id)
         let list = getUsers(id)
         res.send(list)
     } catch(err) {

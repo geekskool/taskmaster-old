@@ -9,20 +9,12 @@ var taskList = [];
 var assignName;
 var assignNum;
 
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
 
 window.onload = function() {
-    document.getElementById("chat").onclick = function() {
-        var overlay = document.getElementById("overlay");
-        var popup = document.getElementById("popup");
-        overlay.style.display = "block";
-        popup.style.display = "block";
-    };
-
-    document.getElementById("Close").onclick = function() {
-        var overlay = document.getElementById("overlay");
-        var popup = document.getElementById("popup");
-        overlay.style.display = "none";
-        popup.style.display = "none";
+    span.onclick = function() {
+        modal.style.display = "none";
     }
 };
 
@@ -201,12 +193,14 @@ function addView() {
     }
 }
 
+
 function addRow(task) {
     var row = document.getElementById('tasks').insertRow();
     var taskname = row.insertCell(0);
     var owner = row.insertCell(1);
     var byDate = row.insertCell(2);
     var done = row.insertCell(3);
+    var discuss = row.insertCell(4);
 
     taskname.innerText = task.data.title;
     owner.innerText = task.data.assgnToName;
@@ -219,4 +213,17 @@ function addRow(task) {
         updateTask(task);
     })
     done.appendChild(donebutton)
+
+    var discussbutton = document.createElement('button');
+
+
+    discussbutton.innerHTML = 'Discuss';
+    discussbutton.setAttribute('class', 'button')
+    discussbutton.addEventListener('click', function() {
+
+        modal.style.display = "block";
+
+        console.log("Inside Discuss")
+    })
+    discuss.appendChild(discussbutton)
 }

@@ -16,7 +16,7 @@ function getComment(id){
 	graph.load()
 	var task = graph.read(id)
 	var comment = task.data.comments
-	console.log(comment)
+	// console.log(comment)
 	return comment
 }
 
@@ -24,7 +24,7 @@ comment.handlePut = function(req,res,next){
 	try {
 	   var id = req.body.id
 	   var comment = req.body.data.comments.trim()
-	   console.log(id,comment)
+	   // console.log(id,comment)
 	   updateComment(id,comment)
 	   res.status(200).json({
 	   	message: "Comment added"
@@ -37,7 +37,7 @@ comment.handlePut = function(req,res,next){
 comment.handleGet = function(req,res,next){
 	try {
 	   var id = req.params.id
-	   console.log(id)
+	   // console.log(id)
 	   let list = getComment(id)
 	   res.send(list)
 	} catch(err) {

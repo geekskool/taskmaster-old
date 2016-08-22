@@ -9,8 +9,8 @@ const god = new graph.Node('god', {power: 'over9000'}); //do this only once
 
 function createNewUser(user){
 	var god = new graph.Query(graph.find('power', 'over9000'));
-	console.log('god', god);
-	console.log('user',user);
+	// console.log('god', god);
+	// console.log('user',user);
 	// const user1 = new graph.Node('user', {
 	// 	name: user.name,
 	// 	phone: user.phone,
