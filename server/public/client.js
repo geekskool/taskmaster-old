@@ -207,6 +207,7 @@ function addRow(task) {
     var owner = row.insertCell(1);
     var byDate = row.insertCell(2);
     var done = row.insertCell(3);
+    var discuss = row.insertCell(4);
 
     taskname.innerText = task.data.title;
     owner.innerText = task.data.assgnToName;
@@ -219,4 +220,13 @@ function addRow(task) {
         updateTask(task);
     })
     done.appendChild(donebutton)
+
+    var discussbutton = document.createElement('button');
+    discussbutton.innerHTML = 'Discuss';
+    discussbutton.setAttribute('class', 'button')
+    discussbutton.addEventListener('click', function() {
+        
+        console.log("Inside Discuss")
+    })
+    discuss.appendChild(discussbutton)
 }
