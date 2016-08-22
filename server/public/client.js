@@ -245,3 +245,19 @@ function addRow(task) {
     })
     discuss.appendChild(discussbutton)
 }
+
+
+function getComment(task) {
+    id = task.id;
+
+    var comment = new XMLHttpRequest();
+    comment.open("GET", "/api/comment/"+id, true);
+    comment.setRequestHeader("content-type", "application/json");
+    comment.onreadystatechange = function() {
+        if (comment.readyState == 4 && comment.status == 200) {
+            console.log(responseText);
+            
+        }
+    }
+    comment.send();
+}
