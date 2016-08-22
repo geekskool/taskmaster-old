@@ -57,7 +57,7 @@ io.on('connection', function(socket) {
 
 
     socket.on("sendmessage", function(data) {
-        var msg = data.trim();
+        /*var msg = data.trim();
         if (msg.substr(0, 1) === '@') {
             var indexusr = msg.indexOf(" ");
             var privateUsr = msg.substr(1, indexusr);
@@ -73,7 +73,11 @@ io.on('connection', function(socket) {
         } else {
             io.sockets.emit("new message", { msg: data, name: socket.name });
 
-        }
+        }*/
+
+        var assignName = data.to;
+        users[assignName].emit("discuss", { msg: data.msg, name: socket.name });
+
 
     });
 
