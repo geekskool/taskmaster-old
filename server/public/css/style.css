@@ -115,6 +115,7 @@
     #usermsg {
         width: 395px;
         border: 1px solid #ACD8F0;
+        margin-left: 25px;
     }
     
     #overlay {

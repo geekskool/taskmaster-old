@@ -1,5 +1,4 @@
 var user = JSON.parse(localStorage.getItem('userData'));
-// console.log(user)
 
 var welcome = document.getElementById('welcome')
 welcome.innerText = "Welcome " + user.name;
@@ -38,9 +37,10 @@ jQuery(function($) {
         $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
 
         taskObj.data.comments = '<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>';
-        putComment(taskObj); 
 
         socket.emit('sendmessage', { msg: $msg.val(), to: userTo });
+        putComment(taskObj);
+
         console.log(`${taskObj.data.assgnToName} <--name`);
         console.log(taskObj);
 
@@ -116,7 +116,6 @@ function getTasks() {
     tasks.onreadystatechange = function() {
         if (tasks.readyState == 4 && tasks.status == 200) {
             taskList = JSON.parse(tasks.responseText);
-            //console.log(taskList);
             if (tasks.responseText.length === 0)
                 console.log(user.name + " has no tasks for him")
             addView();
@@ -174,8 +173,6 @@ function createTask() {
                 assgnTo: assignName,
                 from: user.name
             });
-
-
         }
     }
     task.send(JSON.stringify(newTask));
@@ -228,7 +225,7 @@ function addRow(task) {
     byDate.innerText = task.data.date.slice(0, 10);
 
     var donebutton = document.createElement('button');
-    donebutton.innerHTML = 'Done';
+    donebutton.innerHTML = 'X';
     donebutton.setAttribute('class', 'button')
     donebutton.addEventListener('click', function() {
         updateTask(task);
@@ -241,40 +238,46 @@ function addRow(task) {
     discussbutton.innerHTML = 'Discuss';
     discussbutton.setAttribute('class', 'button')
     discussbutton.addEventListener('click', function() {
+        $chatbox.empty();
         taskObj = task;
-        modal.style.display = "block";
-
+        getComment(task)
         console.log("Inside Discuss")
     })
     discuss.appendChild(discussbutton)
 }
 
 
+
 function getComment(task) {
     var id = task.id;
 
     var comment = new XMLHttpRequest();
-    comment.open("GET", "/api/comment/"+id, true);
+    comment.open("GET", "/api/comment/" + id, true);
     comment.setRequestHeader("content-type", "application/json");
     comment.onreadystatechange = function() {
         if (comment.readyState == 4 && comment.status == 200) {
-            console.log(comment.responseText);
-            
+            appendComment(comment.responseText);
         }
     }
     comment.send();
 }
 
 function putComment(task) {
-    
+
     var comment = new XMLHttpRequest();
     comment.open("PUT", "/api/comment/", true);
     comment.setRequestHeader("content-type", "application/json");
     comment.onreadystatechange = function() {
         if (comment.readyState == 4 && comment.status == 200) {
-            console.log(comment.responseText);
             console.log("function executed");
         }
     }
     comment.send(JSON.stringify(task));
+}
+    var $chatbox = $("#chatbox");
+
+function appendComment(comment) {
+    modal.style.display = "block";
+    console.log(comment);
+    $chatbox.append(comment);
 }
