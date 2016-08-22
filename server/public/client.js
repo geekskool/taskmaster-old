@@ -37,6 +37,9 @@ jQuery(function($) {
 
         $chatbox.append('<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>');
 
+        taskObj.data.comments = '<b>' + user.name + '</b>' + ": " + $msg.val() + '<br>';
+        putComment(taskObj); 
+
         socket.emit('sendmessage', { msg: $msg.val(), to: userTo });
         console.log(`${taskObj.data.assgnToName} <--name`);
         console.log(taskObj);
@@ -248,16 +251,30 @@ function addRow(task) {
 
 
 function getComment(task) {
-    id = task.id;
+    var id = task.id;
 
     var comment = new XMLHttpRequest();
     comment.open("GET", "/api/comment/"+id, true);
     comment.setRequestHeader("content-type", "application/json");
     comment.onreadystatechange = function() {
         if (comment.readyState == 4 && comment.status == 200) {
-            console.log(responseText);
+            console.log(comment.responseText);
             
         }
     }
     comment.send();
+}
+
+function putComment(task) {
+    
+    var comment = new XMLHttpRequest();
+    comment.open("PUT", "/api/comment/", true);
+    comment.setRequestHeader("content-type", "application/json");
+    comment.onreadystatechange = function() {
+        if (comment.readyState == 4 && comment.status == 200) {
+            console.log(comment.responseText);
+            console.log("function executed");
+        }
+    }
+    comment.send(JSON.stringify(task));
 }
