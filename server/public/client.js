@@ -220,25 +220,43 @@ function addRow (task) {
   owner.innerText = task.data.assgnToName
   byDate.innerText = task.data.date.slice(0, 10)
 
+  // var donebutton = document.createElement('button')
+  // donebutton.innerHTML = 'X'
+  // donebutton.setAttribute('class', 'button')
+  // donebutton.addEventListener('click', function () {
+  //   updateTask(task)
+  // })
+  // done.appendChild(donebutton)
+
+  // Done
+  var iconDone = document.createElement('i')
+  iconDone.setAttribute('class', 'small material-icons')
+  iconDone.innerHTML = 'clear'
+
   var donebutton = document.createElement('button')
-  donebutton.innerHTML = 'X'
+  // donebutton.innerHTML = 'X'
   donebutton.setAttribute('class', 'button')
   donebutton.addEventListener('click', function () {
     updateTask(task)
   })
   done.appendChild(donebutton)
+  donebutton.appendChild(iconDone)
+
+  var iconDiscuss = document.createElement('i')
+  iconDiscuss.setAttribute('class', 'small material-icons')
+  iconDiscuss.innerHTML = 'chat_bubble'
 
   var discussbutton = document.createElement('button')
-
-  discussbutton.innerHTML = 'Discuss'
   discussbutton.setAttribute('class', 'button')
   discussbutton.addEventListener('click', function () {
     $chatbox.empty()
     taskObj = task
+    //  console.log(task)
     getComment(task)
-    console.log('Inside Discuss')
+  //  console.log('Inside Discuss')
   })
   discuss.appendChild(discussbutton)
+  discussbutton.appendChild(iconDiscuss)
 }
 
 function getComment (task) {
@@ -266,4 +284,28 @@ function appendComment (comment) {
   modal.style.display = 'block'
   console.log(comment)
   $chatbox.append(comment)
+}
+
+function differentiateMessage (task) {
+  var appendedComment = task.data.comments
+  console.log(appendedComment)
+  console.log(typeof appendedComment)
+
+  // appendedComment.match(user.name) ? console.log('true') : console.log('false')
+
+  var str = appendedComment.split('<br>')
+  console.log(str)
+
+  for (var i = 0;i < str.length;i++) {
+    console.log(str[i])
+    if (str[i].match(user.name)) {
+      var newDiv = document.createElement('div')
+      newDiv.id = 'self'
+      var newContent = document.createTextNode(user.name)
+      newDiv.appendChild(newContent)
+
+      var currentDiv = document.getElementById('chatbox')
+      currentDiv.appendChild(newDiv)
+    }
+  }
 }
