@@ -253,6 +253,7 @@ function addRow (task) {
     taskObj = task
     //  console.log(task)
     getComment(task)
+    differentiateMessage(task)
   //  console.log('Inside Discuss')
   })
   discuss.appendChild(discussbutton)
@@ -274,6 +275,7 @@ function putComment (task) {
   comment.onreadystatechange = function () {
     if (comment.readyState == 4 && comment.status == 200) {
       console.log('function executed')
+      differentiateMessage(taskObj)
     }
   }
   comment.send(JSON.stringify(task))
@@ -282,6 +284,7 @@ var $chatbox = $('#chatbox')
 
 function appendComment (comment) {
   modal.style.display = 'block'
+  // differentiateMessage(taskObj)
   console.log(comment)
   $chatbox.append(comment)
 }
