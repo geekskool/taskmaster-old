@@ -31,7 +31,7 @@ jQuery(function ($) {
       userTo = taskObj.data.assgnToName
     }
 
-    $chatbox.append('<b>' + user.name + '</b>' + ': ' + $msg.val() + '<br>')
+    $chatbox.append('<div class="self"><b>' + user.name + '</b>' + ': ' + $msg.val() + '</div>')
 
     taskObj.data.comments = '<b>' + user.name + '</b>' + ': ' + $msg.val() + '<br>'
 
@@ -56,7 +56,7 @@ jQuery(function ($) {
 
   socket.on('discuss', function (data) {
     console.log(`${data} <--discuss on event`)
-    $chatbox.append('<b>' + data.name + '</b>' + ': ' + data.msg + '<br>')
+    $chatbox.append('<div class="other"><b>' + data.name + '</b>' + ': ' + data.msg + '</div>')
   })
 })
 
@@ -253,7 +253,6 @@ function addRow (task) {
     taskObj = task
     //  console.log(task)
     getComment(task)
-    differentiateMessage(task)
   //  console.log('Inside Discuss')
   })
   discuss.appendChild(discussbutton)
@@ -275,7 +274,6 @@ function putComment (task) {
   comment.onreadystatechange = function () {
     if (comment.readyState == 4 && comment.status == 200) {
       console.log('function executed')
-      differentiateMessage(taskObj)
     }
   }
   comment.send(JSON.stringify(task))
@@ -284,35 +282,6 @@ var $chatbox = $('#chatbox')
 
 function appendComment (comment) {
   modal.style.display = 'block'
-  // differentiateMessage(taskObj)
   console.log(comment)
   $chatbox.append(comment)
-}
-
-function differentiateMessage (task) {
-  var appendedComment = task.data.comments
-  console.log(appendedComment)
-  console.log(typeof appendedComment)
-
-  // appendedComment.match(user.name) ? console.log('true') : console.log('false')
-
-  var str = appendedComment.split('<br>')
-  console.log(str)
-
-  for (var i = 0;i < str.length;i++) {
-    console.log(str[i])
-    if (str[i].match(user.name)) {
-      var newDiv = document.createElement('div')
-      newDiv.id = 'self'
-      newDiv.classList.add('border', 'talk-bubble', 'tri-right', 'round', 'talktext' , 'right-in')
-
-      var newContent = document.createTextNode(user.name)
-      newDiv.appendChild(newContent)
-
-      var currentDiv = document.getElementById('chatbox')
-      currentDiv.appendChild(newDiv)
-
-    // 'talk-bubble', 'tri-right', 'btm-left-in', 'talktext'
-    }
-  }
 }
