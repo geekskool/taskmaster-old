@@ -304,11 +304,15 @@ function differentiateMessage (task) {
     if (str[i].match(user.name)) {
       var newDiv = document.createElement('div')
       newDiv.id = 'self'
+      newDiv.classList.add('border', 'talk-bubble', 'tri-right', 'round', 'talktext' , 'right-in')
+
       var newContent = document.createTextNode(user.name)
       newDiv.appendChild(newContent)
 
       var currentDiv = document.getElementById('chatbox')
       currentDiv.appendChild(newDiv)
+
+    // 'talk-bubble', 'tri-right', 'btm-left-in', 'talktext'
     }
   }
 }
