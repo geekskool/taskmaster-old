@@ -118,9 +118,9 @@ body {
     }
 
     #usermsg {
-        width: 427px;
+        width: 428px;
         border: 1px solid #ACD8F0;
-        margin:auto;
+        margin-left: 86px;
         /*background-color: #ea5323;*/
     }
     
@@ -280,7 +280,14 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     padding: 0;
 }
 
-#self {
+.self {
     background-color: #fff;
     border: solid 1px;
+    text-align: right;
+}
+
+.other {
+    background-color: #fff;
+    border: solid 1px;
+    text-align: left;
 }
