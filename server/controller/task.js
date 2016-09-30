@@ -56,19 +56,10 @@ function getTasks (userId) {
   return result
 }
 
-function updateTask (taskId, title, assgnByName, assgnByPhon, assgnToName, assgnToPhon, date, comment, status, deleted) {
+function markAsDone (taskId, status) { // removed comment from params
   graph.load()
-
   var task = graph.read(taskId)
-  task.data.title = title
-  task.data.assgnByName = assgnByName
-  task.data.assgnByPhon = assgnByPhon
-  task.data.assgnToName = assgnToName
-  task.data.assgnToPhon = assgnToPhon
-  task.data.date = date
-  task.data.comments.push(comment)
   task.data.status = status
-  task.data.deleted = deleted
   graph.update(task)
   graph.save()
 }
@@ -106,6 +97,7 @@ task.handleGet = function (req, res, next) {
 task.handlePost = function (req, res, next) {
   try {
     console.log(req.body)
+
     var newTask = { }
     newTask.title = req.body.title.trim()
     newTask.assgnByName = req.body.assgnByName.trim()
@@ -113,21 +105,26 @@ task.handlePost = function (req, res, next) {
     newTask.assgnToName = req.body.assgnToName.trim()
     newTask.assgnToPhon = req.body.assgnToPhon.trim()
     newTask.date = req.body.date
-    newTask.deleted = req.body.deleted
-    if (check(newTask.title, newTask.assgnByName, newTask.assgnByPhon, newTask.assgnToName, newTask.assgnToPhon, newTask.date, newTask.deleted)) {
-      // console.log(newTask)
-      createTask(newTask)
+
+    var reqTaskId = req.body.id
+    var reqTaskStatus = req.body.data.status
+    var reqTaskDeleted = req.body.data.deleted
+
+    if (reqTaskDeleted) {
+      console.log(`${reqTaskId} deleted`)
+      deleteTask(reqTaskId)
+    } else if (check(newTask.title, newTask.assgnByName, newTask.assgnByPhon, newTask.assgnToName, newTask.assgnToPhon, newTask.date, reqTaskDeleted)) {
+      // console.log(reqTask)
+      createTask(reqTask)
       res.status(200).json({
         message: 'Task created succussfully'
       })
-    } else if (deleted == true) {
-      res.status(500).json({
-        message: 'Wrong input format'
-      })
+    } else if (reqTaskStatus === false) {
+      markAsDone(reqTaskId, status)
     }
   } catch(err) {
-    res.status(500).json({
-      message: 'ERROR'
+    res.send({
+      message: 'I am here '
     })
   }
 }
