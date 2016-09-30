@@ -79,10 +79,13 @@ function addRow (task) {
   IO.click(donebutton)
     .bind(function (e) {
       task.data.status = false
+      // console.log(task)
       return new IO.postJSON('/api/tasks/', task)
     })
-    .then(function () {
+    .then(function (d, e) {
+      console.log(e)
       window.location.reload()
+    // console.log(task + 'after reload')
     })
 
   var iconDiscuss = document.createElement('i')
@@ -148,7 +151,7 @@ function addRow (task) {
       task.data.deleted = true
       return new IO.postJSON('/api/tasks/', task)
     })
-    .then(function () {
+    .then(function (data) {
       window.location.reload()
     })
 }
