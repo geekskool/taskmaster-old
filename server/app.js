@@ -6,89 +6,74 @@ import comment from './controller/comment'
 import bodyParser from 'body-parser'
 // import server from 'http'
 // import io from 'socket.io'()
-var users = {};
+var users = {}
 const app = express()
-console.log(users);
+console.log(users)
 
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
 
-
-
 app.use(bodyParser.json())
-app.use(express.static(__dirname + '/public'));
-app.get('/', function(req, res) {
-    res.redirect('/index.html');
-
-});
-
+app.use(express.static(__dirname + '/public'))
+app.get('/', function (req, res) {
+  res.redirect('/index.html')
+})
 
 app.get('/api/users/:phonenm', user.handleGet)
 app.post('/api/users', user.handlePost)
-app.put('/api/tasks', task.handlePut)
+
 app.get('/api/tasks/:phonenm', task.handleGet)
 app.post('/api/tasks', task.handlePost)
+
 app.post('/api/validate', validate.handlePost)
-app.put('/api/comment/', comment.handlePut)
+
+app.post('/api/comment/', comment.add)
 app.get('/api/comment/:id', comment.handleGet)
 
 const port = 3000
 
-
 // Sockets connection:
 
+io.on('connection', function (socket) {
+  console.log('one client connected')
+  socket.on('joinroom', function (data) {
+    socket.name = data
+    users[socket.name] = socket
+    console.log(data + ' joined the room ')
+  })
 
+  socket.on('newTask', function (data) {
+    // users[name].emit("whisper", { msg: msg, nick: socket.nickname })
+    // users[data.assgnTo].emit("you have a new Task assigned by" + data.from)
+    console.log(data)
+    users[data.assgnTo].emit('notify', data.from)
+  })
 
-io.on('connection', function(socket) {
-    console.log("one client connected");
-    socket.on("joinroom", function(data) {
-        socket.name = data;
-        users[socket.name] = socket;
-        console.log(data + " joined the room ");
-    });
+  socket.on('sendmessage', function (data) {
+    /*var msg = data.trim()
+    if (msg.substr(0, 1) === '@') {
+        var indexusr = msg.indexOf(" ")
+        var privateUsr = msg.substr(1, indexusr)
+        var privateMsg = msg.substr(indexusr + 1)
+        // console.log(privateMsg)
+        // console.log(privateUsr.trim())
+        if (privateUsr.trim() in users) {
+            console.log("user found in pv")
+            users[privateUsr.trim()].emit("private", { msg: "private Msg:" + privateMsg, name: socket.name })
+                // io.to(socketid).emit('private', { msg: "private Msg:" + privateMsg, name: socket.name })
+        }
 
-    socket.on("newTask", function(data) {
-        // users[name].emit("whisper", { msg: msg, nick: socket.nickname });
-        // users[data.assgnTo].emit("you have a new Task assigned by" + data.from);
-        console.log(data);
-        users[data.assgnTo].emit("notify", data.from);
+    } else {
+        io.sockets.emit("new message", { msg: data, name: socket.name })
 
-    });
+    }*/
 
+    var assignName = data.to
+    users[assignName].emit('discuss', { msg: data.msg, name: socket.name })
+  })
+})
 
-    socket.on("sendmessage", function(data) {
-        /*var msg = data.trim();
-        if (msg.substr(0, 1) === '@') {
-            var indexusr = msg.indexOf(" ");
-            var privateUsr = msg.substr(1, indexusr);
-            var privateMsg = msg.substr(indexusr + 1);
-            // console.log(privateMsg);
-            // console.log(privateUsr.trim());
-            if (privateUsr.trim() in users) {
-                console.log("user found in pv");
-                users[privateUsr.trim()].emit("private", { msg: "private Msg:" + privateMsg, name: socket.name })
-                    // io.to(socketid).emit('private', { msg: "private Msg:" + privateMsg, name: socket.name });
-            }
-
-        } else {
-            io.sockets.emit("new message", { msg: data, name: socket.name });
-
-        }*/
-
-        var assignName = data.to;
-        users[assignName].emit("discuss", { msg: data.msg, name: socket.name });
-
-
-    });
-
-
-
-});
-
-
-http.listen(process.env.PORT || 3000, function() {
-
-    console.log("server Started!");
-
-});
+http.listen(process.env.PORT || 3000, function () {
+  console.log('server Started!')
+})
 // app.listen(port, () => console.log(`Running on port ${port}`))
