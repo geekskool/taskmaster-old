@@ -14,13 +14,9 @@ var chatModal = document.getElementById('chat') // chat modal
 var chatBox = document.getElementById('chatbox') // chat bos
 var closeChat = document.getElementsByClassName('close')[0] // close button
 
-// var modal = document.getElementById('myModal')
-
-// window.onload = function () {
 closeChat.onclick = function () {
   chatModal.style.display = 'none'
 }
-// }
 
 // Execution starts from here
 /* IO to get other users who can be assigned tasks by the currently logged in
@@ -52,7 +48,7 @@ function getTasks () {
 }
 
 function addView (taskList) {
-  for (var i = 0; i < taskList.length; i++) {
+  for (var i = taskList.length - 1; i >= 0;i--) {
     if (taskList[i].data.status == true)
       addRow(taskList[i])
   }
@@ -65,6 +61,7 @@ function addRow (task) {
   var byDate = row.insertCell(2)
   var done = row.insertCell(3)
   var discuss = row.insertCell(4)
+  var trash = row.insertCell(5)
 
   taskname.innerText = task.data.title
   owner.innerText = task.data.assgnToName
@@ -80,8 +77,12 @@ function addRow (task) {
   donebutton.appendChild(iconDone)
   // event istener for do
   IO.click(donebutton)
-    .then(function (e) {
-      deleteTask(task)
+    .bind(function (e) {
+      task.data.status = false
+      return new IO.postJSON('/api/tasks/', task)
+    })
+    .then(function () {
+      window.location.reload()
     })
 
   var iconDiscuss = document.createElement('i')
@@ -94,7 +95,6 @@ function addRow (task) {
     chatModal.style.display = 'block' // display chat modal
     chatBox.innerHTML = null
     taskObj = task
-  // getComment(task)
   })
   discuss.appendChild(discussbutton)
   discussbutton.appendChild(iconDiscuss)
@@ -110,10 +110,46 @@ function addRow (task) {
 
       taskObj = task
 
-      for ( var i = 0; i < comments.length; i++) // render previous comments
-      {
+      // render previous comments
+      for ( var i = 0; i < comments.length; i++) {
         displayComment(comments[i])
       }
+    })
+
+  IO.click(sendButton)
+    .map(function () {
+      var timestamp = Date()
+      return {
+        'sentBy': user.name,
+        'time': timestamp,
+        'message': userMsg.value
+      }
+    })
+    .bind(function (outGoingMsg) {
+      socket.emit('sendmessage', outGoingMsg)
+      displayComment(outGoingMsg)
+      return new IO.postJSON('/api/comment/', { 'id': task.id, 'comment': outGoingMsg})
+    })
+    .then(function (e) { console.log('msg sent')} // add function to post comment
+  )
+
+  var iconTrash = document.createElement('i')
+  iconTrash.setAttribute('class', 'small material-icons')
+  iconTrash.innerHTML = 'delete'
+
+  var trashbutton = document.createElement('button')
+  trashbutton.setAttribute('class', 'button')
+  trash.appendChild(trashbutton)
+  trashbutton.appendChild(iconTrash)
+
+  // event istener for do
+  IO.click(trashbutton)
+    .bind(function (e) {
+      task.data.deleted = true
+      return new IO.postJSON('/api/tasks/', task)
+    })
+    .then(function () {
+      window.location.reload()
     })
 }
 
@@ -129,47 +165,44 @@ function displayComment (comment) {
   chatBox.appendChild(msg) // creates new div for msg inside the chatbox
 }
 
-function deleteTask (task) {
-  task.data.status = false
-
-  var update = new XMLHttpRequest()
-  update.open('PUT', '/api/tasks/', true)
-  update.setRequestHeader('content-type', 'application/json')
-  update.onreadystatechange = function () {
-    if (update.readyState == 4 && update.status == 200) {
-      getTasks()
-      location.reload(true)
-    }
-  }
-  update.send(JSON.stringify(task))
+// Event Listener to Close Chat Box
+closeChat.onclick = function () {
+  chatModal.style.display = 'none'
 }
 
-// function getComment (task) {
-//   var id = task.id
+// event listener for socket connection
+socket.on('connect', function () {
+  console.log('connected to server')
+  socket.emit('joinroom', user.name)
+})
 
-//   httpGet('/api/comment/' + id, function (rt) {
-//     appendComment(rt)
-//   })
+// recieving message
+
+socket.on('discuss', function (incomingMsg) {
+  displayComment(incomingMsg)
+})
+
+// sending messages
+var sendButton = document.querySelector('#submitmsg')
+var userMsg = document.querySelector('#usermsg')
+
+// function putComment (task) {
+//   var comment = new XMLHttpRequest()
+//   comment.open('PUT', '/api/comment/', true)
+//   comment.setRequestHeader('content-type', 'application/json')
+//   comment.onreadystatechange = function () {
+//     if (comment.readyState == 4 && comment.status == 200) {
+//       console.log('function executed')
+//     }
+//   }
+//   comment.send(JSON.stringify(task))
 // }
 
-function putComment (task) {
-  var comment = new XMLHttpRequest()
-  comment.open('PUT', '/api/comment/', true)
-  comment.setRequestHeader('content-type', 'application/json')
-  comment.onreadystatechange = function () {
-    if (comment.readyState == 4 && comment.status == 200) {
-      console.log('function executed')
-    }
-  }
-  comment.send(JSON.stringify(task))
-}
-var $chatbox = $('#chatbox')
-
-function appendComment (comment) {
-  chatModal.style.display = 'block'
-  console.log(comment)
-  $chatbox.append(comment)
-}
+// function appendComment (comment) {
+//   chatModal.style.display = 'block'
+//   console.log(comment)
+//   $chatbox.append(comment)
+// }
 
 function assignTo () {
   selectName = document.getElementById('assignTo')
@@ -218,47 +251,6 @@ function createTask () {
   })
 }
 
-jQuery(function ($) {
-  var $chatbox = $('#chatbox')
-  var $msg = $('#usermsg')
-  var $form = $('#sendMsg')
-  var userTo
-  $form.submit(function (e) {
-    e.preventDefault()
-    if (user.name == taskObj.data.assgnToName) {
-      userTo = taskObj.data.assgnByName
-    } else {
-      userTo = taskObj.data.assgnToName
-    }
-
-    $chatbox.append('<div class="self"><b>' + user.name + '</b>' + ': ' + $msg.val() + '</div>')
-
-    taskObj.data.comments = '<b>' + user.name + '</b>' + ': ' + $msg.val() + '<br>'
-
-    socket.emit('sendmessage', { msg: $msg.val(), to: userTo })
-    putComment(taskObj)
-
-    console.log(`${taskObj.data.assgnToName} <--name`)
-    console.log(taskObj)
-
-    $msg.val(' ')
-  })
-
-  socket.on('discuss', function (data) {
-    console.log(`${data} <--discuss on event`)
-    $chatbox.append('<div class="other"><b>' + data.name + '</b>' + ': ' + data.msg + '</div>')
-  })
-})
-
-socket.on('connect', function () {
-  console.log('connected to server')
-  socket.emit('joinroom', user.name)
-})
-
-socket.on('notify', function (data) {
-  alert('you have a new task from  ' + data)
-})
-
 function httpRequest (method, url, callback) {
   console.log('inside httpRequest')
   var request = new XMLHttpRequest()
@@ -273,13 +265,6 @@ function httpRequest (method, url, callback) {
   return request
 }
 
-function httpGet (url, callback) {
-  var request = httpRequest('GET', url, function (request) {
-    callback(request.responseText)
-  })
-  request.send()
-}
-
 function httpPost (url, body, callback) {
   var request = httpRequest('POST', url, function (request) {
     console.log('inside httpPost')
@@ -288,11 +273,3 @@ function httpPost (url, body, callback) {
   console.log(request)
   request.send(JSON.stringify(body))
 }
-
-// function httpGetJSON (url, callback) {
-//   httpGet(url, callback)
-// }
-
-// httpGetJSON('https://api.github.com/', function (responseText) {
-//   console.log(JSON.parse(responseText))
-// })
