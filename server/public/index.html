@@ -6,6 +6,7 @@
     
     <!-- Auth0Lock script -->
     <script src="https://cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
+    <script src="js/io-square-browser.js"></script>
     <script type="text/javascript">
     function login() {
         // Initialize Passwordless Lock instance
@@ -29,55 +30,21 @@
             }
         });
     }
-
-
-
-
-
+    
     function setusername(token, name) {
         var data = {
             accessToken: token,
             phone: name
         };
 
-        console.log(data);
-        var http = new XMLHttpRequest();
-        http.open("POST", "/api/validate", true)
-        http.setRequestHeader("content-type", "application/json");
-        http.onreadystatechange = function() {
-            if (http.readyState == 4 && http.status == 200) {
-                console.log(http.responseText)
-                var resData = JSON.parse(http.responseText);
-                var userData = {
-                    name: resData.name,
-                    phone: resData.phone
-                };
-                if (userData.name == "") {
-                    while (userData.name == "" || userData.name === "\s" || userData.name === null) {
-                        userData.name = prompt("Enter your name (without spaces)");
-                    }
-                    console.log(localStorage.getItem(userData));
-                    var xhrData = {
-                        name: userData.name,
-                        phonenm: userData.phone
-                    };
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "/api/users", true);
-                    xhr.setRequestHeader("content-type", "application/json");
-                    xhr.onreadystatechange = function(){
-                        if(xhr.readyState == 4 && xhr.status == 200){
-                            console.log(xhr.responseText)
-                            window.location = "/todo.html";
-                        }
-                    }
-                    xhr.send(JSON.stringify(xhrData));                    
-                }
-                localStorage.setItem('userData', JSON.stringify(userData));
-                window.location = "/todo.html";                
-            }
-        }
-        http.send(JSON.stringify(data));
+    
+        IO.postJSON('/api/validate',data)
+            .then(function(data){
+                localStorage.setItem('userData',JSON.stringify(data))
+                window.location = '/todo.html'
+            })
     }
+    login()
     </script>
 </head>
 
