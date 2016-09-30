@@ -1,7 +1,9 @@
 var user = JSON.parse(localStorage.getItem('userData'))
+
 var welcome = document.getElementById('welcome')
 welcome.innerText = 'Welcome ' + user.name
 
+var userList = []
 var taskList = []
 var assignName
 var assignNum
@@ -10,86 +12,11 @@ var taskObj
 var modal = document.getElementById('myModal')
 var span = document.getElementsByClassName('close')[0]
 
-span.onclick = function () {
-  modal.style.display = 'none'
-}
-
-IO.getJSON('/api/users/' + user.phone)
-  .then(function (userList) {
-    populateUsers(userList)
-  })
-
-IO.getJSON('/api/tasks/' + user.phone)
-  .then(function (taskList) {
-    addView(taskList)
-  })
-
-function addView (taskList) {
-  for (var i = 0; i < taskList.length; i++) {
-    if (taskList[i].data.status === true) {
-      addRow(taskList[i])
-    }
+window.onload = function () {
+  span.onclick = function () {
+    modal.style.display = 'none'
   }
 }
-
-function addRow (task) {
-  var row = document.getElementById('tasks').insertRow()
-  var taskname = row.insertCell(0)
-  var owner = row.insertCell(1)
-  var byDate = row.insertCell(2)
-  var done = row.insertCell(3)
-  var discuss = row.insertCell(4)
-
-  taskname.innerText = task.data.title
-  owner.innerText = task.data.assgnToName
-  byDate.innerText = task.data.date.slice(0, 10)
-
-  // Done
-  var iconDone = document.createElement('i')
-  iconDone.setAttribute('class', 'small material-icons')
-  iconDone.innerHTML = 'clear'
-
-  var donebutton = document.createElement('button')
-  // donebutton.innerHTML = 'X'
-  donebutton.setAttribute('class', 'button')
-  donebutton.addEventListener('click', function () {
-    updateTask(task)
-  })
-  done.appendChild(donebutton)
-  donebutton.appendChild(iconDone)
-
-  var iconDiscuss = document.createElement('i')
-  iconDiscuss.setAttribute('class', 'small material-icons')
-  iconDiscuss.innerHTML = 'chat_bubble'
-
-  var discussbutton = document.createElement('button')
-  discussbutton.setAttribute('class', 'button')
-  // discussbutton.addEventListener('click', function () {
-  //   $chatbox.empty()
-  //   taskObj = task
-  //   getComment(task)
-  // })
-  IO.click(discussbutton)
-    .bind(function (event) {
-      return new IO.getJSON('/api/comment/' + task.id)
-    }).
-    .then( function(event, task){
-      $chatbox.empty()
-      taskObj = task
-      getComment(task)
-      console.log(comments)
-    })
-
-   discuss.appendChild(discussbutton)
-   discussbutton.appendChild(iconDiscuss)
-}
-
-function appendComment (comment) {
-  modal.style.display = 'block'
-  // var previous = comment.split('</br>')
-  $chatbox.append(comment)
-}
-
 
 jQuery(function ($) {
   var $chatbox = $('#chatbox')
@@ -98,7 +25,7 @@ jQuery(function ($) {
   var userTo
   $form.submit(function (e) {
     e.preventDefault()
-    if (user.name === taskObj.data.assgnToName) {
+    if (user.name == taskObj.data.assgnToName) {
       userTo = taskObj.data.assgnByName
     } else {
       userTo = taskObj.data.assgnToName
@@ -116,6 +43,16 @@ jQuery(function ($) {
 
     $msg.val(' ')
   })
+
+  // socket.on("new message", function(data) {
+  //     $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>')
+
+  // })
+
+  // socket.on("private", function(data) {
+  //     $chatbox.append('<b>' + data.name + '</b>' + ": " + data.msg + '<br>')
+
+  // })
 
   socket.on('discuss', function (data) {
     console.log(`${data} <--discuss on event`)
@@ -135,6 +72,7 @@ socket.on('notify', function (data) {
 })
 
 // getUsers(populateUsers)
+getUsers()
 
 function httpRequest (method, url, callback) {
   console.log('inside httpRequest')
@@ -142,7 +80,7 @@ function httpRequest (method, url, callback) {
   request.open(method, url, true)
   request.setRequestHeader('content-type', 'application/json')
   request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
+    if (request.readyState == 4 && request.status == 200) {
       console.log(request)
       callback(request)
     }
@@ -150,13 +88,43 @@ function httpRequest (method, url, callback) {
   return request
 }
 
+function httpGet (url, callback) {
+  var request = httpRequest('GET', url, function (request) {
+    callback(request.responseText)
+  })
+  request.send()
+}
 
+function httpPost (url, body, callback) {
+  var request = httpRequest('POST', url, function (request) {
+    console.log('inside httpPost')
+    callback(request)
+  })
+  console.log(request)
+  request.send(JSON.stringify(body))
+}
+
+function getUsers () {
+  httpGet('/api/users/' + user.phone, function (rt) {
+    // console.log(rt)
+    userList = JSON.parse(rt)
+    populateUsers()
+  })
+}
+
+function getTasks () {
+  httpGet('/api/tasks/' + user.phone, function (rt) {
+    // console.log(rt)
+    taskList = JSON.parse(rt)
+    addView()
+  })
+}
 
 function assignTo () {
   selectName = document.getElementById('assignTo')
   assignName = selectName.options[selectName.selectedIndex].text
   for (var i = 0; i < userList.length; i++) {
-    if (userList[i].name === assignName) {
+    if (userList[i].name == assignName) {
       assignNum = userList[i].phone
       break
     }
@@ -166,10 +134,10 @@ function assignTo () {
 function createTask () {
   assignTo()
   var date = document.getElementById('date').value
-  var today = new Date()
+  var today = new Date
 
-  if (date === '') {
-    date = new Date()
+  if (date == '') {
+    date = new Date
     date = new Date(date.setTime(date.getTime() + 86400000))
     date = date.toJSON().slice(0, 10)
   }
@@ -199,7 +167,15 @@ function createTask () {
   })
 }
 
-function populateUsers (userList) {
+// function httpGetJSON (url, callback) {
+//   httpGet(url, callback)
+// }
+
+// httpGetJSON('https://api.github.com/', function (responseText) {
+//   console.log(JSON.parse(responseText))
+// })
+
+function populateUsers () {
   var assign = document.getElementById('assignTo')
   for (var i = 0; i < userList.length; i++) {
     var option = document.createElement('option')
@@ -207,6 +183,7 @@ function populateUsers (userList) {
     option.innerText = userList[i].name
     assign.appendChild(option)
   }
+  getTasks()
 }
 
 function updateTask (task) {
@@ -216,7 +193,7 @@ function updateTask (task) {
   update.open('PUT', '/api/tasks/', true)
   update.setRequestHeader('content-type', 'application/json')
   update.onreadystatechange = function () {
-    if (update.readyState === 4 && update.status === 200) {
+    if (update.readyState == 4 && update.status == 200) {
       getTasks()
       location.reload(true)
     }
@@ -224,19 +201,87 @@ function updateTask (task) {
   update.send(JSON.stringify(task))
 }
 
+function addView () {
+  for (var i = 0; i < taskList.length; i++) {
+    if (taskList[i].data.status == true)
+      addRow(taskList[i])
+  }
+}
 
+function addRow (task) {
+  var row = document.getElementById('tasks').insertRow()
+  var taskname = row.insertCell(0)
+  var owner = row.insertCell(1)
+  var byDate = row.insertCell(2)
+  var done = row.insertCell(3)
+  var discuss = row.insertCell(4)
 
+  taskname.innerText = task.data.title
+  owner.innerText = task.data.assgnToName
+  byDate.innerText = task.data.date.slice(0, 10)
 
+  // var donebutton = document.createElement('button')
+  // donebutton.innerHTML = 'X'
+  // donebutton.setAttribute('class', 'button')
+  // donebutton.addEventListener('click', function () {
+  //   updateTask(task)
+  // })
+  // done.appendChild(donebutton)
+
+  // Done
+  var iconDone = document.createElement('i')
+  iconDone.setAttribute('class', 'small material-icons')
+  iconDone.innerHTML = 'clear'
+
+  var donebutton = document.createElement('button')
+  // donebutton.innerHTML = 'X'
+  donebutton.setAttribute('class', 'button')
+  donebutton.addEventListener('click', function () {
+    updateTask(task)
+  })
+  done.appendChild(donebutton)
+  donebutton.appendChild(iconDone)
+
+  var iconDiscuss = document.createElement('i')
+  iconDiscuss.setAttribute('class', 'small material-icons')
+  iconDiscuss.innerHTML = 'chat_bubble'
+
+  var discussbutton = document.createElement('button')
+  discussbutton.setAttribute('class', 'button')
+  discussbutton.addEventListener('click', function () {
+    $chatbox.empty()
+    taskObj = task
+    //  console.log(task)
+    getComment(task)
+  //  console.log('Inside Discuss')
+  })
+  discuss.appendChild(discussbutton)
+  discussbutton.appendChild(iconDiscuss)
+}
+
+function getComment (task) {
+  var id = task.id
+
+  httpGet('/api/comment/' + id, function (rt) {
+    appendComment(rt)
+  })
+}
 
 function putComment (task) {
   var comment = new XMLHttpRequest()
   comment.open('PUT', '/api/comment/', true)
   comment.setRequestHeader('content-type', 'application/json')
   comment.onreadystatechange = function () {
-    if (comment.readyState === 4 && comment.status === 200) {
+    if (comment.readyState == 4 && comment.status == 200) {
       console.log('function executed')
     }
   }
   comment.send(JSON.stringify(task))
 }
 var $chatbox = $('#chatbox')
+
+function appendComment (comment) {
+  modal.style.display = 'block'
+  console.log(comment)
+  $chatbox.append(comment)
+}
