@@ -10,24 +10,20 @@ var assignNum
 var taskObj
 
 var socket = io()
-var chatModal = document.getElementById('chat') // chat modal
-var chatBox = document.getElementById('chatbox') // chat bos
-var closeChat = document.getElementsByClassName('close')[0] // close button
+var chatModal = document.getElementById('chat')
+var chatBox = document.getElementById('chatbox')
+var closeChat = document.getElementsByClassName('close')[0]
 
 closeChat.onclick = function () {
   chatModal.style.display = 'none'
 }
 
-// Execution starts from here
-/* IO to get other users who can be assigned tasks by the currently logged in
-   user */
 IO.getJSON('/api/users/' + user.phone)
   .then(function (users) {
     userList = users
     populateUserList(userList)
   })
 
-// function to fetch the list of users and render it in the HTML list
 function populateUserList () {
   var assign = document.getElementById('assignTo')
   for (var i = 0; i < userList.length; i++) {
@@ -40,11 +36,11 @@ function populateUserList () {
 }
 
 function getTasks () {
-  // IO to fetch the tasks object of a user
   IO.getJSON('/api/tasks/' + user.phone)
     .then(function (taskList) {
       addView(taskList)
     })
+// 
 }
 
 function addView (taskList) {
@@ -79,13 +75,10 @@ function addRow (task) {
   IO.click(donebutton)
     .bind(function (e) {
       task.data.status = false
-      // console.log(task)
       return new IO.postJSON('/api/tasks/', task)
     })
-    .then(function (d, e) {
-      console.log(e)
+    .then(function (e, res) {
       window.location.reload()
-    // console.log(task + 'after reload')
     })
 
   var iconDiscuss = document.createElement('i')
@@ -102,18 +95,15 @@ function addRow (task) {
   discuss.appendChild(discussbutton)
   discussbutton.appendChild(iconDiscuss)
 
-  // code to get chat box
   IO.click(discussbutton)
     .bind(function (event) {
       return new IO.getJSON('/api/comment/' + task.id)
     })
     .then(function (event, comments) {
-      chatModal.style.display = 'block' // display chat modal
+      taskObj = task
+      chatModal.style.display = 'block'
       chatBox.innerHTML = null
 
-      taskObj = task
-
-      // render previous comments
       for ( var i = 0; i < comments.length; i++) {
         displayComment(comments[i])
       }
@@ -145,7 +135,7 @@ function addRow (task) {
   trash.appendChild(trashbutton)
   trashbutton.appendChild(iconTrash)
 
-  // event istener for do
+  // event listener for do
   IO.click(trashbutton)
     .bind(function (e) {
       task.data.deleted = true
@@ -201,12 +191,6 @@ var userMsg = document.querySelector('#usermsg')
 //   comment.send(JSON.stringify(task))
 // }
 
-// function appendComment (comment) {
-//   chatModal.style.display = 'block'
-//   console.log(comment)
-//   $chatbox.append(comment)
-// }
-
 function assignTo () {
   selectName = document.getElementById('assignTo')
   assignName = selectName.options[selectName.selectedIndex].text
@@ -245,34 +229,15 @@ function createTask () {
     assgnToName: assignName,
     assgnToPhon: assignNum
   }
-  httpPost('/api/tasks/', newTask, function (rt) {
-    window.location.reload()
-    socket.emit('newTask', {
-      assgnTo: assignName,
-      from: user.name
+
+  IO.postJSON('/api/tasks/', newTask)
+    .then(function (e) {
+      // window.location.reload()
+      // include socket emit
+      //   socket.emit('newTask', {
+      //     assgnTo: assignName,
+      //     from: user.name
+      //   })
     })
-  })
-}
-
-function httpRequest (method, url, callback) {
-  console.log('inside httpRequest')
-  var request = new XMLHttpRequest()
-  request.open(method, url, true)
-  request.setRequestHeader('content-type', 'application/json')
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      console.log(request)
-      callback(request)
-    }
-  }
-  return request
-}
-
-function httpPost (url, body, callback) {
-  var request = httpRequest('POST', url, function (request) {
-    console.log('inside httpPost')
-    callback(request)
-  })
-  console.log(request)
-  request.send(JSON.stringify(body))
+  window.location.reload()
 }
