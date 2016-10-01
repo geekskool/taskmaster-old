@@ -43,31 +43,11 @@ io.on('connection', function (socket) {
   })
 
   socket.on('newTask', function (data) {
-    // users[name].emit("whisper", { msg: msg, nick: socket.nickname })
-    // users[data.assgnTo].emit("you have a new Task assigned by" + data.from)
     console.log(data)
     users[data.assgnTo].emit('notify', data.from)
   })
 
   socket.on('sendmessage', function (data) {
-    /*var msg = data.trim()
-    if (msg.substr(0, 1) === '@') {
-        var indexusr = msg.indexOf(" ")
-        var privateUsr = msg.substr(1, indexusr)
-        var privateMsg = msg.substr(indexusr + 1)
-        // console.log(privateMsg)
-        // console.log(privateUsr.trim())
-        if (privateUsr.trim() in users) {
-            console.log("user found in pv")
-            users[privateUsr.trim()].emit("private", { msg: "private Msg:" + privateMsg, name: socket.name })
-                // io.to(socketid).emit('private', { msg: "private Msg:" + privateMsg, name: socket.name })
-        }
-
-    } else {
-        io.sockets.emit("new message", { msg: data, name: socket.name })
-
-    }*/
-
     var assignName = data.to
     users[assignName].emit('discuss', { msg: data.msg, name: socket.name })
   })
