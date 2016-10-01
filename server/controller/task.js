@@ -4,6 +4,7 @@ const task = {}
 
 function createTask (task) {
   graph.load()
+
   const taskObject = {}
   taskObject.title = task.title
   taskObject.status = true
@@ -19,15 +20,13 @@ function createTask (task) {
 
   let query = new graph.Query(graph.find('phone', task.assgnByPhon))
   var assignee = query.next()
-  // console.log(assignee)
 
   if (task.assgnToPhon == task.assgnByPhon) {
     taskNode.addEdge('by', assignee)
     graph.save()
-  }else {
+  } else {
     let query2 = new graph.Query(graph.find('phone', task.assgnToPhon))
     var assigner = query2.next()
-    // console.log(assigner)
 
     taskNode.addEdge('by', assignee)
     taskNode.addEdge('to', assigner)
@@ -52,22 +51,32 @@ function getTasks (userId) {
       result.push(_task)
     }
   }
-  // console.log(result)
   return result
 }
 
-function markAsDone (taskId, status) { // removed comment from params
+function markAsDone (task) {
+  console.log('marking as done', task.id)
   graph.load()
-  var task = graph.read(taskId)
-  task.data.status = status
-  graph.update(task)
+  var updatedTask = graph.read(task.id)
+  updatedTask.data.title = task.data.title
+  updatedTask.data.assgnByName = task.data.assgnByName
+  updatedTask.data.assgnByPhon = task.data.assgnByPhon
+  updatedTask.data.assgnToName = task.data.assgnToName
+  updatedTask.data.assgnToPhon = task.data.assgnToPhon
+  updatedTask.data.date = task.data.date
+  updatedTask.data.comments = task.data.comments
+  updatedTask.data.status = task.data.status
+  updatedTask.data.deleted = task.data.deleted
+
+  graph.update(updatedTask)
   graph.save()
+  console.log('task marked as done')
 }
 
-function check (title, toName, toNum, byName, byNum, date, del) {
-  if (title == '' || toName == '' || toNum == '' || byName == '' || byNum == '' || date == '' || del == false)
-    return false
-  return true
+function check (task) {
+  if (task.title !== '' && task.assgnToName !== '' && task.assgnToPhon !== '' && task.assgnByName !== '' && task.assgnByPhon !== '' && task.date !== '')
+    return true
+  return false
 }
 
 task.handleGet = function (req, res, next) {
@@ -96,37 +105,31 @@ task.handleGet = function (req, res, next) {
 
 task.handlePost = function (req, res, next) {
   try {
-    console.log(req.body)
+    var task = req.body // stores each incoming task object
 
-    var newTask = { }
-    newTask.title = req.body.title.trim()
-    newTask.assgnByName = req.body.assgnByName.trim()
-    newTask.assgnByPhon = req.body.assgnByPhon.trim()
-    newTask.assgnToName = req.body.assgnToName.trim()
-    newTask.assgnToPhon = req.body.assgnToPhon.trim()
-    newTask.date = req.body.date
-
-    var reqTaskId = req.body.id
-    var reqTaskStatus = req.body.data.status
-    var reqTaskDeleted = req.body.data.deleted
-
-    if (reqTaskDeleted) {
-      console.log(`${reqTaskId} deleted`)
-      deleteTask(reqTaskId)
-    } else if (check(newTask.title, newTask.assgnByName, newTask.assgnByPhon, newTask.assgnToName, newTask.assgnToPhon, newTask.date, reqTaskDeleted)) {
-      // console.log(reqTask)
-      createTask(reqTask)
-      res.status(200).json({
-        message: 'Task created succussfully'
+    if (task.data !== undefined && task.data.deleted === true) {
+      deleteTask(task)
+      res.send({
+        message: 'Task deleted'
       })
-    } else if (reqTaskStatus === false) {
-      markAsDone(reqTaskId, status)
+    }  else if (task.data !== undefined && task.data.status === false) {
+      markAsDone(task)
+      res.send({message: 'task done'})
+    } else if (check(task)) {
+      createTask(task)
+      res.send({
+        message: 'Task created successfully'
+      })
     }
   } catch(err) {
     res.send({
-      message: 'I am here '
+      message: 'ERROR'
     })
   }
+}
+
+function deleteTask (task) {
+  graph.load()
 }
 
 export default task
