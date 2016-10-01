@@ -62,89 +62,72 @@ body {
 }
 
 /* CSS Document */
-    form,
-    p,
-    span {
-        margin: 0;
-        padding: 0;
-    }
-    
-    input {
-        font: 12px arial;
-    }
-    
-    a {
-        color: #0000FF;
-        text-decoration: none;
-    }
-    
-    a:hover {
-        text-decoration: underline;
-    }
-    
-    #wrapper {
-        padding-top: 25px;
-        margin: 0 auto;
-        padding-bottom: 25px;
-        background: #EBF4FB;
-        width: 100%;
-        height: 100%;
-        border: 1px solid #ACD8F0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-       
-    #sendMsg {
-        display: flex;
-        flex-direction: row;
-        /*align-items: center;*/
-    }
-    #chatbox {
-        text-align: left;
-        margin: 0 auto;
-        margin-bottom: 25px;
-        padding: 10px;
-        background: #ACD8F0;
-        height: 270px;
-        width: 430px;
-        border: 1px solid #ACD8F0;
-        overflow: auto;
-    }
+form,
+p,
+span {
+    margin: 0;
+    padding: 0;
+}
 
-    #chat{
-        margin-left: 80px;
-        margin-top: 80px;   
-    }
+input {
+    font: 12px arial;
+}
 
-    #usermsg {
-        width: 428px;
-        border: 1px solid #ACD8F0;
-        margin-left: 86px;
-        /*background-color: #ea5323;*/
-    }
-    
-    #overlay {
-        display:none;    
-        position:fixed;  
-        left:0px;        
-        top:0px;         
-        width:100%;      
-        height:100%;     
-        background:#000; 
-        opacity:0.5;     
-        z-index:99999;   
-    }
+a {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#sendMsg {
+    display: flex;
+    flex-direction: row;
+    /*align-items: center;*/
+}
+#chatbox {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #ACD8F0;
+    height: 100%;
+    width: 85%;
+    border: 1px solid #ACD8F0;
+    overflow: auto;
+}
+
+#chat{
+    margin-left: 80px;
+    margin-top: 80px;   
+}
+
+#usermsg {
+    width: 85%;
+    border: 1px solid #ACD8F0;
+}
+
+#overlay {
+    display:none;    
+    position:fixed;  
+    left:0px;        
+    top:0px;         
+    width:100%;      
+    height:100%;     
+    background:#000; 
+    opacity:0.5;     
+    z-index:99999;   
+}
 
 #submitmsg {
-    margin-left: 36px;
+    margin: 10px;
 }
 
 #popup {
     display:none;
-    position:fixed;
-    /*left:50%;        
-    top:50%;  */       
+    position:fixed;    
     width:100%;     
     height:100%;
     margin-top:-250px;
@@ -162,7 +145,7 @@ body {
     left: 0;
     /*top: 0;*/
     top: 14%;
-    width: 100%; /* Full width */
+    width: 80%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
@@ -178,49 +161,46 @@ body {
     /*border: 1px solid #888;*/
     width: 100%; /* Could be more or less, depending on screen size */
     height: 100%;
+    padding-top: 25px;
+    border: 1px solid #ACD8F0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color: #000;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
-
 #title, #welcome, #tasks {
     margin: 0.78rem 0px 1.424rem 15px;
 }
-
 h2, #tasks th {
     color: #ea5323;
 }
-
 #tasks td {
     padding: 3px 5px;
 }
 .btn, .btn:hover, .btn-large:hover {
     background-color: #ea5323;
 }
-
 table {
     border-collapse: inherit;
     overflow-y: scroll;
 }
-
 input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #ea5323;
     box-shadow: 0 1px 0 0 #ea5323;
 }
-
-
 .talk-bubble {
     margin: 8px;
     display: flex;
@@ -236,58 +216,26 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
 }
-
-/* Right triangle, right side slightly down*/
-.tri-right.border.right-in:before {
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-  left: auto;
-    right: -40px;
-  top: 30px;
-    bottom: auto;
-    border: 20px solid;
-    border-color: #666 transparent transparent #666;
-}
-.tri-right.right-in:after{
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-  left: auto;
-    right: -20px;
-  top: 38px;
-    bottom: auto;
-    border: 12px solid;
-    border-color: lightyellow transparent transparent lightyellow;
-}
-
-/* talk bubble contents */
-
-.talktext {
-    padding: 3em;
-    text-align: left;
-    line-height: 0.5em;
-}
-
-.talktext p{
-  -webkit-margin-before: 0em;
-  -webkit-margin-after: 0em;
-}
-
 .modal .modal-content {
     padding: 0;
 }
-
 .self {
     background-color: #fff;
-    border: solid 1px;
+    border: 3px solid #666;
     text-align: right;
+    border-radius: 5px;
+    width: 40%;
+    float: right;
+    clear: both;
+    margin-bottom: 10px;
 }
-
 .other {
     background-color: #fff;
-    border: solid 1px;
+    border: 3px solid #666;
     text-align: left;
+    border-radius: 5px;
+    width: 40%;
+    float: left;
+    clear: both;
+    margin-bottom: 10px;
 }
