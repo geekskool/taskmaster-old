@@ -123,7 +123,7 @@ function addRow (task) {
       displayComment(outGoingMsg)
       return new IO.postJSON('/api/comment/', { 'id': task.id, 'comment': outGoingMsg})
     })
-    .then(function (e) { console.log('msg sent')} // add function to post comment
+    .then(function (e, r) { console.log(e, r)} // add function to post comment
   )
 
   var iconTrash = document.createElement('i')
@@ -149,7 +149,6 @@ function addRow (task) {
 function displayComment (comment) {
   var msg = document.createElement('div') // create a new div
   msg.innerHTML = comment.sentBy + ' ' + comment.time + ' ' + comment.message
-
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'self')
   } else {
@@ -167,6 +166,11 @@ closeChat.onclick = function () {
 socket.on('connect', function () {
   console.log('connected to server')
   socket.emit('joinroom', user.name)
+})
+
+socket.on('notify', function (data) {
+  alert('you have a new task from  ' + data)
+  window.location.reload()
 })
 
 // recieving message
@@ -232,12 +236,11 @@ function createTask () {
 
   IO.postJSON('/api/tasks/', newTask)
     .then(function (e) {
-      // window.location.reload()
-      // include socket emit
-      //   socket.emit('newTask', {
-      //     assgnTo: assignName,
-      //     from: user.name
-      //   })
+      socket.emit('newTask', {
+        assgnTo: assignName,
+        from: user.name
+      })
+    // window.location.reload()
     })
   window.location.reload()
 }
