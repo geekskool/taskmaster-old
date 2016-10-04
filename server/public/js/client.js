@@ -14,16 +14,15 @@ var chatModal = document.getElementById('chat')
 var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
 
-IO.click(closeChat)
-  .then(function () {
-    chatModal.style.display = 'none'
-  })
-
 IO.getJSON('/api/users/' + user.phone)
   .then(function (users) {
     userList = users
     populateUserList(userList)
   })
+function getTasks () {
+  IO.getJSON('/api/tasks/' + user.phone)
+      .then(addView(taskList))
+}
 
 function populateUserList () {
   var assign = document.getElementById('assignTo')
@@ -36,16 +35,8 @@ function populateUserList () {
   getTasks()
 }
 
-function getTasks () {
-  IO.getJSON('/api/tasks/' + user.phone)
-    .then(function (taskList) {
-      addView(taskList)
-    })
-// 
-}
-
 function addView (taskList) {
-  for (var i = taskList.length - 1; i >= 0;i--) {
+  for (var i = taskList.length - 1; i >= 0; i--) {
     if (taskList[i].data.status == true)
       addRow(taskList[i])
   }
@@ -72,15 +63,6 @@ function addRow (task) {
   donebutton.setAttribute('class', 'button')
   done.appendChild(donebutton)
   donebutton.appendChild(iconDone)
-  // event istener for do
-  IO.click(donebutton)
-    .bind(function (e) {
-      task.data.status = false
-      return new IO.postJSON('/api/tasks/', task)
-    })
-    .then(function (e, res) {
-      window.location.reload()
-    })
 
   var iconDiscuss = document.createElement('i')
   iconDiscuss.setAttribute('class', 'small material-icons')
@@ -88,23 +70,8 @@ function addRow (task) {
 
   var discussbutton = document.createElement('button')
   discussbutton.setAttribute('class', 'button')
-
   discuss.appendChild(discussbutton)
   discussbutton.appendChild(iconDiscuss)
-
-  IO.click(discussbutton)
-    .bind(function (event) {
-      return new IO.getJSON('/api/comment/' + task.id)
-    })
-    .then(function (event, comments) {
-      taskObj = task
-      chatModal.style.display = 'block'
-      chatBox.innerHTML = null
-
-      for ( var i = 0; i < comments.length; i++) {
-        displayComment(comments[i])
-      }
-    })
 
   var iconTrash = document.createElement('i')
   iconTrash.setAttribute('class', 'small material-icons')
@@ -115,7 +82,30 @@ function addRow (task) {
   trash.appendChild(trashbutton)
   trashbutton.appendChild(iconTrash)
 
-  // event listener for do
+  // event istener for do
+  IO.click(donebutton)
+    .bind(function (e) {
+      task.data.status = false
+      return new IO.postJSON('/api/tasks/', task)
+    })
+    .then(function (e, res) {
+      window.location.reload()
+    })
+
+  IO.click(discussbutton)
+    .bind(function (event) {
+      return new IO.getJSON('/api/comment/' + task.id)
+    })
+    .then(function (event, comments) {
+      taskObj = task
+      chatModal.style.display = 'block'
+      chatBox.innerHTML = null
+
+      for (var i = 0; i < comments.length; i++) {
+        displayComment(comments[i])
+      }
+    })
+
   IO.click(trashbutton)
     .bind(function (e) {
       task.data.deleted = true
@@ -137,11 +127,6 @@ function displayComment (comment) {
   chatBox.appendChild(msg) // creates new div for msg inside the chatbox
 }
 
-// Event Listener to Close Chat Box
-closeChat.onclick = function () {
-  chatModal.style.display = 'none'
-}
-
 // event listener for socket connection
 socket.on('connect', function () {
   console.log('connected to server')
@@ -154,7 +139,6 @@ socket.on('notify', function (data) {
 })
 
 // recieving message
-
 socket.on('discuss', function (incomingMsg) {
   displayComment(incomingMsg)
 })
@@ -183,8 +167,13 @@ IO.click(sendButton)
     displayComment(outGoingMsg)
     return new IO.postJSON('/api/comment/', { 'id': taskObj.id, 'comment': outGoingMsg})
   })
-  .then(function (e, r) { console.log(e, r)} // add function to post comment
+  .then(function (e, r) { console.log(e, r) } // add function to post comment
 )
+
+IO.click(closeChat)
+  .then(function () {
+    chatModal.style.display = 'none'
+  })
 
 function assignTo () {
   selectName = document.getElementById('assignTo')
@@ -200,10 +189,10 @@ function assignTo () {
 function createTask () {
   assignTo()
   var date = document.getElementById('date').value
-  var today = new Date
+  var today = new Date()
 
   if (date == '') {
-    date = new Date
+    date = new Date()
     date = new Date(date.setTime(date.getTime() + 86400000))
     date = date.toJSON().slice(0, 10)
   }
@@ -231,7 +220,6 @@ function createTask () {
         assgnTo: assignName,
         from: user.name
       })
-    // window.location.reload()
     })
   window.location.reload()
 }
