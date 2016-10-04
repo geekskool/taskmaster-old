@@ -3,8 +3,7 @@ var user = JSON.parse(localStorage.getItem('userData'))
 var welcome = document.getElementById('welcome')
 welcome.innerText = 'Welcome ' + user.name
 
-var userList = []
-var taskList = []
+var userList
 var assignName
 var assignNum
 var taskObj
@@ -22,31 +21,32 @@ function populateUserList (users) {
     option.innerText = users[i].name
     assign.appendChild(option)
   }
-  // userList = users
+  userList = users
+  console.log(userList)
   return [users]
 }
-
-IO.getJSON('/api/users/' + user.phone)
-  .map(populateUserList)
-  .bind(function (userList) {
-    return new IO.getJSON('/api/tasks/' + user.phone) })
-  .then(function (userList, taskList) {
-    populateTasks(taskList)
-
-  })
-
-// IO.getJSON('/api/tasks/' + user.phone)
-//   .then(addView)
 
 function populateTasks (taskList) {
   for (var i = taskList.length - 1; i >= 0; i--) {
     if (taskList[i].data.status == true)
       addTaskRow(taskList[i])
   }
+  return [taskList]
 }
 
+IO.getJSON('/api/users/' + user.phone)
+  .map(populateUserList)
+  .bind(function (userList) {
+    return new IO.getJSON('/api/tasks/' + user.phone)
+  })
+  .map(function (userList, taskList) {
+    populateTasks(taskList)
+  })
+  .then(function () {
+    console.log('end')
+  })
+
 function addTaskRow (task) {
-  console.log('in add row', task)
   var row = document.getElementById('tasks').insertRow()
   var taskname = row.insertCell(0)
   var owner = row.insertCell(1)
@@ -150,28 +150,30 @@ socket.on('discuss', function (incomingMsg) {
 var sendButton = document.querySelector('#submitmsg')
 var userMsg = document.querySelector('#usermsg')
 
+function createMessage () {
+  var timestamp = Date().toString().slice(15, 24)
+  if (user.name == taskObj.data.assgnToName) {
+    var to = taskObj.data.assgnByName
+  } else {
+    var to = taskObj.data.assgnToName
+  }
+  return {
+    'sentBy': user.name,
+    'sentTo': to,
+    'time': timestamp,
+    'message': userMsg.value
+  }
+}
+
 IO.click(sendButton)
-  .map(function () {
-    var timestamp = Date().toString().slice(15, 24)
-    if (user.name == taskObj.data.assgnToName) {
-      var to = taskObj.data.assgnByName
-    } else {
-      var to = taskObj.data.assgnToName
-    }
-    return {
-      'sentBy': user.name,
-      'sentTo': to,
-      'time': timestamp,
-      'message': userMsg.value
-    }
-  })
+  .map(createMessage)
   .bind(function (outGoingMsg) {
-    socket.emit('sendmessage', outGoingMsg)
-    displayComment(outGoingMsg)
     return new IO.postJSON('/api/comment/', { 'id': taskObj.id, 'comment': outGoingMsg})
   })
-  .then(function (e, r) { console.log(e, r) } // add function to post comment
-)
+  .then(function (outGoingMsg, serverResponse) {
+    socket.emit('sendmessage', outGoingMsg)
+    displayComment(outGoingMsg)
+  })
 
 IO.click(closeChat)
   .then(function () {
