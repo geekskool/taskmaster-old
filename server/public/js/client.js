@@ -14,35 +14,39 @@ var chatModal = document.getElementById('chat')
 var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
 
-IO.getJSON('/api/users/' + user.phone)
-  .then(function (users) {
-    userList = users
-    populateUserList(userList)
-  })
-function getTasks () {
-  IO.getJSON('/api/tasks/' + user.phone)
-      .then(addView(taskList))
-}
-
-function populateUserList () {
+function populateUserList (users) {
   var assign = document.getElementById('assignTo')
-  for (var i = 0; i < userList.length; i++) {
+  for (var i = 0; i < users.length; i++) {
     var option = document.createElement('option')
-    option.setAttribute('value', userList[i].name)
-    option.innerText = userList[i].name
+    option.setAttribute('value', users[i].name)
+    option.innerText = users[i].name
     assign.appendChild(option)
   }
-  getTasks()
+  // userList = users
+  return [users]
 }
 
-function addView (taskList) {
+IO.getJSON('/api/users/' + user.phone)
+  .map(populateUserList)
+  .bind(function (userList) {
+    return new IO.getJSON('/api/tasks/' + user.phone) })
+  .then(function (userList, taskList) {
+    populateTasks(taskList)
+
+  })
+
+// IO.getJSON('/api/tasks/' + user.phone)
+//   .then(addView)
+
+function populateTasks (taskList) {
   for (var i = taskList.length - 1; i >= 0; i--) {
     if (taskList[i].data.status == true)
-      addRow(taskList[i])
+      addTaskRow(taskList[i])
   }
 }
 
-function addRow (task) {
+function addTaskRow (task) {
+  console.log('in add row', task)
   var row = document.getElementById('tasks').insertRow()
   var taskname = row.insertCell(0)
   var owner = row.insertCell(1)
@@ -129,7 +133,6 @@ function displayComment (comment) {
 
 // event listener for socket connection
 socket.on('connect', function () {
-  console.log('connected to server')
   socket.emit('joinroom', user.name)
 })
 
