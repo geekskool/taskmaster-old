@@ -87,11 +87,7 @@ function addRow (task) {
 
   var discussbutton = document.createElement('button')
   discussbutton.setAttribute('class', 'button')
-  discussbutton.addEventListener('click', function () {
-    chatModal.style.display = 'block' // display chat modal
-    chatBox.innerHTML = null
-    taskObj = task
-  })
+
   discuss.appendChild(discussbutton)
   discussbutton.appendChild(iconDiscuss)
 
@@ -108,23 +104,6 @@ function addRow (task) {
         displayComment(comments[i])
       }
     })
-
-  IO.click(sendButton)
-    .map(function () {
-      var timestamp = Date()
-      return {
-        'sentBy': user.name,
-        'time': timestamp,
-        'message': userMsg.value
-      }
-    })
-    .bind(function (outGoingMsg) {
-      socket.emit('sendmessage', outGoingMsg)
-      displayComment(outGoingMsg)
-      return new IO.postJSON('/api/comment/', { 'id': task.id, 'comment': outGoingMsg})
-    })
-    .then(function (e, r) { console.log(e, r)} // add function to post comment
-  )
 
   var iconTrash = document.createElement('i')
   iconTrash.setAttribute('class', 'small material-icons')
@@ -148,7 +127,7 @@ function addRow (task) {
 
 function displayComment (comment) {
   var msg = document.createElement('div') // create a new div
-  msg.innerHTML = comment.sentBy + ' ' + comment.time + ' ' + comment.message
+  msg.innerHTML = '<p class="sentBy"><b>' + comment.sentBy + ' :</b> ' + comment.message + '</p><p class="time">' + comment.time + '</p>'
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'self')
   } else {
@@ -183,17 +162,28 @@ socket.on('discuss', function (incomingMsg) {
 var sendButton = document.querySelector('#submitmsg')
 var userMsg = document.querySelector('#usermsg')
 
-// function putComment (task) {
-//   var comment = new XMLHttpRequest()
-//   comment.open('PUT', '/api/comment/', true)
-//   comment.setRequestHeader('content-type', 'application/json')
-//   comment.onreadystatechange = function () {
-//     if (comment.readyState == 4 && comment.status == 200) {
-//       console.log('function executed')
-//     }
-//   }
-//   comment.send(JSON.stringify(task))
-// }
+IO.click(sendButton)
+  .map(function () {
+    var timestamp = Date().toString().slice(15, 24)
+    if (user.name == taskObj.data.assgnToName) {
+      var to = taskObj.data.assgnByName
+    } else {
+      var to = taskObj.data.assgnToName
+    }
+    return {
+      'sentBy': user.name,
+      'sentTo': to,
+      'time': timestamp,
+      'message': userMsg.value
+    }
+  })
+  .bind(function (outGoingMsg) {
+    socket.emit('sendmessage', outGoingMsg)
+    displayComment(outGoingMsg)
+    return new IO.postJSON('/api/comment/', { 'id': taskObj.id, 'comment': outGoingMsg})
+  })
+  .then(function (e, r) { console.log(e, r)} // add function to post comment
+)
 
 function assignTo () {
   selectName = document.getElementById('assignTo')
