@@ -14,9 +14,10 @@ var chatModal = document.getElementById('chat')
 var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
 
-closeChat.onclick = function () {
-  chatModal.style.display = 'none'
-}
+IO.click(closeChat)
+  .then(function () {
+    chatModal.style.display = 'none'
+  })
 
 IO.getJSON('/api/users/' + user.phone)
   .then(function (users) {
