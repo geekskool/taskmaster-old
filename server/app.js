@@ -48,8 +48,9 @@ io.on('connection', function (socket) {
   })
 
   socket.on('sendmessage', function (data) {
-    var assignName = data.to
-    users[assignName].emit('discuss', { msg: data.msg, name: socket.name })
+    console.log(data[0])
+    var recipient = data.sentTo
+    users[recipient].emit('discuss', {'sentBy': data.sentBy, 'time': data.time, 'message': data.message})
   })
 })
 
