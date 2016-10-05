@@ -3,8 +3,6 @@ var user = JSON.parse(localStorage.getItem('userData'))
 var welcome = document.getElementById('welcome')
 welcome.innerText = 'Welcome ' + user.name
 
-var userList
-var assignName
 var assignNum
 var taskObj
 
@@ -12,6 +10,7 @@ var socket = io()
 var chatModal = document.getElementById('chat')
 var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
+var addTaskButton = document.getElementById('addTaskButton')
 
 function populateUserList (users) {
   var assign = document.getElementById('assignTo')
@@ -21,29 +20,75 @@ function populateUserList (users) {
     option.innerText = users[i].name
     assign.appendChild(option)
   }
-  userList = users
-  console.log(userList)
   return [users]
 }
 
-function populateTasks (taskList) {
+function populateTasks (userList, taskList) {
   for (var i = taskList.length - 1; i >= 0; i--) {
     if (taskList[i].data.status == true)
       addTaskRow(taskList[i])
   }
-  return [taskList]
+  return [userList]
 }
+
+
+function createTask (userList) {
+  var selectedName = document.getElementById('assignTo')
+  var assignTo = selectedName.options[selectedName.selectedIndex].text
+  for (var i = 0; i < userList.length; i++) {
+    if (userList[i].name == assignTo) {
+      assignNum = userList[i].phone
+      break
+    }
+  }
+
+  var date = document.getElementById('date').value
+  var today = new Date()
+
+  if (date == '') {
+    date = new Date()
+    date = new Date(date.setTime(date.getTime() + 86400000))
+    date = date.toJSON().slice(0, 10)
+  }
+
+  date = date + 'T00:00:00.000Z'
+
+  var title = document.getElementById('name').value
+  if (title === '' || title === '\s' || title === null) {
+    window.alert('Task name cannot be empty')
+    console.log('empty task')
+  }
+
+  return {
+    title: document.getElementById('name').value,
+    date: date,
+    assgnByName: user.name,
+    assgnByPhon: user.phone,
+    assgnToName: assignTo,
+    assgnToPhon: assignNum
+  }
+}
+
+
 
 IO.getJSON('/api/users/' + user.phone)
   .map(populateUserList)
   .bind(function (userList) {
     return new IO.getJSON('/api/tasks/' + user.phone)
   })
-  .map(function (userList, taskList) {
-    populateTasks(taskList)
+  .map(populateTasks)
+  .bind( function (userList) {
+    return new IO.click(addTaskButton)
   })
-  .then(function () {
-    console.log('end')
+  .map(createTask)
+  .bind( function (newTask) {
+    return new IO.postJSON('/api/tasks', newTask)
+  })
+  .then(function (newTask) {
+    socket.emit('newTask', {
+      assgnTo: newTask.assignToName,
+      from: user.name    })
+    window.location.reload()
   })
 
 function addTaskRow (task) {
@@ -180,51 +225,4 @@ IO.click(closeChat)
     chatModal.style.display = 'none'
   })
 
-function assignTo () {
-  selectName = document.getElementById('assignTo')
-  assignName = selectName.options[selectName.selectedIndex].text
-  for (var i = 0; i < userList.length; i++) {
-    if (userList[i].name == assignName) {
-      assignNum = userList[i].phone
-      break
-    }
-  }
-}
-
-function createTask () {
-  assignTo()
-  var date = document.getElementById('date').value
-  var today = new Date()
-
-  if (date == '') {
-    date = new Date()
-    date = new Date(date.setTime(date.getTime() + 86400000))
-    date = date.toJSON().slice(0, 10)
-  }
-
-  date = date + 'T00:00:00.000Z'
-
-  var title = document.getElementById('name').value
-  if (title === '' || title === '\s' || title === null) {
-    window.alert('Task name cannot be empty')
-    console.log('empty task')
-  }
-
-  var newTask = {
-    title: document.getElementById('name').value,
-    date: date,
-    assgnByName: user.name,
-    assgnByPhon: user.phone,
-    assgnToName: assignName,
-    assgnToPhon: assignNum
-  }
-
-  IO.postJSON('/api/tasks/', newTask)
-    .then(function (e) {
-      socket.emit('newTask', {
-        assgnTo: assignName,
-        from: user.name
-      })
-    })
-  window.location.reload()
-}
+//window.location.reload()
