@@ -5,9 +5,9 @@ body {
 
 .form {
     display: block;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;
     border-radius: .1px;
-    box-sizing: border-box;
+    box-sizing: border-box;*/
 }
 
 
@@ -17,20 +17,6 @@ body {
     text-align: centre;
     width: 750px;
 }
-
-/*.form {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #555;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: .1px;
-    box-sizing: border-box;
-}*/
 
 .button {
     display: inline-block;
@@ -44,14 +30,12 @@ body {
     background-color: #fff;
 }
 
-.table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    text-align: left;
+.input-field .prefix {
+    position: absolute;
+    /* width: 3rem; */
+    font-size: 2rem;
+    transition: color .2s;
+    margin-top: 10px;
 }
 
 .row {
@@ -87,25 +71,34 @@ a:hover {
     flex-direction: row;
     /*align-items: center;*/
 }
-#chatbox {
+/*#chatbox {
     text-align: left;
     margin: 0 auto;
     margin-bottom: 25px;
-    padding: 10px;
+    padding: 6px;
     background: #fafafa;
-    height: 100%;
+    height: 90%;
     width: 85%;
     border: 1px solid #ACD8F0;
     overflow: auto;
+}*/
+
+.inner .content {
+  padding: 10.66667px;
+  position: relative;
+  margin-bottom: 32px;
 }
+
+
 #chat{
     margin-left: 80px;
     margin-top: 80px;   
 }
 
 #usermsg {
-    width: 85%;
+    width: 100%;
     border: 1px solid #ACD8F0;
+    box-shadow:0px 0px 1px 0px #424242;
 }
 
 #overlay {
@@ -149,6 +142,18 @@ a:hover {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    height: 520px;
+  width: 320px;
+  overflow: hidden;
+  background-color: white;
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.5);
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 
 /* Modal Content/Box */
@@ -241,4 +246,106 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     clear: both;
     margin-bottom: 10px;
     box-shadow: 0px 0px 1px 0px #424242;
+}
+
+
+/* Chat BOX*/
+
+
+.modal .inner {
+    overflow: scroll;
+    height: 425px;
+    padding-top: 67px;
+}
+
+.modal .inner::-webkit-scrollbar {
+  width: 0 !important;
+}
+.modal .inner .content {
+  padding: 10.66667px;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 100;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #ffffff;
+  /* box-shadow: 0px -3px 3px 0px rgba(50, 50, 50, 0.1); */
+}
+.bottom .input {
+  height: 64px;
+  background: #ffffff;
+  border: none;
+  width: calc(100% - 64px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 5%;
+  resize: none;
+  overflow: scroll;
+  padding-top: 24px;
+  font-weight: 300;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+.bottom .input:focus {
+  outline: none;
+}
+.bottom .input::-webkit-scrollbar {
+  width: 0 !important;
+}
+.bottom .send {
+  position: fixed;
+  height: 42.66667px;
+  width: 42.66667px;
+  border-radius: 50%;
+  border: 0;
+  background: #F44336;
+  color: #ffffff;
+  bottom: 0px;
+  right: 0px;
+}
+.bottom .send:before {
+  content: '';
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/ic_send_white_48dp.png) no-repeat center center;
+  background-size: 25.6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.bottom .send:focus {
+  outline: none;
+}
+.bottom .send:hover {
+  cursor: pointer;
+}
+
+.message-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin: 10.66667px 0;
+  padding: 10.66667px 0;
+}
+
+#otherUser {
+  padding: 10px;
+  text-transform: capitalize;
 }

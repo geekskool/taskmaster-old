@@ -293,6 +293,10 @@
             {
                 "type": "to",
                 "in": "d3eeaa6c-b93a-401f-9cc8-c855e4c856d8"
+            },
+            {
+                "type": "to",
+                "in": "e737c7ee-1a1a-4f56-a930-8b0106cf6df9"
             }
         ],
         "out": []
@@ -637,6 +641,14 @@
             {
                 "type": "to",
                 "in": "688cb78f-da28-410b-8dad-5e8c17ddfc9c"
+            },
+            {
+                "type": "by",
+                "in": "e737c7ee-1a1a-4f56-a930-8b0106cf6df9"
+            },
+            {
+                "type": "to",
+                "in": "be33d15c-20a7-4667-8efd-118f045a0603"
             }
         ],
         "out": []
@@ -1300,6 +1312,10 @@
             {
                 "type": "by",
                 "in": "688cb78f-da28-410b-8dad-5e8c17ddfc9c"
+            },
+            {
+                "type": "by",
+                "in": "be33d15c-20a7-4667-8efd-118f045a0603"
             }
         ],
         "out": []
@@ -2853,6 +2869,138 @@
             ],
             "date": "2016-10-06T00:00:00.000Z",
             "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Manisha",
+            "assgnToPhon": "+918050342347",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "f22b51a0-406f-4856-9f24-cfe7a97ffc86"
+            }
+        ]
+    },
+    {
+        "id": "e737c7ee-1a1a-4f56-a930-8b0106cf6df9",
+        "type": "task",
+        "data": {
+            "title": "a",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "akshar",
+                    "time": " 17:37:49",
+                    "message": "hello"
+                }
+            ],
+            "date": "2016-10-06T00:00:00.000Z",
+            "assgnByName": "Manisha",
+            "assgnByPhon": "+918050342347",
+            "assgnToName": "akshar",
+            "assgnToPhon": "+919620818140",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "f22b51a0-406f-4856-9f24-cfe7a97ffc86"
+            },
+            {
+                "type": "to",
+                "out": "202b71aa-f4cf-4bc2-85ad-dc8f2355215a"
+            }
+        ]
+    },
+    {
+        "id": "be33d15c-20a7-4667-8efd-118f045a0603",
+        "type": "task",
+        "data": {
+            "title": "Hello",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 17:39:03",
+                    "message": "hello"
+                },
+                {
+                    "sentBy": "AngadGill",
+                    "sentTo": "Manisha",
+                    "time": " 17:39:07",
+                    "message": "hi"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 17:50:54",
+                    "message": ""
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 17:57:25",
+                    "message": "hello"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:42",
+                    "message": "kndsjg"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:44",
+                    "message": "aslkf;'alg'eakndsjg"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:47",
+                    "message": "aslkf;'alg'eakndsjgs.,ms."
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:49",
+                    "message": "aslkf;'alg'eakndsjgs.,ms.s';df;'ela"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:49",
+                    "message": "aslkf;'alg'eakndsjgs.,ms.s';df;'ela"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:50",
+                    "message": "aslkf;'alg'eakndsjgs.,ms.s';df;'ela"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:18:50",
+                    "message": "aslkf;'alg'eakndsjgs.,ms.s';df;'ela"
+                },
+                {
+                    "sentBy": "Manisha",
+                    "sentTo": "AngadGill",
+                    "time": " 18:20:32",
+                    "message": "dmfmb"
+                }
+            ],
+            "date": "2016-10-06T00:00:00.000Z",
+            "assgnByName": "AngadGill",
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",

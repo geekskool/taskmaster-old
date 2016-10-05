@@ -22,17 +22,20 @@
             <div>
                 <form class="col m12" >
                     <div class="input-field col m12">
+                        <i class="material-icons prefix">assignment</i>
                         <input type="text" id="name" class="form" placeholder="Enter Task Name">
                     </div>
                     <div class="input-field col m12">
+                        <!-- <i class="material-icons prefix">view list</i> -->
                         <select id="assignTo" class="form"></select>
                     </div>
                     <div class="input-field col m12">
+                        <!-- <i class="material-icons prefix">perm contact calendar</i> -->
                         <input type="date" id="date" class="form">
                     </div>
                     <div class="input-field col m12">
-                        <button id = "addTaskButton" class="btn waves-effect waves-light">Add
-                            <i class="material-icons right">send</i>
+                        <button id = "addTaskButton" class="btn-floating btn-large waves-effect waves-light red">
+                            <i class="material-icons">add</i>
                         </button>
                     </div>
                 </form>
@@ -52,15 +55,33 @@
         </div>
     </div>
 
-    <div id="chat" class="modal">
+    <!-- <div id="chat" class="modal">
         <!-- Modal content -->
-        <div class="modal-content">
+        <!-- <div class="modal-content">
             <span class="close">x</span>
             <div id="chatbox"></div>
             <textarea id="usermsg" rows="2" cols="60"></textarea>
-            <button name="submitmsg" type="submit" id="submitmsg">Send</button>
+            <button name="submitmsg" id="submitmsg">Send</button>
         </div>
+    </div> -->
+
+    <div id="chat" class="modal">
+      <nav id="nav" class="nav">
+          <div class="main-nav">
+            <h5><div id="otherUser" class="main-nav-item">Chatting With</div></h5>
+            <!-- <span id="close" class="options">X</span> -->
+          </div>
+      </nav>
+      <div id="inner" class="inner">
+        <div id="chatbox" class="content"></div>
+      </div>
+      <div id="bottom" class="bottom">
+        <textarea id="usermsg" class="input"></textarea>
+        <div id="submitmsg" class="send"></div>
+        <!-- <button id="submitmsg" class="send"></button> -->
+      </div>
     </div>
+
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/io-square-browser.js"></script>
     <script type="text/javascript" src="js/client.js"></script>

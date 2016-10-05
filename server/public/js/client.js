@@ -11,6 +11,8 @@ var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
 var addTaskButton = document.getElementById('addTaskButton')
 
+var chattingWith = document.getElementById('otherUser')
+
 function populateUserList (users) {
   var assign = document.getElementById('assignTo')
   for (var i = 0; i < users.length; i++) {
@@ -31,7 +33,6 @@ function populateTasks (userList, taskList) {
 }
 
 function createTask (userList, e) {
-
   e.preventDefault()
   e.stopPropagation()
   var assignNum
@@ -101,6 +102,12 @@ function addTaskRow (task) {
   discussbutton.setAttribute('class', 'button')
   discuss.appendChild(discussbutton)
   discussbutton.appendChild(iconDiscuss)
+
+  if (user.name === task.data.assgnToName) {
+    chattingWith.innerHTML = task.data.assgnByName
+  } else {
+    chattingWith.innerHTML = task.data.assgnToName
+  }
 
   var iconTrash = document.createElement('i')
   iconTrash.setAttribute('class', 'small material-icons')
@@ -184,8 +191,8 @@ function createComment () {
     var to = taskObj.data.assgnToName
   }
   return {
-    id : taskObj.id,
-    comment :{
+    id: taskObj.id,
+    comment: {
       sentBy: user.name,
       sentTo: to,
       time: timestamp,
