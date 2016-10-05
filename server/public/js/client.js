@@ -32,7 +32,9 @@ function populateTasks (userList, taskList) {
 }
 
 
-function createTask (userList) {
+function createTask (userList,e) {
+  e.preventDefault()
+  e.stopPropagation()
   var selectedName = document.getElementById('assignTo')
   var assignTo = selectedName.options[selectedName.selectedIndex].text
   for (var i = 0; i < userList.length; i++) {
@@ -68,21 +70,6 @@ function createTask (userList) {
     assgnToPhon: assignNum
   }
 }
-
-
-
-IO.getJSON('/api/users/' + user.phone)
-  .map(populateUserList)
-  .bind(function (userList) { return new IO.getJSON('/api/tasks/' + user.phone)})
-  .map(populateTasks)
-  .bind( function (userList) { return new IO.click(addTaskButton)})
-  .map(createTask)
-  .bind( function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
-  .then(function (...args) {
-    var createdTask = args[1]
-    socket.emit('newTask', createdTask)
-    addTaskRow(createdTask)
-  })
 
 function addTaskRow (task) {
   var row = document.getElementById('tasks').insertRow()
@@ -124,7 +111,7 @@ function addTaskRow (task) {
   trash.appendChild(trashbutton)
   trashbutton.appendChild(iconTrash)
 
-  // event istener for done button
+  // event listener for done button
   IO.click(donebutton)
     .bind(function (e) {
       task.data.status = false
@@ -133,7 +120,7 @@ function addTaskRow (task) {
     .then(function (e, res) {
       window.location.reload()
     })
-
+  // event listener for discuss button
   IO.click(discussbutton)
     .bind(function (event) {
       return new IO.getJSON('/api/comment/' + task.id)
@@ -147,7 +134,7 @@ function addTaskRow (task) {
         displayComment(comments[i])
       }
     })
-
+  //event listener for trash button
   IO.click(trashbutton)
     .bind(function (e) {
       task.data.deleted = true
@@ -158,22 +145,28 @@ function addTaskRow (task) {
     })
 }
 
-function displayComment (comment) {
-  var msg = document.createElement('div') // create a new div
-  msg.innerHTML = '<p class="sentBy"><b>' + comment.sentBy + ' :</b> ' + comment.message + '</p><p class="time">' + comment.time + '</p>'
-  if (comment.sentBy === user.name) {
-    msg.setAttribute('class', 'self')
-  } else {
-    msg.setAttribute('class', 'other')
-  }
-  chatBox.appendChild(msg) // creates new div for msg inside the chatbox
-}
+
+
+// IO object to handle getting users, tasks, and for adding tasks
+IO.getJSON('/api/users/' + user.phone)
+  .map(populateUserList)
+  .bind(function (userList) { return new IO.getJSON('/api/tasks/' + user.phone)})
+  .map(populateTasks)
+  .bind( function (userList) { return new IO.click(addTaskButton)})
+  .map(createTask)
+  .bind( function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
+  .then(function (...args) {
+    var createdTask = args[1] // createdTask (task object returned from the server)
+    socket.emit('newTask', createdTask)
+    addTaskRow(createdTask)
+  })
 
 // event listener for socket connection
 socket.on('connect', function () {
   socket.emit('joinroom', user.name)
 })
 
+// sending new task notification
 socket.on('notify', function (newTask) {
   alert('you have a new task from  ' + newTask.data.assgnByName)
   addTaskRow(newTask)
@@ -184,11 +177,7 @@ socket.on('discuss', function (incomingMsg) {
   displayComment(incomingMsg)
 })
 
-// sending messages
-var sendButton = document.querySelector('#submitmsg')
-var userMsg = document.querySelector('#usermsg')
-
-function createMessage () {
+function createComment () {
   var timestamp = Date().toString().slice(15, 24)
   if (user.name == taskObj.data.assgnToName) {
     var to = taskObj.data.assgnByName
@@ -203,8 +192,23 @@ function createMessage () {
   }
 }
 
+function displayComment (comment) {
+  var msg = document.createElement('div') // create a new div
+  msg.innerHTML = '<p class="sentBy"><b>' + comment.sentBy + ' :</b> ' + comment.message + '</p><p class="time">' + comment.time + '</p>'
+  if (comment.sentBy === user.name) {
+    msg.setAttribute('class', 'self')
+  } else {
+    msg.setAttribute('class', 'other')
+  }
+  chatBox.appendChild(msg) // creates new div for msg inside the chatbox
+}
+
+// sending messages
+var sendButton = document.querySelector('#submitmsg')
+var userMsg = document.querySelector('#usermsg')
+
 IO.click(sendButton)
-  .map(createMessage)
+  .map(createComment)
   .bind(function (outGoingMsg) {
     return new IO.postJSON('/api/comment/', { 'id': taskObj.id, 'comment': outGoingMsg})
   })
