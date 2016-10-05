@@ -32,6 +32,7 @@ function createTask (task) {
     taskNode.addEdge('to', assigner)
     graph.save()
   }
+  return taskNode
 }
 
 function getTasks (userId) {
@@ -116,10 +117,9 @@ task.handlePost = function (req, res, next) {
       markAsDone(task)
       res.send({message: 'task done'})
     } else if (check(task)) {
-      createTask(task)
-      res.send({
-        message: 'Task created successfully'
-      })
+      var returnedTask = createTask(task)
+      console.log(returnedTask)
+      res.send(returnedTask)
     }
   } catch(err) {
     res.send({
