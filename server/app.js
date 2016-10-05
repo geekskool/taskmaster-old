@@ -46,10 +46,11 @@ io.on('connection', function (socket) {
       users[newTask.data.assgnToName].emit('notify', newTask)
   })
 
-  socket.on('sendmessage', function (data) {
-    console.log(data[0])
-    var recipient = data.sentTo
-    users[recipient].emit('discuss', {'sentBy': data.sentBy, 'time': data.time, 'message': data.message})
+  socket.on('sendmessage', function (message) {
+
+    console.log(message)
+    var recipient = message.sentTo
+    users[recipient].emit('discuss', {'sentBy': message.sentBy, 'time': message.time, 'message': message.message})
   })
 })
 

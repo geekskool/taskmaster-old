@@ -3,7 +3,6 @@ var user = JSON.parse(localStorage.getItem('userData'))
 var welcome = document.getElementById('welcome')
 welcome.innerText = 'Welcome ' + user.name
 
-var assignNum
 var taskObj
 
 var socket = io()
@@ -31,10 +30,11 @@ function populateTasks (userList, taskList) {
   return [userList]
 }
 
+function createTask (userList, e) {
 
-function createTask (userList,e) {
   e.preventDefault()
   e.stopPropagation()
+  var assignNum
   var selectedName = document.getElementById('assignTo')
   var assignTo = selectedName.options[selectedName.selectedIndex].text
   for (var i = 0; i < userList.length; i++) {
@@ -122,10 +122,11 @@ function addTaskRow (task) {
     })
   // event listener for discuss button
   IO.click(discussbutton)
-    .bind(function (event) {
+    .map(() => task)
+    .bind(function (task) {
       return new IO.getJSON('/api/comment/' + task.id)
     })
-    .then(function (event, comments) {
+    .then(function (task, comments) {
       taskObj = task
       chatModal.style.display = 'block'
       chatBox.innerHTML = null
@@ -134,7 +135,7 @@ function addTaskRow (task) {
         displayComment(comments[i])
       }
     })
-  //event listener for trash button
+  // event listener for trash button
   IO.click(trashbutton)
     .bind(function (e) {
       task.data.deleted = true
@@ -145,16 +146,14 @@ function addTaskRow (task) {
     })
 }
 
-
-
 // IO object to handle getting users, tasks, and for adding tasks
 IO.getJSON('/api/users/' + user.phone)
   .map(populateUserList)
-  .bind(function (userList) { return new IO.getJSON('/api/tasks/' + user.phone)})
+  .bind(function (userList) { return new IO.getJSON('/api/tasks/' + user.phone) })
   .map(populateTasks)
-  .bind( function (userList) { return new IO.click(addTaskButton)})
+  .bind(function (userList) { return new IO.click(addTaskButton) })
   .map(createTask)
-  .bind( function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
+  .bind(function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
   .then(function (...args) {
     var createdTask = args[1] // createdTask (task object returned from the server)
     socket.emit('newTask', createdTask)
@@ -185,10 +184,13 @@ function createComment () {
     var to = taskObj.data.assgnToName
   }
   return {
-    'sentBy': user.name,
-    'sentTo': to,
-    'time': timestamp,
-    'message': userMsg.value
+    id : taskObj.id,
+    comment :{
+      sentBy: user.name,
+      sentTo: to,
+      time: timestamp,
+      message: userMsg.value
+    }
   }
 }
 
@@ -210,11 +212,12 @@ var userMsg = document.querySelector('#usermsg')
 IO.click(sendButton)
   .map(createComment)
   .bind(function (outGoingMsg) {
-    return new IO.postJSON('/api/comment/', { 'id': taskObj.id, 'comment': outGoingMsg})
+    console.log(outGoingMsg)
+    return new IO.postJSON('/api/comment/', outGoingMsg)
   })
   .then(function (outGoingMsg, serverResponse) {
-    socket.emit('sendmessage', outGoingMsg)
-    displayComment(outGoingMsg)
+    socket.emit('sendmessage', outGoingMsg.comment)
+    displayComment(outGoingMsg.comment)
   })
 
 IO.click(closeChat)
