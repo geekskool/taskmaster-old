@@ -42,9 +42,8 @@ io.on('connection', function (socket) {
     console.log(data + ' joined the room ')
   })
 
-  socket.on('newTask', function (data) {
-    console.log(data)
-    users[data.assgnTo].emit('notify', data.from)
+  socket.on('newTask', function (newTask) {
+      users[newTask.data.assgnToName].emit('notify', newTask)
   })
 
   socket.on('sendmessage', function (data) {
