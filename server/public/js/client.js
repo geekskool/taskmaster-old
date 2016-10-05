@@ -73,22 +73,15 @@ function createTask (userList) {
 
 IO.getJSON('/api/users/' + user.phone)
   .map(populateUserList)
-  .bind(function (userList) {
-    return new IO.getJSON('/api/tasks/' + user.phone)
-  })
+  .bind(function (userList) { return new IO.getJSON('/api/tasks/' + user.phone)})
   .map(populateTasks)
-  .bind( function (userList) {
-    return new IO.click(addTaskButton)
-  })
+  .bind( function (userList) { return new IO.click(addTaskButton)})
   .map(createTask)
-  .bind( function (newTask) {
-    return new IO.postJSON('/api/tasks', newTask)
-  })
-  .then(function (newTask) {
-    socket.emit('newTask', {
-      assgnTo: newTask.assignToName,
-      from: user.name    })
-    window.location.reload()
+  .bind( function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
+  .then(function (...args) {
+    var createdTask = args[1]
+    socket.emit('newTask', createdTask)
+    addTaskRow(createdTask)
   })
 
 function addTaskRow (task) {
@@ -131,7 +124,7 @@ function addTaskRow (task) {
   trash.appendChild(trashbutton)
   trashbutton.appendChild(iconTrash)
 
-  // event istener for do
+  // event istener for done button
   IO.click(donebutton)
     .bind(function (e) {
       task.data.status = false
@@ -181,9 +174,9 @@ socket.on('connect', function () {
   socket.emit('joinroom', user.name)
 })
 
-socket.on('notify', function (data) {
-  alert('you have a new task from  ' + data)
-  window.location.reload()
+socket.on('notify', function (newTask) {
+  alert('you have a new task from  ' + newTask.data.assgnByName)
+  addTaskRow(newTask)
 })
 
 // recieving message
@@ -224,5 +217,3 @@ IO.click(closeChat)
   .then(function () {
     chatModal.style.display = 'none'
   })
-
-//window.location.reload()
