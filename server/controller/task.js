@@ -55,7 +55,7 @@ function getTasks (userId) {
   return result
 }
 
-function markAsDone (task) {
+function updateTask (task) {
   console.log('marking as done', task.id)
   graph.load()
   var updatedTask = graph.read(task.id)
@@ -109,12 +109,12 @@ task.handlePost = function (req, res, next) {
     var task = req.body // stores each incoming task object
 
     if (task.data !== undefined && task.data.deleted === true) {
-      deleteTask(task)
+      updateTask(task)
       res.send({
         message: 'Task deleted'
       })
     }  else if (task.data !== undefined && task.data.status === false) {
-      markAsDone(task)
+      updateTask(task)
       res.send({message: 'task done'})
     } else if (check(task)) {
       var returnedTask = createTask(task)
@@ -126,10 +126,6 @@ task.handlePost = function (req, res, next) {
       message: 'ERROR'
     })
   }
-}
-
-function deleteTask (task) {
-  graph.load()
 }
 
 export default task
