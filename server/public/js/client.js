@@ -1,7 +1,7 @@
 var user = JSON.parse(localStorage.getItem('userData'))
 
 var welcome = document.getElementById('welcome')
-welcome.innerText = 'Welcome ' + user.name
+welcome.textContent = 'Welcome ' + user.name
 
 var taskObj
 
@@ -18,7 +18,7 @@ function populateUserList (users) {
   for (var i = 0; i < users.length; i++) {
     var option = document.createElement('option')
     option.setAttribute('value', users[i].name)
-    option.innerText = users[i].name
+    option.textContent = users[i].name
     assign.appendChild(option)
   }
   return [users]
