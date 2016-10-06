@@ -81,6 +81,8 @@ function addTaskRow (task) {
   var discuss = row.insertCell(4)
   var trash = row.insertCell(5)
 
+  row.setAttribute('id', task.id)
+
   taskname.innerText = task.data.title
   owner.innerText = task.data.assgnToName
   byDate.innerText = task.data.date.slice(0, 10)
@@ -125,7 +127,8 @@ function addTaskRow (task) {
       return new IO.postJSON('/api/tasks/', task)
     })
     .then(function (e, res) {
-      window.location.reload()
+      var thisTask = document.getElementById(task.id)
+      thisTask.remove()
     })
   // event listener for discuss button
   IO.click(discussbutton)
