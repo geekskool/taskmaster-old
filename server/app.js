@@ -47,7 +47,8 @@ io.on('connection', function (socket) {
   })
 
   socket.on('deleteTask', function (deletedTask) {
-    users[deletedTask.data.assgnToName].emit('notifyDeletion', deletedTask.id)
+    console.log(deletedTask.data)
+    users[deletedTask.data.assgnToName].emit('notifyDeletion', {id : deletedTask.id, taskmaster: deletedTask.data.assgnByName})
   })
 
   socket.on('sendmessage', function (message) {
