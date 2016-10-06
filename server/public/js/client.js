@@ -205,9 +205,9 @@ function displayComment (comment) {
   var msg = document.createElement('div') // create a new div
   msg.innerHTML = '<p class="sentBy"><b>' + comment.sentBy + ' :</b> ' + comment.message + '</p><p class="time">' + comment.time + '</p>'
   if (comment.sentBy === user.name) {
-    msg.setAttribute('class', 'self')
+    msg.setAttribute('class', 'me')
   } else {
-    msg.setAttribute('class', 'other')
+    msg.setAttribute('class', 'them')
   }
   chatBox.appendChild(msg) // creates new div for msg inside the chatbox
 }
