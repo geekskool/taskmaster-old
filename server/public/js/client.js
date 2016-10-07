@@ -136,7 +136,7 @@ function addTaskRow (task) {
     })
   // event listener for discuss button
   IO.click(discussbutton)
-    .map(() => task)
+    .map(function(){ return task})
     .bind(function (task) {
       return new IO.getJSON('/api/comment/' + task.id)
     })
@@ -144,7 +144,6 @@ function addTaskRow (task) {
       taskObj = task
       chatModal.style.display = 'block'
       chatBox.textContent = null
-
       for (var i = 0; i < comments.length; i++) {
         displayComment(comments[i])
         scrollToBottom()
@@ -173,8 +172,13 @@ IO.getJSON('/api/users/' + user.phone)
   .bind(function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
   .then(function (...args) {
     var createdTask = args[1] // createdTask (task object returned from the server)
-    socket.emit('newTask', createdTask)
-    addTaskRow(createdTask)
+    if(createdTask.data.assgnByName === createdTask.data.assgnToName) {
+      addTaskRow(createdTask)
+    } else {
+      socket.emit('newTask', createdTask)
+      addTaskRow(createdTask)
+    }
+
   })
 
 // event listener for socket connection
@@ -200,6 +204,7 @@ socket.on('notifyDeletion', function (deletedTask) {
   var deletedTaskRow = document.getElementById(deletedTask.id)
   deletedTaskRow.remove()
 })
+
 function createComment () {
   var timestamp = Date().toString().slice(15, 24)
   if (user.name == taskObj.data.assgnToName) {
@@ -226,7 +231,7 @@ function displayComment (comment) {
 
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'me')
-    msg.innerHTML = '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div><div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>'
+    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>'+'<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
   } else {
     msg.setAttribute('class', 'them')
     msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
