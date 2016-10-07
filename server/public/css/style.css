@@ -178,12 +178,15 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
     width: 40%;
     clear: both;
     margin-bottom: 10px;
-    box-shadow: 0px 0px 4px 0px #ea5323;
 }
 
 .me {
   float: right;
   text-align: right;
+}
+
+.msg-content {
+  box-shadow: 0px 0px 4px 0px #ea5323;
 }
 
 .them {
@@ -281,15 +284,31 @@ nav {
   cursor: pointer;
 }
 
-.message-wrapper {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin: 10.66667px 0;
-  padding: 10.66667px 0;
-}
-
 #otherUser {
   padding: 10px;
   text-transform: capitalize;
+}
+
+.circle-wrapper {
+    background-color: #ea5323;
+    border-radius: 50%;
+    width: 23%;
+    text-align: center;
+    float: left;
+    margin-right: 10px;
+}
+
+.them .msg-content:before {
+  border-width: 0 10px 10px 0;
+  border-color: transparent #F44336 transparent transparent;
+  position: absolute;
+  top: 0;
+  left: -9px;
+}
+.me .msg-content:before {
+  border-width: 10px 10px 0 0;
+  border-color: #ffffff transparent transparent transparent;
+  position: absolute;
+  top: 0;
+  right: -9px;
 }
