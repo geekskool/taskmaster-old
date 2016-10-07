@@ -87,7 +87,7 @@ function addTaskRow (task) {
 
   var iconDone = document.createElement('i')
   iconDone.setAttribute('class', 'small material-icons')
-  iconDone.innerHTML = 'done'
+  iconDone.textContent = 'done'
 
   var donebutton = document.createElement('button')
   donebutton.setAttribute('class', 'button')
@@ -96,7 +96,7 @@ function addTaskRow (task) {
 
   var iconDiscuss = document.createElement('i')
   iconDiscuss.setAttribute('class', 'small material-icons')
-  iconDiscuss.innerHTML = 'chat_bubble'
+  iconDiscuss.textContent = 'chat_bubble'
 
   var discussbutton = document.createElement('button')
   discussbutton.setAttribute('class', 'button')
@@ -104,14 +104,14 @@ function addTaskRow (task) {
   discussbutton.appendChild(iconDiscuss)
 
   if (user.name === task.data.assgnToName) {
-    chattingWith.innerHTML = task.data.assgnByName
+    chattingWith.textContent = task.data.assgnByName
   } else {
-    chattingWith.innerHTML = task.data.assgnToName
+    chattingWith.textContent = task.data.assgnToName
   }
 
   var iconTrash = document.createElement('i')
   iconTrash.setAttribute('class', 'small material-icons')
-  iconTrash.innerHTML = 'delete'
+  iconTrash.textContent = 'delete'
 
   var trashbutton = document.createElement('button')
   trashbutton.setAttribute('class', 'button')
@@ -136,7 +136,7 @@ function addTaskRow (task) {
     .then(function (task, comments) {
       taskObj = task
       chatModal.style.display = 'block'
-      chatBox.innerHTML = null
+      chatBox.textContent = null
 
       for (var i = 0; i < comments.length; i++) {
         displayComment(comments[i])
@@ -202,14 +202,20 @@ function createComment () {
 }
 
 function displayComment (comment) {
+  var msgWrapper = document.createElement('div')
+  msgWrapper.setAttribute('class', 'msgWrapper')
+
   var msg = document.createElement('div') // create a new div
-  msg.innerHTML = '<p class="sentBy"><b>' + comment.sentBy + ' :</b> ' + comment.message + '</p><p class="time">' + comment.time + '</p>'
+
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'me')
+    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
   } else {
     msg.setAttribute('class', 'them')
+    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
   }
-  chatBox.appendChild(msg) // creates new div for msg inside the chatbox
+  msgWrapper.appendChild(msg)
+  chatBox.appendChild(msgWrapper) // creates new div for msg inside the chatbox
 }
 
 // sending messages
@@ -225,6 +231,7 @@ IO.click(sendButton)
   .then(function (outGoingMsg, serverResponse) {
     socket.emit('sendmessage', outGoingMsg.comment)
     displayComment(outGoingMsg.comment)
+    scrollBottom()
   })
 
 IO.click(closeChat)
