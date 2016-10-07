@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 app.get('/api/users/:phonenm', user.handleGet)
 app.post('/api/users', user.handlePost)
 
-app.get('/api/tasks/:phonenm', task.handleGet)
+app.get('/api/tasks/:phonenm', task.getList)
 app.post('/api/tasks', task.handlePost)
 
 app.post('/api/validate', validate.handlePost)
