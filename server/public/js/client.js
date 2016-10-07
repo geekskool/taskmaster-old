@@ -6,11 +6,10 @@ welcome.textContent = 'Welcome ' + user.name
 var taskObj
 
 var socket = io()
+var addTaskButton = document.getElementById('addTaskButton')
 var chatModal = document.getElementById('chat')
 var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
-var addTaskButton = document.getElementById('addTaskButton')
-
 var chattingWith = document.getElementById('otherUser')
 
 function populateUserList (users) {
@@ -140,7 +139,7 @@ function addTaskRow (task) {
 
       for (var i = 0; i < comments.length; i++) {
         displayComment(comments[i])
-        updateScroll()
+        scrollToBottom()
       }
     })
   // event listener for trash button
@@ -182,6 +181,7 @@ socket.on('notify', function (newTask) {
 // recieving message
 socket.on('discuss', function (incomingMsg) {
   displayComment(incomingMsg)
+  scrollToBottom()
 })
 
 function createComment () {
@@ -210,7 +210,7 @@ function displayComment (comment) {
 
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'me')
-    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
+    msg.innerHTML = '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div><div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>'
   } else {
     msg.setAttribute('class', 'them')
     msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
@@ -223,7 +223,7 @@ function displayComment (comment) {
 var sendButton = document.querySelector('#submitmsg')
 var userMsg = document.querySelector('#usermsg')
 
-function updateScroll () {
+function scrollToBottom () {
   chatBox.scrollTop = chatBox.scrollHeight
 }
 
@@ -235,9 +235,8 @@ IO.click(sendButton)
   })
   .then(function (outGoingMsg, serverResponse) {
     socket.emit('sendmessage', outGoingMsg.comment)
-
     displayComment(outGoingMsg.comment)
-    updateScroll()
+    scrollToBottom()
   })
 
 IO.click(closeChat)
