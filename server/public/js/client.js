@@ -140,6 +140,7 @@ function addTaskRow (task) {
 
       for (var i = 0; i < comments.length; i++) {
         displayComment(comments[i])
+        updateScroll()
       }
     })
   // event listener for trash button
@@ -222,6 +223,10 @@ function displayComment (comment) {
 var sendButton = document.querySelector('#submitmsg')
 var userMsg = document.querySelector('#usermsg')
 
+function updateScroll () {
+  chatBox.scrollTop = chatBox.scrollHeight
+}
+
 IO.click(sendButton)
   .map(createComment)
   .bind(function (outGoingMsg) {
@@ -230,8 +235,9 @@ IO.click(sendButton)
   })
   .then(function (outGoingMsg, serverResponse) {
     socket.emit('sendmessage', outGoingMsg.comment)
+
     displayComment(outGoingMsg.comment)
-    scrollBottom()
+    updateScroll()
   })
 
 IO.click(closeChat)
