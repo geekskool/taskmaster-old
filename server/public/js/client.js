@@ -1,5 +1,4 @@
 var user = JSON.parse(localStorage.getItem('userData'))
-
 var welcome = document.getElementById('welcome')
 welcome.textContent = 'Welcome ' + user.name
 
@@ -253,6 +252,7 @@ IO.click(sendButton)
   .then(function (outGoingMsg, serverResponse) {
     socket.emit('sendmessage', outGoingMsg.comment)
     displayComment(outGoingMsg.comment)
+    userMsg.value = '' //clear tesxt area after sending message
     scrollToBottom()
   })
 
