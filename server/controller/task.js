@@ -56,7 +56,7 @@ function getTasks (userId) {
 }
 
 function updateTask (task) {
-  console.log('marking as done', task.id)
+  console.log('updating task status', task.id)
   graph.load()
   var updatedTask = graph.read(task.id)
   updatedTask.data.title = task.data.title
@@ -71,7 +71,7 @@ function updateTask (task) {
 
   graph.update(updatedTask)
   graph.save()
-  console.log('task marked as done')
+  console.log('task updated')
 }
 
 function check (task) {
