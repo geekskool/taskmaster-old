@@ -289,26 +289,11 @@ nav {
   text-transform: capitalize;
 }
 
-.circle-wrapper {
+.circle-wrapper{
     background-color: #ea5323;
     border-radius: 50%;
     width: 23%;
     text-align: center;
     float: left;
     margin-right: 10px;
-}
-
-.them .msg-content:before {
-  border-width: 0 10px 10px 0;
-  border-color: transparent #F44336 transparent transparent;
-  position: absolute;
-  top: 0;
-  left: -9px;
-}
-.me .msg-content:before {
-  border-width: 10px 10px 0 0;
-  border-color: #ffffff transparent transparent transparent;
-  position: absolute;
-  top: 0;
-  right: -9px;
 }
