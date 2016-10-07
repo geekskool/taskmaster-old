@@ -25,7 +25,7 @@ function populateUserList (users) {
 
 function populateTasks (userList, taskList) {
   for (var i = taskList.length - 1; i >= 0; i--) {
-    if (taskList[i].data.status == true)
+    if (taskList[i].data.deleted == false)
       addTaskRow(taskList[i])
   }
   return [userList]
@@ -80,6 +80,8 @@ function addTaskRow (task) {
   var discuss = row.insertCell(4)
   var trash = row.insertCell(5)
 
+  row.setAttribute('id', task.id)
+
   taskname.innerText = task.data.title
   owner.innerText = task.data.assgnToName
   byDate.innerText = task.data.date.slice(0, 10)
@@ -102,12 +104,6 @@ function addTaskRow (task) {
   discuss.appendChild(discussbutton)
   discussbutton.appendChild(iconDiscuss)
 
-  if (user.name === task.data.assgnToName) {
-    chattingWith.textContent = task.data.assgnByName
-  } else {
-    chattingWith.textContent = task.data.assgnToName
-  }
-
   var iconTrash = document.createElement('i')
   iconTrash.setAttribute('class', 'small material-icons')
   iconTrash.textContent = 'delete'
@@ -117,6 +113,19 @@ function addTaskRow (task) {
   trash.appendChild(trashbutton)
   trashbutton.appendChild(iconTrash)
 
+
+  if  (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
+    chattingWith.innerHTML = user.name
+    trashbutton.disabled = false
+  } else if (user.name === task.data.assgnToName) {
+    chattingWith.innerHTML = task.data.assgnByName
+    trashbutton.disabled = true
+
+  } else {
+    chattingWith.innerHTML = task.data.assgnToName
+    trashbutton.disabled = false
+  }
+
   // event listener for done button
   IO.click(donebutton)
     .bind(function (e) {
@@ -124,7 +133,7 @@ function addTaskRow (task) {
       return new IO.postJSON('/api/tasks/', task)
     })
     .then(function (e, res) {
-      window.location.reload()
+
     })
   // event listener for discuss button
   IO.click(discussbutton)
@@ -149,7 +158,9 @@ function addTaskRow (task) {
       return new IO.postJSON('/api/tasks/', task)
     })
     .then(function (data) {
-      window.location.reload()
+      var taskToBeDeleted = document.getElementById(task.id)
+      taskToBeDeleted.remove()
+      socket.emit('deleteTask', task)
     })
 }
 
@@ -174,7 +185,7 @@ socket.on('connect', function () {
 
 // sending new task notification
 socket.on('notify', function (newTask) {
-  alert('you have a new task from  ' + newTask.data.assgnByName)
+  alert('You have a new task from : ' + newTask.data.assgnByName)
   addTaskRow(newTask)
 })
 
@@ -183,7 +194,13 @@ socket.on('discuss', function (incomingMsg) {
   displayComment(incomingMsg)
   scrollToBottom()
 })
+// deleting task
 
+socket.on('notifyDeletion', function (deletedTask) {
+  alert('Taskmaster ' + deletedTask.taskmaster + ' has deleted the task')
+  var deletedTaskRow = document.getElementById(deletedTask.id)
+  deletedTaskRow.remove()
+})
 function createComment () {
   var timestamp = Date().toString().slice(15, 24)
   if (user.name == taskObj.data.assgnToName) {
