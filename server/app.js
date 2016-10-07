@@ -28,7 +28,7 @@ app.post('/api/tasks', task.handlePost)
 app.post('/api/validate', validate.handlePost)
 
 app.post('/api/comment/', comment.add)
-app.get('/api/comment/:id', comment.handleGet)
+app.get('/api/comment/:id', comment.getPrevious)
 
 const port = 3000
 
