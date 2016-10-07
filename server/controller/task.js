@@ -80,7 +80,7 @@ function check (task) {
   return false
 }
 
-task.handleGet = function (req, res, next) {
+task.getList = function (req, res, next) {
   try {
     var t
     var id = req.params.phonenm
