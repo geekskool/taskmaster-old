@@ -35,10 +35,9 @@ comment.add = function (req, res, next) {
   }
 }
 
-comment.handleGet = function (req, res, next) {
+comment.getPrevious = function (req, res, next) {
   try {
     var id = req.params.id
-    // console.log(id)
     let list = getComment(id)
     res.send(list)
   } catch(err) {
