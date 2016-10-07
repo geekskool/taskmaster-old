@@ -75,7 +75,7 @@ function addTaskRow (task) {
   var taskname = row.insertCell(0)
   var owner = row.insertCell(1)
   var byDate = row.insertCell(2)
-  var done = row.insertCell(3)
+  var status = row.insertCell(3)
   var discuss = row.insertCell(4)
   var trash = row.insertCell(5)
 
@@ -85,14 +85,14 @@ function addTaskRow (task) {
   owner.innerText = task.data.assgnToName
   byDate.innerText = task.data.date.slice(0, 10)
 
-  var iconDone = document.createElement('i')
-  iconDone.setAttribute('class', 'small material-icons')
-  iconDone.textContent = 'done'
+  var statusIcon = document.createElement('i')
+  statusIcon.setAttribute('class', 'small material-icons')
+  statusIcon.textContent = 'schedule'
 
-  var donebutton = document.createElement('button')
-  donebutton.setAttribute('class', 'button')
-  done.appendChild(donebutton)
-  donebutton.appendChild(iconDone)
+  var statusButton = document.createElement('button')
+  statusButton.setAttribute('class', 'button')
+  status.appendChild(statusButton)
+  statusButton.appendChild(statusIcon)
 
   var iconDiscuss = document.createElement('i')
   iconDiscuss.setAttribute('class', 'small material-icons')
@@ -126,13 +126,15 @@ function addTaskRow (task) {
   }
 
   // event listener for done button
-  IO.click(donebutton)
+  IO.click(statusButton)
     .bind(function (e) {
       task.data.status = false
       return new IO.postJSON('/api/tasks/', task)
     })
     .then(function (e, res) {
-
+      // statusButton.appendChild(statusIcon)
+      // statusIcon.textContent = 'schedule'
+      // statusButton.appendChild(statusIcon)
     })
   // event listener for discuss button
   IO.click(discussbutton)
