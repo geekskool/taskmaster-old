@@ -65,69 +65,53 @@ function createTask (userList, e) {
   }
 }
 
+function createButtonFor (field, iconName) {
+  var icon = document.createElement('i')
+  icon.setAttribute('class', 'small material-icons')
+  icon.textContent = iconName
+  var button = document.createElement('button')
+  button.setAttribute('class', 'button')
+  field.appendChild(button)
+  button.appendChild(icon)
+  return button
+}
+
 function addTaskRow (task) {
   var row = document.getElementById('tasks').insertRow()
-  var taskname = row.insertCell(0)
-  var owner = row.insertCell(1)
-  var byDate = row.insertCell(2)
-  var status = row.insertCell(3)
-  var discuss = row.insertCell(4)
-  var trash = row.insertCell(5)
-
   row.setAttribute('id', task.id)
+  row.insertCell(0).innerText = task.data.title
+  row.insertCell(1).innerText = task.data.assgnToName === user.name ? 'Me' : task.data.assgnToName
+  row.insertCell(2).innerText = task.data.assgnByName === user.name ? 'Me' : task.data.assgnByName
+  row.insertCell(3).innerText = task.data.date.slice(0, 10)
+  var status = row.insertCell(4)
+  var discuss = row.insertCell(5)
+  var trash = row.insertCell(6)
 
-  taskname.innerText = task.data.title
-  owner.innerText = task.data.assgnToName
-  byDate.innerText = task.data.date.slice(0, 10)
-
-  var statusIcon = document.createElement('i')
-  statusIcon.setAttribute('class', 'small material-icons')
-  statusIcon.textContent = 'schedule'
-
-  var statusButton = document.createElement('button')
-  statusButton.setAttribute('class', 'button')
-  status.appendChild(statusButton)
-  statusButton.appendChild(statusIcon)
-
-  var iconDiscuss = document.createElement('i')
-  iconDiscuss.setAttribute('class', 'small material-icons')
-  iconDiscuss.textContent = 'chat_bubble'
-
-  var discussbutton = document.createElement('button')
-  discussbutton.setAttribute('class', 'button')
-  discuss.appendChild(discussbutton)
-  discussbutton.appendChild(iconDiscuss)
-
-  var iconTrash = document.createElement('i')
-  iconTrash.setAttribute('class', 'small material-icons')
-  iconTrash.textContent = 'delete'
-
-  var trashbutton = document.createElement('button')
-  trashbutton.setAttribute('class', 'button')
-  trash.appendChild(trashbutton)
-  trashbutton.appendChild(iconTrash)
+  var statusButton = createButtonFor(status, 'schedule')
+  var discussButton = createButtonFor(discuss, 'chat_bubble')
+  var trashButton = createButtonFor(trash, 'delete')
 
   if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
-    trashbutton.disabled = false
+    trashButton.disabled = false
   } else if (user.name === task.data.assgnToName) {
-    trashbutton.disabled = true
+    trashButton.disabled = true
   } else {
-    trashbutton.disabled = false
+    trashButton.disabled = false
   }
 
-  // event listener for done button
   IO.click(statusButton)
-    .bind(function (e) {
+    .bind(function (task) {
       task.data.status = false
       return new IO.postJSON('/api/tasks/', task)
     })
     .then(function (e, res) {
+      console.log('I have been clicked')
       // statusButton.appendChild(statusIcon)
       // statusIcon.textContent = 'schedule'
       // statusButton.appendChild(statusIcon)
     })
   // event listener for discuss button
-  IO.click(discussbutton)
+  IO.click(discussButton)
     .map(function (e) { console.log(e.path[3].id) // stores the task id
       return task })
     .bind(function (task) {
@@ -139,7 +123,7 @@ function addTaskRow (task) {
       scrollToBottom()
     })
     // event listener for trash button
-  IO.click(trashbutton)
+  IO.click(trashButton)
     .bind(function (e) {
       task.data.deleted = true
       return new IO.postJSON('/api/tasks/', task)
@@ -206,7 +190,7 @@ socket.on('discuss', function (incomingMsg) {
 // deleting task
 
 socket.on('notifyDeletion', function (deletedTask) {
-  if (deletedTask.id === taskObj.id) {
+  if (chatModal.style.display === 'block' && deletedTask.id === taskObj.id) {
     chatModal.style.display = 'none'
   }
   alert('Taskmaster ' + deletedTask.taskmaster + ' has deleted the task')
