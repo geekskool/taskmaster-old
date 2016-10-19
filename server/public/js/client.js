@@ -112,14 +112,12 @@ function addTaskRow (task) {
   trash.appendChild(trashbutton)
   trashbutton.appendChild(iconTrash)
 
-
-  if  (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
+  if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
     chattingWith.innerHTML = user.name
     trashbutton.disabled = false
   } else if (user.name === task.data.assgnToName) {
     chattingWith.innerHTML = task.data.assgnByName
     trashbutton.disabled = true
-
   } else {
     chattingWith.innerHTML = task.data.assgnToName
     trashbutton.disabled = false
@@ -138,7 +136,7 @@ function addTaskRow (task) {
     })
   // event listener for discuss button
   IO.click(discussbutton)
-    .map(function(){ return task})
+    .map(function () { return task })
     .bind(function (task) {
       return new IO.getJSON('/api/comment/' + task.id)
     })
@@ -174,13 +172,12 @@ IO.getJSON('/api/users/' + user.phone)
   .bind(function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
   .then(function (...args) {
     var createdTask = args[1] // createdTask (task object returned from the server)
-    if(createdTask.data.assgnByName === createdTask.data.assgnToName) {
+    if (createdTask.data.assgnByName === createdTask.data.assgnToName) {
       addTaskRow(createdTask)
     } else {
       socket.emit('newTask', createdTask)
       addTaskRow(createdTask)
     }
-
   })
 
 // event listener for socket connection
@@ -233,7 +230,7 @@ function displayComment (comment) {
 
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'me')
-    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>'+'<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
+    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
   } else {
     msg.setAttribute('class', 'them')
     msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
@@ -259,7 +256,7 @@ IO.click(sendButton)
   .then(function (outGoingMsg, serverResponse) {
     socket.emit('sendmessage', outGoingMsg.comment)
     displayComment(outGoingMsg.comment)
-    userMsg.value = '' //clear tesxt area after sending message
+    userMsg.value = '' // clear text area after sending message
     scrollToBottom()
   })
 
