@@ -42,24 +42,19 @@ function createTask (userList, e) {
       break
     }
   }
-
   var date = document.getElementById('date').value
   var today = new Date()
-
   if (date == '') {
     date = new Date()
     date = new Date(date.setTime(date.getTime() + 86400000))
     date = date.toJSON().slice(0, 10)
   }
-
   date = date + 'T00:00:00.000Z'
-
   var title = document.getElementById('name').value
   if (title === '' || title === '\s' || title === null) {
     window.alert('Task name cannot be empty')
     console.log('empty task')
   }
-
   return {
     title: document.getElementById('name').value,
     date: date,
@@ -113,13 +108,10 @@ function addTaskRow (task) {
   trashbutton.appendChild(iconTrash)
 
   if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
-    chattingWith.innerHTML = user.name
     trashbutton.disabled = false
   } else if (user.name === task.data.assgnToName) {
-    chattingWith.innerHTML = task.data.assgnByName
     trashbutton.disabled = true
   } else {
-    chattingWith.innerHTML = task.data.assgnToName
     trashbutton.disabled = false
   }
 
@@ -142,6 +134,13 @@ function addTaskRow (task) {
     })
     .then(function (task, comments) {
       taskObj = task
+      if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
+        chattingWith.innerText = 'You'
+      } else if (user.name === task.data.assgnToName) {
+        chattingWith.innerText = task.data.assgnByName
+      } else {
+        chattingWith.innerText = task.data.assgnToName
+      }
       chatModal.style.display = 'block'
       chatBox.textContent = null
       for (var i = 0; i < comments.length; i++) {
@@ -200,10 +199,12 @@ socket.on('discuss', function (incomingMsg) {
 // deleting task
 
 socket.on('notifyDeletion', function (deletedTask) {
+  if (deletedTask.id === taskObj.id) {
+    chatModal.style.display = 'none'
+  }
   alert('Taskmaster ' + deletedTask.taskmaster + ' has deleted the task')
   var deletedTaskRow = document.getElementById(deletedTask.id)
   deletedTaskRow.remove()
-  chatModal.style.display = 'none'
 })
 
 function createComment () {
@@ -256,16 +257,7 @@ IO.click(sendButton)
     return new IO.postJSON('/api/comment/', outGoingMsg)
   })
   .then(function (outGoingMsg, serverResponse) {
-    socket.emit('sendmessage', outGoingMsg) /*
-     outgoing msg{
-      id: taskObj.id,
-      comment: {
-        sentBy: user.name,
-        sentTo: to,
-        time: timestamp,
-        message: userMsg.value
-      }
-    } */
+    socket.emit('sendmessage', outGoingMsg)
     displayComment(outGoingMsg.comment)
     userMsg.value = '' // clear text area after sending message
     scrollToBottom()
