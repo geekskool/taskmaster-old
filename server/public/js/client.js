@@ -193,15 +193,17 @@ socket.on('notify', function (newTask) {
 
 // recieving message
 socket.on('discuss', function (incomingMsg) {
-  displayComment(incomingMsg)
-  scrollToBottom()
-})
+  if (incomingMsg.id === taskObj.id) {
+    displayComment(incomingMsg)
+    scrollToBottom()
+  } })
 // deleting task
 
 socket.on('notifyDeletion', function (deletedTask) {
   alert('Taskmaster ' + deletedTask.taskmaster + ' has deleted the task')
   var deletedTaskRow = document.getElementById(deletedTask.id)
   deletedTaskRow.remove()
+  chatModal.style.display = 'none'
 })
 
 function createComment () {
@@ -254,7 +256,16 @@ IO.click(sendButton)
     return new IO.postJSON('/api/comment/', outGoingMsg)
   })
   .then(function (outGoingMsg, serverResponse) {
-    socket.emit('sendmessage', outGoingMsg.comment)
+    socket.emit('sendmessage', outGoingMsg) /*
+     outgoing msg{
+      id: taskObj.id,
+      comment: {
+        sentBy: user.name,
+        sentTo: to,
+        time: timestamp,
+        message: userMsg.value
+      }
+    } */
     displayComment(outGoingMsg.comment)
     userMsg.value = '' // clear text area after sending message
     scrollToBottom()
