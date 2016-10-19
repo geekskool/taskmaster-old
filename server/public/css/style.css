@@ -83,7 +83,7 @@ a:hover {
 #chat{
   margin-left: 30%;
   margin-top: 7%;
-} 
+}
 
 #usermsg {
   width: 100%;
@@ -173,7 +173,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 .them {
     background-color: #fff;
     border: 1px;
-    padding: 3px;   
+    padding: 3px;
     border-radius: 3px;
     width: 40%;
     clear: both;
@@ -296,4 +296,13 @@ nav {
     text-align: center;
     float: left;
     margin-right: 10px;
+}
+
+.indicator{
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.lft {
+  text-align: left;
 }
