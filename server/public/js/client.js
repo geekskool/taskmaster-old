@@ -128,27 +128,17 @@ function addTaskRow (task) {
     })
   // event listener for discuss button
   IO.click(discussbutton)
-    .map(function () { return task })
+    .map(function (e) { console.log(e.path[3].id) // stores the task id
+      return task })
     .bind(function (task) {
       return new IO.getJSON('/api/comment/' + task.id)
     })
     .then(function (task, comments) {
-      taskObj = task
-      if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
-        chattingWith.innerText = 'You'
-      } else if (user.name === task.data.assgnToName) {
-        chattingWith.innerText = task.data.assgnByName
-      } else {
-        chattingWith.innerText = task.data.assgnToName
-      }
-      chatModal.style.display = 'block'
-      chatBox.textContent = null
-      for (var i = 0; i < comments.length; i++) {
-        displayComment(comments[i])
-        scrollToBottom()
-      }
+      openChatForThis(task)
+      renderPrevious(comments)
+      scrollToBottom()
     })
-  // event listener for trash button
+    // event listener for trash button
   IO.click(trashbutton)
     .bind(function (e) {
       task.data.deleted = true
@@ -161,6 +151,24 @@ function addTaskRow (task) {
     })
 }
 
+function openChatForThis (task) {
+  taskObj = task
+  if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
+    chattingWith.innerText = 'You'
+  } else if (user.name === task.data.assgnToName) {
+    chattingWith.innerText = task.data.assgnByName
+  } else {
+    chattingWith.innerText = task.data.assgnToName
+  }
+  chatModal.style.display = 'block'
+  chatBox.textContent = null
+}
+
+function renderPrevious (comments) {
+  for (var i = 0; i < comments.length; i++) {
+    displayComment(comments[i])
+  }
+}
 // IO object to handle getting users, tasks, and for adding tasks
 IO.getJSON('/api/users/' + user.phone)
   .map(populateUserList)
@@ -169,15 +177,12 @@ IO.getJSON('/api/users/' + user.phone)
   .bind(function (userList) { return new IO.click(addTaskButton) })
   .map(createTask)
   .bind(function (newTask) { return new IO.postJSON('/api/tasks', newTask) })
-  .then(function (...args) {
-    var createdTask = args[1] // createdTask (task object returned from the server)
-    if (createdTask.data.assgnByName === createdTask.data.assgnToName) {
-      addTaskRow(createdTask)
-    } else {
-      socket.emit('newTask', createdTask)
-      addTaskRow(createdTask)
-    }
-  })
+  .map(function (newTask, createdTask) { return createdTask })
+  .then(function (createdTask) {
+    addTaskRow(createdTask)
+    socket.emit('newTask', createdTask)
+  }
+  )
 
 // event listener for socket connection
 socket.on('connect', function () {
@@ -186,7 +191,9 @@ socket.on('connect', function () {
 
 // sending new task notification
 socket.on('notify', function (newTask) {
-  alert('You have a new task from : ' + newTask.data.assgnByName)
+  if (newTask.data.assgnByName !== newTask.data.assgnToName) {
+    alert('You have a new task from : ' + newTask.data.assgnByName)
+  }
   addTaskRow(newTask)
 })
 
@@ -207,7 +214,8 @@ socket.on('notifyDeletion', function (deletedTask) {
   deletedTaskRow.remove()
 })
 
-function createComment () {
+function createComment (e) {
+  console.log(e)
   var timestamp = Date().toString().slice(15, 24)
   if (user.name == taskObj.data.assgnToName) {
     var to = taskObj.data.assgnByName
