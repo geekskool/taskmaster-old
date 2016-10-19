@@ -50,9 +50,22 @@ io.on('connection', function (socket) {
   })
 
   socket.on('sendmessage', function (message) {
+    /*
+     message{
+      id: taskObj.id,
+      comment: {
+        sentBy: user.name,
+        sentTo: to,
+        time: timestamp,
+        message: userMsg.value
+      }
+    } */
     console.log(message)
-    var recipient = message.sentTo
-    users[recipient].emit('discuss', {'sentBy': message.sentBy, 'time': message.time, 'message': message.message})
+    var recipient = message.comment.sentTo
+    users[recipient].emit('discuss', {'id': message.id,
+      'sentBy': message.comment.sentBy,
+    'time': message.comment.time,
+    'message': message.comment.message})
   })
 })
 
