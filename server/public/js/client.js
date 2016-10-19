@@ -161,8 +161,7 @@ IO.getJSON('/api/users/' + user.phone)
   .map(function (newTask, createdTask) { return createdTask })
   .then(function (createdTask) {
     addTaskRow(createdTask)
-    socket.emit('newTask', createdTask)
-  }
+    socket.emit('newTask', createdTask) }
   )
 
 // event listener for socket connection
@@ -174,8 +173,8 @@ socket.on('connect', function () {
 socket.on('notify', function (newTask) {
   if (newTask.data.assgnByName !== newTask.data.assgnToName) {
     alert('You have a new task from : ' + newTask.data.assgnByName)
+    addTaskRow(newTask)
   }
-  addTaskRow(newTask)
 })
 
 // recieving message
