@@ -4,11 +4,9 @@ import task from './controller/task'
 import validate from './controller/validate'
 import comment from './controller/comment'
 import bodyParser from 'body-parser'
-// import server from 'http'
-// import io from 'socket.io'()
+
 var users = {}
 const app = express()
-console.log(users)
 
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
@@ -43,16 +41,15 @@ io.on('connection', function (socket) {
   })
 
   socket.on('newTask', function (newTask) {
-      users[newTask.data.assgnToName].emit('notify', newTask)
+    users[newTask.data.assgnToName].emit('notify', newTask)
   })
 
   socket.on('deleteTask', function (deletedTask) {
     console.log(deletedTask.data)
-    users[deletedTask.data.assgnToName].emit('notifyDeletion', {id : deletedTask.id, taskmaster: deletedTask.data.assgnByName})
+    users[deletedTask.data.assgnToName].emit('notifyDeletion', {id: deletedTask.id, taskmaster: deletedTask.data.assgnByName})
   })
 
   socket.on('sendmessage', function (message) {
-
     console.log(message)
     var recipient = message.sentTo
     users[recipient].emit('discuss', {'sentBy': message.sentBy, 'time': message.time, 'message': message.message})
@@ -62,4 +59,3 @@ io.on('connection', function (socket) {
 http.listen(process.env.PORT || 3000, function () {
   console.log('server Started!')
 })
-// app.listen(port, () => console.log(`Running on port ${port}`))
