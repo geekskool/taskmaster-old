@@ -34,8 +34,7 @@ function createTask (userList, e) {
   e.preventDefault()
   e.stopPropagation()
   var assignNum
-  var selectedName = document.getElementById('assignTo')
-  var assignTo = selectedName.options[selectedName.selectedIndex].text
+  var assignTo = document.getElementById('assignTo').value
   for (var i = 0; i < userList.length; i++) {
     if (userList[i].name == assignTo) {
       assignNum = userList[i].phone
@@ -70,10 +69,17 @@ function createButtonFor (field, iconName) {
   icon.setAttribute('class', 'small material-icons')
   icon.textContent = iconName
   var button = document.createElement('button')
-  button.setAttribute('class', 'button')
+  button.setAttribute('class', 'btn-flat')
   field.appendChild(button)
   button.appendChild(icon)
   return button
+}
+
+function disableForAssignee (button, task) {
+  if (!(task.data.assgnByName === task.data.assgnToName) && user.name === task.data.assgnToName) {
+    button.disabled = true
+    button.setAttribute('class', 'btn-flat disabled')
+  }
 }
 
 function addTaskRow (task) {
@@ -91,13 +97,7 @@ function addTaskRow (task) {
   var discussButton = createButtonFor(discuss, 'chat_bubble')
   var trashButton = createButtonFor(trash, 'delete')
 
-  if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
-    trashButton.disabled = false
-  } else if (user.name === task.data.assgnToName) {
-    trashButton.disabled = true
-  } else {
-    trashButton.disabled = false
-  }
+  disableForAssignee(trashButton, task)
 
   IO.click(statusButton)
     .bind(function (task) {
@@ -106,11 +106,8 @@ function addTaskRow (task) {
     })
     .then(function (e, res) {
       console.log('I have been clicked')
-      // statusButton.appendChild(statusIcon)
-      // statusIcon.textContent = 'schedule'
-      // statusButton.appendChild(statusIcon)
     })
-  // event listener for discuss button
+
   IO.click(discussButton)
     .map(function (e) { console.log(e.path[3].id) // stores the task id
       return task })
@@ -122,7 +119,7 @@ function addTaskRow (task) {
       renderPrevious(comments)
       scrollToBottom()
     })
-    // event listener for trash button
+
   IO.click(trashButton)
     .bind(function (e) {
       task.data.deleted = true
@@ -153,7 +150,7 @@ function renderPrevious (comments) {
     displayComment(comments[i])
   }
 }
-// IO object to handle getting users, tasks, and for adding tasks
+
 IO.getJSON('/api/users/' + user.phone)
   .map(populateUserList)
   .bind(function (userList) { return new IO.getJSON('/api/tasks/' + user.phone) })
