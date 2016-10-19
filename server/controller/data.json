@@ -71,6 +71,14 @@
             {
                 "type": "child",
                 "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "child",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "child",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
             }
         ]
     },
@@ -297,6 +305,18 @@
             {
                 "type": "to",
                 "in": "e737c7ee-1a1a-4f56-a930-8b0106cf6df9"
+            },
+            {
+                "type": "to",
+                "in": "16cfd73a-da2b-4133-9ba4-f76383d5e939"
+            },
+            {
+                "type": "to",
+                "in": "4d58ac06-54e7-43b0-a41e-e21b6fb7c5ee"
+            },
+            {
+                "type": "to",
+                "in": "f0dd9636-b6f8-46d1-92b3-10e3ea6ef862"
             }
         ],
         "out": []
@@ -653,6 +673,10 @@
             {
                 "type": "by",
                 "in": "f1f88e41-7175-4293-8418-6f1f7386ce40"
+            },
+            {
+                "type": "to",
+                "in": "16012c46-7cc5-4a43-81ac-4d803e21423c"
             }
         ],
         "out": []
@@ -1320,6 +1344,98 @@
             {
                 "type": "by",
                 "in": "be33d15c-20a7-4667-8efd-118f045a0603"
+            },
+            {
+                "type": "to",
+                "in": "a21dcf22-bb7d-48cd-aef5-e9598c6d0945"
+            },
+            {
+                "type": "by",
+                "in": "48074434-a8cd-4728-a95d-a1ea28287824"
+            },
+            {
+                "type": "by",
+                "in": "b0d9a3af-8500-4eb6-b1dc-fef4e31e9913"
+            },
+            {
+                "type": "by",
+                "in": "1c472597-8e77-43c2-a234-c1be8bfad4e9"
+            },
+            {
+                "type": "by",
+                "in": "ac324ae7-a806-4b15-964a-a69b8eaf7e5b"
+            },
+            {
+                "type": "to",
+                "in": "8f8d78b8-3060-4c6a-b4b4-31ec8c07b09a"
+            },
+            {
+                "type": "to",
+                "in": "a95a1870-014a-48d8-aba7-8885c7764808"
+            },
+            {
+                "type": "to",
+                "in": "893dae13-acd5-4da9-b488-ef4367976444"
+            },
+            {
+                "type": "to",
+                "in": "ea5b0db2-c8a2-43e8-bb0a-c50b2efd4338"
+            },
+            {
+                "type": "to",
+                "in": "af5420c1-99f9-414b-bc87-d68cafd2761c"
+            },
+            {
+                "type": "to",
+                "in": "c8018d38-1cfd-428d-8488-17f714d5f97a"
+            },
+            {
+                "type": "to",
+                "in": "317f94fd-1d07-4155-855c-4dd348992a97"
+            },
+            {
+                "type": "to",
+                "in": "ebd7dc92-1c53-42d6-97fe-615c7a59ed44"
+            },
+            {
+                "type": "by",
+                "in": "eae353fe-1c99-48c1-b1ce-e48aa7dd6746"
+            },
+            {
+                "type": "by",
+                "in": "9aa63db6-793e-429c-80ce-7f5f7baf4cf7"
+            },
+            {
+                "type": "by",
+                "in": "4bf5c8a5-cb52-411f-882e-41497c50b825"
+            },
+            {
+                "type": "by",
+                "in": "92c078eb-e31d-4d6d-b48a-d4ed892a7f26"
+            },
+            {
+                "type": "by",
+                "in": "594bbb4c-430d-49c8-9a14-6cb318cb0766"
+            },
+            {
+                "type": "by",
+                "in": "5a7ea02b-5e76-487d-8045-93e352d4c747"
+            },
+            {
+                "type": "by",
+                "in": "16cfd73a-da2b-4133-9ba4-f76383d5e939"
+            },
+            {
+                "type": "by",
+                "in": "4d58ac06-54e7-43b0-a41e-e21b6fb7c5ee"
+            },
+            {
+                "type": "by",
+                "in": "f0dd9636-b6f8-46d1-92b3-10e3ea6ef862"
+            },
+            {
+                "type": "by",
+                "in": "56eed396-4641-4979-8a01-ed393e789b10"
             }
         ],
         "out": []
@@ -1335,7 +1451,7 @@
             "assgnByName": "Angad",
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1361,7 +1477,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Angad",
             "assgnToPhon": "+919087705230",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1383,7 +1499,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Angad",
             "assgnToPhon": "+919087705230",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1405,7 +1521,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1431,7 +1547,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1456,7 +1572,7 @@
             "assgnByName": "Angad",
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1481,7 +1597,7 @@
             "assgnByName": "Angad",
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1506,7 +1622,7 @@
             "assgnByName": "Angad",
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1563,7 +1679,7 @@
             "assgnByName": "Angad",
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1588,7 +1704,7 @@
             "assgnByName": "Angad",
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1614,7 +1730,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1640,7 +1756,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1691,7 +1807,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1781,7 +1897,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1807,7 +1923,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1833,7 +1949,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1859,7 +1975,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1885,7 +2001,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1911,7 +2027,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1937,7 +2053,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1963,7 +2079,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -1989,7 +2105,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2015,7 +2131,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2041,7 +2157,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2067,7 +2183,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2093,7 +2209,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2119,7 +2235,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2145,7 +2261,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2171,7 +2287,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2197,7 +2313,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2223,7 +2339,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Angad",
             "assgnToPhon": "+919087705230",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2245,7 +2361,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2271,7 +2387,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2297,7 +2413,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2323,7 +2439,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2349,7 +2465,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2375,7 +2491,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2401,7 +2517,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2434,7 +2550,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2460,7 +2576,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2486,7 +2602,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2512,7 +2628,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "akshar",
             "assgnToPhon": "+919620818140",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2551,7 +2667,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2577,7 +2693,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2681,7 +2797,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -2876,7 +2992,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -3008,7 +3124,7 @@
             "assgnByPhon": "+919087705230",
             "assgnToName": "Manisha",
             "assgnToPhon": "+918050342347",
-            "deleted": false
+            "deleted": true
         },
         "in": [],
         "out": [
@@ -3041,6 +3157,957 @@
             {
                 "type": "by",
                 "out": "f22b51a0-406f-4856-9f24-cfe7a97ffc86"
+            }
+        ]
+    },
+    {
+        "id": "446d2d31-b585-4858-ab07-b14269a9d0a5",
+        "type": "user",
+        "data": {
+            "name": "rahul",
+            "phone": "+919686257643"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
+            },
+            {
+                "type": "by",
+                "in": "a21dcf22-bb7d-48cd-aef5-e9598c6d0945"
+            },
+            {
+                "type": "to",
+                "in": "48074434-a8cd-4728-a95d-a1ea28287824"
+            },
+            {
+                "type": "to",
+                "in": "b0d9a3af-8500-4eb6-b1dc-fef4e31e9913"
+            },
+            {
+                "type": "to",
+                "in": "1c472597-8e77-43c2-a234-c1be8bfad4e9"
+            },
+            {
+                "type": "to",
+                "in": "ac324ae7-a806-4b15-964a-a69b8eaf7e5b"
+            },
+            {
+                "type": "by",
+                "in": "ea5b0db2-c8a2-43e8-bb0a-c50b2efd4338"
+            },
+            {
+                "type": "by",
+                "in": "c8018d38-1cfd-428d-8488-17f714d5f97a"
+            },
+            {
+                "type": "by",
+                "in": "317f94fd-1d07-4155-855c-4dd348992a97"
+            },
+            {
+                "type": "by",
+                "in": "ebd7dc92-1c53-42d6-97fe-615c7a59ed44"
+            },
+            {
+                "type": "by",
+                "in": "06768fd8-a4f7-481b-bfa8-73837b4031de"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "a21dcf22-bb7d-48cd-aef5-e9598c6d0945",
+        "type": "task",
+        "data": {
+            "title": "hello",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "rahul",
+            "assgnByPhon": "+919686257643",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "48074434-a8cd-4728-a95d-a1ea28287824",
+        "type": "task",
+        "data": {
+            "title": "chat test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "rahul",
+            "assgnToPhon": "+919686257643",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            }
+        ]
+    },
+    {
+        "id": "b0d9a3af-8500-4eb6-b1dc-fef4e31e9913",
+        "type": "task",
+        "data": {
+            "title": "ChatFix",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "rahul",
+            "assgnToPhon": "+919686257643",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            }
+        ]
+    },
+    {
+        "id": "1c472597-8e77-43c2-a234-c1be8bfad4e9",
+        "type": "task",
+        "data": {
+            "title": "ChatFix",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "rahul",
+            "assgnToPhon": "+919686257643",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            }
+        ]
+    },
+    {
+        "id": "ac324ae7-a806-4b15-964a-a69b8eaf7e5b",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "rahul",
+            "assgnToPhon": "+919686257643",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            }
+        ]
+    },
+    {
+        "id": "d04d9abb-0234-4010-9eea-a107f86caf21",
+        "type": "user",
+        "data": {
+            "name": "Mukesh",
+            "phone": "+919164646463"
+        },
+        "in": [
+            {
+                "type": "child",
+                "in": "2a49cf1f-c2e7-47fb-87cc-47fb5708bf70"
+            },
+            {
+                "type": "by",
+                "in": "8f8d78b8-3060-4c6a-b4b4-31ec8c07b09a"
+            },
+            {
+                "type": "by",
+                "in": "a95a1870-014a-48d8-aba7-8885c7764808"
+            },
+            {
+                "type": "by",
+                "in": "893dae13-acd5-4da9-b488-ef4367976444"
+            },
+            {
+                "type": "by",
+                "in": "af5420c1-99f9-414b-bc87-d68cafd2761c"
+            },
+            {
+                "type": "to",
+                "in": "06768fd8-a4f7-481b-bfa8-73837b4031de"
+            },
+            {
+                "type": "to",
+                "in": "92c078eb-e31d-4d6d-b48a-d4ed892a7f26"
+            },
+            {
+                "type": "to",
+                "in": "594bbb4c-430d-49c8-9a14-6cb318cb0766"
+            },
+            {
+                "type": "by",
+                "in": "16012c46-7cc5-4a43-81ac-4d803e21423c"
+            },
+            {
+                "type": "by",
+                "in": "dbb12798-4e45-4895-8c1f-5de4d9112469"
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "8f8d78b8-3060-4c6a-b4b4-31ec8c07b09a",
+        "type": "task",
+        "data": {
+            "title": "multi user chat",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-22T00:00:00.000Z",
+            "assgnByName": "Mukesh",
+            "assgnByPhon": "+919164646463",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "a95a1870-014a-48d8-aba7-8885c7764808",
+        "type": "task",
+        "data": {
+            "title": "multi user chat",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 11:54:52",
+                    "message": ""
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 11:54:54",
+                    "message": ""
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 11:56:18",
+                    "message": "t1"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 12:51:01",
+                    "message": "test 3"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 12:51:35",
+                    "message": "multi user chat 1"
+                }
+            ],
+            "date": "2016-10-22T00:00:00.000Z",
+            "assgnByName": "Mukesh",
+            "assgnByPhon": "+919164646463",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "893dae13-acd5-4da9-b488-ef4367976444",
+        "type": "task",
+        "data": {
+            "title": "modal window",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 11:56:03",
+                    "message": ""
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 11:56:28",
+                    "message": "t2"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 12:51:26",
+                    "message": "modal window 1"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 14:55:05",
+                    "message": "hi"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 14:55:08",
+                    "message": "hi"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 14:55:11",
+                    "message": "hi"
+                }
+            ],
+            "date": "2016-10-22T00:00:00.000Z",
+            "assgnByName": "Mukesh",
+            "assgnByPhon": "+919164646463",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "ea5b0db2-c8a2-43e8-bb0a-c50b2efd4338",
+        "type": "task",
+        "data": {
+            "title": "Rahul",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "rahul",
+            "assgnByPhon": "+919686257643",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "af5420c1-99f9-414b-bc87-d68cafd2761c",
+        "type": "task",
+        "data": {
+            "title": "Fix Modal window name",
+            "status": false,
+            "comments": [
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 12:50:45",
+                    "message": "hey"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 12:50:46",
+                    "message": ""
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 12:50:52",
+                    "message": "test"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 12:51:15",
+                    "message": "Fix Modal window name 1"
+                }
+            ],
+            "date": "2016-10-22T00:00:00.000Z",
+            "assgnByName": "Mukesh",
+            "assgnByPhon": "+919164646463",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "c8018d38-1cfd-428d-8488-17f714d5f97a",
+        "type": "task",
+        "data": {
+            "title": "Hi Angad",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "rahul",
+                    "sentTo": "Angad",
+                    "time": " 14:17:17",
+                    "message": "Hi angad"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "rahul",
+                    "time": " 14:17:24",
+                    "message": "hi Rahul"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "rahul",
+                    "time": " 16:03:31",
+                    "message": "hi"
+                }
+            ],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "rahul",
+            "assgnByPhon": "+919686257643",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "317f94fd-1d07-4155-855c-4dd348992a97",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "rahul",
+            "assgnByPhon": "+919686257643",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "ebd7dc92-1c53-42d6-97fe-615c7a59ed44",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": false,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "rahul",
+            "assgnByPhon": "+919686257643",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "to",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "06768fd8-a4f7-481b-bfa8-73837b4031de",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "rahul",
+                    "time": " 12:52:44",
+                    "message": "test 2\n"
+                }
+            ],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "rahul",
+            "assgnByPhon": "+919686257643",
+            "assgnToName": "Mukesh",
+            "assgnToPhon": "+919164646463",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "446d2d31-b585-4858-ab07-b14269a9d0a5"
+            },
+            {
+                "type": "to",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            }
+        ]
+    },
+    {
+        "id": "eae353fe-1c99-48c1-b1ce-e48aa7dd6746",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "9aa63db6-793e-429c-80ce-7f5f7baf4cf7",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "4bf5c8a5-cb52-411f-882e-41497c50b825",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "92c078eb-e31d-4d6d-b48a-d4ed892a7f26",
+        "type": "task",
+        "data": {
+            "title": "Test",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 18:01:43",
+                    "message": "hello"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 18:01:46",
+                    "message": "hi"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 18:01:50",
+                    "message": "Wassup"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 18:01:57",
+                    "message": "just testing"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 18:02:01",
+                    "message": "Any issues"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 18:02:07",
+                    "message": "none yet"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 18:02:14",
+                    "message": "making the code awesome"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 18:02:22",
+                    "message": "atleast trying to"
+                },
+                {
+                    "sentBy": "Angad",
+                    "sentTo": "Mukesh",
+                    "time": " 18:02:27",
+                    "message": ":P"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 18:02:43",
+                    "message": "traverse :: Applicative f =>(a -> f b) -> t a -> f (t b)"
+                },
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 18:04:00",
+                    "message": "testing assign function\n"
+                }
+            ],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Mukesh",
+            "assgnToPhon": "+919164646463",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            }
+        ]
+    },
+    {
+        "id": "594bbb4c-430d-49c8-9a14-6cb318cb0766",
+        "type": "task",
+        "data": {
+            "title": "testing assign function",
+            "status": true,
+            "comments": [
+                {
+                    "sentBy": "Mukesh",
+                    "sentTo": "Angad",
+                    "time": " 18:04:06",
+                    "message": "testing assign function 1"
+                }
+            ],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Mukesh",
+            "assgnToPhon": "+919164646463",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            }
+        ]
+    },
+    {
+        "id": "16012c46-7cc5-4a43-81ac-4d803e21423c",
+        "type": "task",
+        "data": {
+            "title": "GeekSkool",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Mukesh",
+            "assgnByPhon": "+919164646463",
+            "assgnToName": "Manisha",
+            "assgnToPhon": "+918050342347",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            },
+            {
+                "type": "to",
+                "out": "f22b51a0-406f-4856-9f24-cfe7a97ffc86"
+            }
+        ]
+    },
+    {
+        "id": "dbb12798-4e45-4895-8c1f-5de4d9112469",
+        "type": "task",
+        "data": {
+            "title": "add myself",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Mukesh",
+            "assgnByPhon": "+919164646463",
+            "assgnToName": "Mukesh",
+            "assgnToPhon": "+919164646463",
+            "deleted": false
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "d04d9abb-0234-4010-9eea-a107f86caf21"
+            }
+        ]
+    },
+    {
+        "id": "5a7ea02b-5e76-487d-8045-93e352d4c747",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            }
+        ]
+    },
+    {
+        "id": "16cfd73a-da2b-4133-9ba4-f76383d5e939",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "akshar",
+            "assgnToPhon": "+919620818140",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "202b71aa-f4cf-4bc2-85ad-dc8f2355215a"
+            }
+        ]
+    },
+    {
+        "id": "4d58ac06-54e7-43b0-a41e-e21b6fb7c5ee",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "akshar",
+            "assgnToPhon": "+919620818140",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "202b71aa-f4cf-4bc2-85ad-dc8f2355215a"
+            }
+        ]
+    },
+    {
+        "id": "f0dd9636-b6f8-46d1-92b3-10e3ea6ef862",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "akshar",
+            "assgnToPhon": "+919620818140",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
+            },
+            {
+                "type": "to",
+                "out": "202b71aa-f4cf-4bc2-85ad-dc8f2355215a"
+            }
+        ]
+    },
+    {
+        "id": "56eed396-4641-4979-8a01-ed393e789b10",
+        "type": "task",
+        "data": {
+            "title": "test",
+            "status": true,
+            "comments": [],
+            "date": "2016-10-20T00:00:00.000Z",
+            "assgnByName": "Angad",
+            "assgnByPhon": "+919087705230",
+            "assgnToName": "Angad",
+            "assgnToPhon": "+919087705230",
+            "deleted": true
+        },
+        "in": [],
+        "out": [
+            {
+                "type": "by",
+                "out": "22c67fbf-43be-4f70-8e6b-001418f0b962"
             }
         ]
     }
