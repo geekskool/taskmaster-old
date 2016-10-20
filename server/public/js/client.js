@@ -33,14 +33,26 @@ function populateTasks (userList, taskList) {
 function createTask (userList, e) {
   e.preventDefault()
   e.stopPropagation()
-  var assignNum
-  var assignTo = document.getElementById('assignTo').value
-  for (var i = 0; i < userList.length; i++) {
-    if (userList[i].name == assignTo) {
-      assignNum = userList[i].phone
-      break
-    }
+  return {
+    title: getTaskTitle(),
+    date: getDeadline(),
+    assgnByName: user.name,
+    assgnByPhon: user.phone,
+    assgnToName: document.getElementById('assignTo').value,
+    assgnToPhon: userList.filter(function (user) { user.name === assignTo })[0]
   }
+}
+
+function getTaskTitle () {
+  var title = document.getElementById('name').value
+  if (title === '' || title === '\s' || title === null) {
+    window.alert('Task name cannot be empty')
+    console.log('empty task')
+  }
+  return title
+}
+
+function getDeadline () {
   var date = document.getElementById('date').value
   var today = new Date()
   if (date == '') {
@@ -49,19 +61,7 @@ function createTask (userList, e) {
     date = date.toJSON().slice(0, 10)
   }
   date = date + 'T00:00:00.000Z'
-  var title = document.getElementById('name').value
-  if (title === '' || title === '\s' || title === null) {
-    window.alert('Task name cannot be empty')
-    console.log('empty task')
-  }
-  return {
-    title: document.getElementById('name').value,
-    date: date,
-    assgnByName: user.name,
-    assgnByPhon: user.phone,
-    assgnToName: assignTo,
-    assgnToPhon: assignNum
-  }
+  return date
 }
 
 function createButtonFor (field, iconName) {
@@ -163,12 +163,10 @@ IO.getJSON('/api/users/' + user.phone)
     addTaskRow(createdTask)
     socket.emit('newTask', createdTask) }
   )
-
 // event listener for socket connection
 socket.on('connect', function () {
   socket.emit('joinroom', user.name)
 })
-
 // sending new task notification
 socket.on('notify', function (newTask) {
   if (newTask.data.assgnByName !== newTask.data.assgnToName) {
@@ -176,7 +174,6 @@ socket.on('notify', function (newTask) {
     addTaskRow(newTask)
   }
 })
-
 // recieving message
 socket.on('discuss', function (incomingMsg) {
   if (incomingMsg.id === taskObj.id) {
@@ -184,7 +181,6 @@ socket.on('discuss', function (incomingMsg) {
     scrollToBottom()
   } })
 // deleting task
-
 socket.on('notifyDeletion', function (deletedTask) {
   if (chatModal.style.display === 'block' && deletedTask.id === taskObj.id) {
     chatModal.style.display = 'none'
