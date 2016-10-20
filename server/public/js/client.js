@@ -23,10 +23,8 @@ function populateUserList (users) {
 }
 
 function populateTasks (userList, taskList) {
-  for (var i = taskList.length - 1; i >= 0; i--) {
-    if (taskList[i].data.deleted == false)
-      addTaskRow(taskList[i])
-  }
+  taskList = taskList.filter(function (task) { return task.data.deleted === false && task.data.status === false })
+                      .map(function (task) { addTaskRow(task) })
   return [userList]
 }
 
