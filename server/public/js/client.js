@@ -12,12 +12,12 @@ var closeChat = document.getElementsByClassName('close')[0]
 var chattingWith = document.getElementById('otherUser')
 
 function populateUserList (users) {
-  var assign = document.getElementById('assignTo')
+  var assigneeList = document.getElementById('assignTo')
   for (var i = 0; i < users.length; i++) {
-    var option = document.createElement('option')
-    option.setAttribute('value', users[i].name)
-    option.textContent = users[i].name
-    assign.appendChild(option)
+    var assigneeOption = document.createElement('option')
+    assigneeOption.setAttribute('value', users[i].name)
+    assigneeOption.textContent = users[i].name
+    assigneeList.appendChild(assigneeOption)
   }
   return [users]
 }
@@ -154,26 +154,25 @@ IO.getJSON('/api/users/' + user.phone)
   .map(function (newTask, createdTask) { return createdTask })
   .then(function (createdTask) {
     addTaskRow(createdTask)
-    socket.emit('newTask', createdTask) }
-  )
-// event listener for socket connection
+    socket.emit('newTask', createdTask) })
+
 socket.on('connect', function () {
   socket.emit('joinroom', user.name)
 })
-// sending new task notification
+
 socket.on('notify', function (newTask) {
   if (newTask.data.assgnByName !== newTask.data.assgnToName) {
     alert('You have a new task from : ' + newTask.data.assgnByName)
     addTaskRow(newTask)
   }
 })
-// recieving message
+
 socket.on('discuss', function (incomingMsg) {
   if (incomingMsg.id === taskObj.id) {
     displayComment(incomingMsg)
     scrollToBottom()
   } })
-// deleting task
+
 socket.on('notifyDeletion', function (deletedTask) {
   if (chatModal.style.display === 'block' && deletedTask.id === taskObj.id) {
     chatModal.style.display = 'none'
@@ -183,9 +182,7 @@ socket.on('notifyDeletion', function (deletedTask) {
   deletedTaskRow.remove()
 })
 
-function createComment (e) {
-  console.log(e)
-  var timestamp = Date().toString().slice(15, 24)
+function createComment () {
   if (user.name == taskObj.data.assgnToName) {
     var to = taskObj.data.assgnByName
   } else {
@@ -196,7 +193,7 @@ function createComment (e) {
     comment: {
       sentBy: user.name,
       sentTo: to,
-      time: timestamp,
+      time: Date().toString().slice(15, 24),
       message: userMsg.value
     }
   }
