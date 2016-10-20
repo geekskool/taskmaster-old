@@ -10,23 +10,22 @@ var chatModal = document.getElementById('chat')
 var chatBox = document.getElementById('chatbox')
 var closeChat = document.getElementsByClassName('close')[0]
 var chattingWith = document.getElementById('otherUser')
+var assigneeList = document.getElementById('assignTo')
 
 function populateUserList (users) {
-  var assigneeList = document.getElementById('assignTo')
-  for (var i = 0; i < users.length; i++) {
+  users.map(function (user) {
     var assigneeOption = document.createElement('option')
-    assigneeOption.setAttribute('value', users[i].name)
-    assigneeOption.textContent = users[i].name
+    assigneeOption.setAttribute('value', user.name)
+    assigneeOption.textContent = user.name
     assigneeList.appendChild(assigneeOption)
-  }
+  })
   return [users]
 }
 
 function populateTasks (userList, taskList) {
-  taskList = taskList.filter(
-              function (task) {
-                return task.data.deleted === false && task.data.status === false
-              }).map(function (task) { addTaskRow(task) })
+  taskList = taskList.filter(function (task) {
+    return task.data.deleted === false && task.data.status === false
+  }).map(addTaskRow)
   return [userList]
 }
 
@@ -139,9 +138,7 @@ function openChatForThis (task) {
 }
 
 function renderPrevious (comments) {
-  for (var i = 0; i < comments.length; i++) {
-    displayComment(comments[i])
-  }
+  comments.map(displayComment)
 }
 
 IO.getJSON('/api/users/' + user.phone)
