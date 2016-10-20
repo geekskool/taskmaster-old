@@ -23,8 +23,10 @@ function populateUserList (users) {
 }
 
 function populateTasks (userList, taskList) {
-  taskList = taskList.filter(function (task) { return task.data.deleted === false && task.data.status === false })
-                      .map(function (task) { addTaskRow(task) })
+  taskList = taskList.filter(
+              function (task) {
+                return task.data.deleted === false && task.data.status === false
+              }).map(function (task) { addTaskRow(task) })
   return [userList]
 }
 
@@ -100,18 +102,13 @@ function addTaskRow (task) {
   IO.click(statusButton)
     .bind(function (task) {
       task.data.status = false
-      return new IO.postJSON('/api/tasks/', task)
-    })
+      return new IO.postJSON('/api/tasks/', task) })
     .then(function (e, res) {
-      console.log('I have been clicked')
-    })
+      console.log('I have been clicked') })
 
   IO.click(discussButton)
-    .map(function (e) { console.log(e.path[3].id) // stores the task id
-      return task })
-    .bind(function (task) {
-      return new IO.getJSON('/api/comment/' + task.id)
-    })
+    .map(function (e) { return task }) // console.log(e.path[3].id) // stores the task id
+    .bind(function (task) { return new IO.getJSON('/api/comment/' + task.id) })
     .then(function (task, comments) {
       openChatForThis(task)
       renderPrevious(comments)
@@ -121,13 +118,11 @@ function addTaskRow (task) {
   IO.click(trashButton)
     .bind(function (e) {
       task.data.deleted = true
-      return new IO.postJSON('/api/tasks/', task)
-    })
+      return new IO.postJSON('/api/tasks/', task) })
     .then(function (data) {
       var taskToBeDeleted = document.getElementById(task.id)
       taskToBeDeleted.remove()
-      socket.emit('deleteTask', task)
-    })
+      socket.emit('deleteTask', task) })
 }
 
 function openChatForThis (task) {
