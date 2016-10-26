@@ -13,9 +13,6 @@ var io = require('socket.io')(http)
 
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'))
-app.get('/', function (req, res) {
-  res.redirect('/index.html')
-})
 
 app.get('/api/users/:phonenm', user.handleGet)
 app.post('/api/users', user.handlePost)
