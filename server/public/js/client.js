@@ -24,7 +24,7 @@ function populateUserList (users) {
 
 function populateTasks (userList, taskList) {
   taskList = taskList.filter(function (task) {
-    return task.data.deleted === false && task.data.status === false
+    return task.data.deleted === false && task.data.status === true
   }).map(addTaskRow)
   return [userList]
 }
@@ -75,7 +75,8 @@ function createButtonFor (field, iconName) {
 }
 
 function disableForAssignee (button, task) {
-  if (!(task.data.assgnByName === task.data.assgnToName) && user.name === task.data.assgnToName) {
+  if (!(task.data.assgnByName === task.data.assgnToName)
+                 && user.name === task.data.assgnToName) {
     button.disabled = true
     button.setAttribute('class', 'btn-flat disabled')
   }
@@ -85,9 +86,12 @@ function addTaskRow (task) {
   var row = document.getElementById('tasks').insertRow()
   row.setAttribute('id', task.id)
   row.insertCell(0).innerText = task.data.title
-  row.insertCell(1).innerText = task.data.assgnToName === user.name ? 'Me' : task.data.assgnToName
-  row.insertCell(2).innerText = task.data.assgnByName === user.name ? 'Me' : task.data.assgnByName
+  row.insertCell(1).innerText = task.data.assgnToName === user.name
+                                     ? 'Me' : task.data.assgnToName
+  row.insertCell(2).innerText = task.data.assgnByName === user.name
+                                     ? 'Me' : task.data.assgnByName
   row.insertCell(3).innerText = task.data.date.slice(0, 10)
+
   var status = row.insertCell(4)
   var discuss = row.insertCell(5)
   var trash = row.insertCell(6)
@@ -106,7 +110,7 @@ function addTaskRow (task) {
       console.log('I have been clicked') })
 
   IO.click(discussButton)
-    .map(function (e) { return task }) // console.log(e.path[3].id) // stores the task id
+    .map(function (e) { return task }) // console.log(e.path[3].id) stores task id
     .bind(function (task) { return new IO.getJSON('/api/comment/' + task.id) })
     .then(function (task, comments) {
       openChatForThis(task)
@@ -126,7 +130,8 @@ function addTaskRow (task) {
 
 function openChatForThis (task) {
   taskObj = task
-  if (user.name === task.data.assgnByName && user.name === task.data.assgnToName) {
+  if (user.name === task.data.assgnByName
+  && user.name === task.data.assgnToName) {
     chattingWith.innerText = 'You'
   } else if (user.name === task.data.assgnToName) {
     chattingWith.innerText = task.data.assgnByName
@@ -137,9 +142,7 @@ function openChatForThis (task) {
   chatBox.textContent = null
 }
 
-function renderPrevious (comments) {
-  comments.map(displayComment)
-}
+function renderPrevious (comments) { comments.map(displayComment) }
 
 IO.getJSON('/api/users/' + user.phone)
   .map(populateUserList)
@@ -153,9 +156,7 @@ IO.getJSON('/api/users/' + user.phone)
     addTaskRow(createdTask)
     socket.emit('newTask', createdTask) })
 
-socket.on('connect', function () {
-  socket.emit('joinroom', user.name)
-})
+socket.on('connect', function () { socket.emit('joinroom', user.name) })
 
 socket.on('notify', function (newTask) {
   if (newTask.data.assgnByName !== newTask.data.assgnToName) {
