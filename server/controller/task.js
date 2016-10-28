@@ -21,7 +21,7 @@ function createTask (task) {
   let query = new graph.Query(graph.find('phone', task.assgnByPhon))
   var assignee = query.next()
 
-  if (task.assgnToPhon == task.assgnByPhon) {
+  if (task.assgnToPhon === task.assgnByPhon) {
     taskNode.addEdge('by', assignee)
     graph.save()
   } else {
@@ -56,7 +56,6 @@ function getTasks (userId) {
 }
 
 function updateTask (task) {
-  console.log('updating task status', task.id)
   graph.load()
   var updatedTask = graph.read(task.id)
   updatedTask.data.title = task.data.title
@@ -71,13 +70,15 @@ function updateTask (task) {
 
   graph.update(updatedTask)
   graph.save()
-  console.log('task updated')
 }
 
 function check (task) {
-  if (task.title !== '' && task.assgnToName !== '' && task.assgnToPhon !== '' && task.assgnByName !== '' && task.assgnByPhon !== '' && task.date !== '')
-    return true
-  return false
+  return (task.title !== '' &&
+      task.assgnToName !== '' &&
+      task.assgnToPhon !== '' &&
+      task.assgnByName !== '' &&
+      task.assgnByPhon !== '' &&
+      task.date !== '')
 }
 
 task.getList = function (req, res, next) {
@@ -85,8 +86,8 @@ task.getList = function (req, res, next) {
     var t
     var id = req.params.phonenm
     let list = getTasks(id)
-    for (var i = 0;i < list.length;i++) {
-      for (var j = i + 1;j < list.length;j++) {
+    for (var i = 0; i < list.length; i++) {
+      for (var j = i + 1; j < list.length; j++) {
         var d1 = new Date(list[i].data.date)
         var d2 = new Date(list[j].data.date)
         if (d1 > d2) {
@@ -97,7 +98,7 @@ task.getList = function (req, res, next) {
       }
     }
     res.send(list)
-  } catch(err) {
+  } catch (err) {
     res.status(500).json({
       message: 'ERROR'
     })
@@ -113,7 +114,7 @@ task.handlePost = function (req, res, next) {
       res.send({
         message: 'Task deleted'
       })
-    }  else if (task.data !== undefined && task.data.status === false) {
+    } else if (task.data !== undefined && task.data.status === false) {
       updateTask(task)
       res.send({message: 'task done'})
     } else if (check(task)) {
@@ -121,7 +122,7 @@ task.handlePost = function (req, res, next) {
       console.log(returnedTask)
       res.send(returnedTask)
     }
-  } catch(err) {
+  } catch (err) {
     res.send({
       message: 'ERROR'
     })
