@@ -38,7 +38,9 @@ function createTask (userList, e) {
     assgnByName: user.name,
     assgnByPhon: user.phone,
     assgnToName: document.getElementById('assignTo').value,
-    assgnToPhon: userList.filter(function (user) { user.name === assignTo })[0]
+    assgnToPhon: userList.filter(function (user) {
+      return user.name === document.getElementById('assignTo').value
+    })[0].phone
   }
 }
 
@@ -53,13 +55,11 @@ function getTaskTitle () {
 
 function getDeadline () {
   var date = document.getElementById('date').value
-  var today = new Date()
-  if (date == '') {
+  if (date === '') {
     date = new Date()
     date = new Date(date.setTime(date.getTime() + 86400000))
     date = date.toJSON().slice(0, 10)
   }
-  date = date + 'T00:00:00.000Z'
   return date
 }
 
@@ -75,8 +75,8 @@ function createButtonFor (field, iconName) {
 }
 
 function disableForAssignee (button, task) {
-  if (!(task.data.assgnByName === task.data.assgnToName)
-                 && user.name === task.data.assgnToName) {
+  if (!(task.data.assgnByName === task.data.assgnToName) &&
+                    user.name === task.data.assgnToName) {
     button.disabled = true
     button.setAttribute('class', 'btn-flat disabled')
   }
@@ -130,8 +130,8 @@ function addTaskRow (task) {
 
 function openChatForThis (task) {
   taskObj = task
-  if (user.name === task.data.assgnByName
-  && user.name === task.data.assgnToName) {
+  if (user.name === task.data.assgnByName &&
+      user.name === task.data.assgnToName) {
     chattingWith.innerText = 'You'
   } else if (user.name === task.data.assgnToName) {
     chattingWith.innerText = task.data.assgnByName
@@ -181,7 +181,7 @@ socket.on('notifyDeletion', function (deletedTask) {
 })
 
 function createComment () {
-  if (user.name == taskObj.data.assgnToName) {
+  if (user.name === taskObj.data.assgnToName) {
     var to = taskObj.data.assgnByName
   } else {
     var to = taskObj.data.assgnToName
@@ -205,11 +205,17 @@ function displayComment (comment) {
 
   if (comment.sentBy === user.name) {
     msg.setAttribute('class', 'me')
-    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
   } else {
     msg.setAttribute('class', 'them')
-    msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' + comment.sentBy[0] + '</div>' + '<div class="msg-content animated fadeIn"><p class="sentBy">' + comment.message + '</p><p class="time">' + comment.time + '</p></div>'
   }
+  msg.innerHTML = '<div class="circle-wrapper animated bounceIn">' +
+                  comment.sentBy[0] +
+                  '</div>' +
+                  '<div class="msg-content animated fadeIn"><p class="sentBy">' +
+                  comment.message +
+                  '</p><p class="time">' +
+                  comment.time +
+                  '</p></div>'
   msgWrapper.appendChild(msg)
   chatBox.appendChild(msgWrapper) // creates new div for msg inside the chatbox
 }
