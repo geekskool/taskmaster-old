@@ -25,44 +25,51 @@ app.post('/api/validate', validate.handlePost)
 app.post('/api/comment/', comment.add)
 app.get('/api/comment/:id', comment.getPrevious)
 
-const port = 3000
+const PORT = 3000
+
 
 // Sockets connection:
 
 io.on('connection', function (socket) {
   console.log('one client connected')
-  socket.on('joinroom', function (data) {
-    socket.name = data
+  socket.on('joinroom', function (user) {
+    socket.name = user
     users[socket.name] = socket
-    console.log(data + ' joined the room ')
+    console.log(user + ' joined the room ')
   })
 
   socket.on('newTask', function (newTask) {
-    users[newTask.data.assgnToName].emit('notify', newTask)
+    if (users[newTask.data.assgnToName] === undefined) {
+      console.log('Assignee offline') // add queue functionality
+    } else {
+      users[newTask.data.assgnToName].emit('notify', newTask)
+    }
   })
 
   socket.on('deleteTask', function (deletedTask) {
-    console.log(deletedTask.data)
-    users[deletedTask.data.assgnToName].emit('notifyDeletion', {id: deletedTask.id, taskmaster: deletedTask.data.assgnByName})
+    if (users[deletedTask.data.assgnToName] === undefined) {
+      console.log('Assignee offline') // add queue functionality
+    } else {
+      users[deletedTask.data.assgnToName].emit('notifyDeletion',
+        {
+          id: deletedTask.id,
+          taskmaster: deletedTask.data.assgnByName
+        }
+      )
+    }
   })
 
   socket.on('sendmessage', function (message) {
-    /*
-     message{
-      id: taskObj.id,
-      comment: {
-        sentBy: user.name,
-        sentTo: to,
-        time: timestamp,
-        message: userMsg.value
-      }
-    } */
-    console.log(message)
     var recipient = message.comment.sentTo
-    users[recipient].emit('discuss', {'id': message.id,
-      'sentBy': message.comment.sentBy,
-    'time': message.comment.time,
-    'message': message.comment.message})
+    if (users[recipient] === undefined) {
+      console.log(recipient + ' is offline')
+    } else {
+      users[recipient].emit('discuss', {
+        'id': message.id,
+        'sentBy': message.comment.sentBy,
+        'time': message.comment.time,
+        'message': message.comment.message})
+    }
   })
 })
 
