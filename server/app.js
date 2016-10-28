@@ -25,11 +25,6 @@ app.post('/api/validate', validate.handlePost)
 app.post('/api/comment/', comment.add)
 app.get('/api/comment/:id', comment.getPrevious)
 
-const PORT = 3000
-
-
-// Sockets connection:
-
 io.on('connection', function (socket) {
   console.log('one client connected')
   socket.on('joinroom', function (user) {
